@@ -29,6 +29,9 @@
   <!-- Template Main CSS File -->
   <link href="<?= base_url()?>template/assets/css/style.css" rel="stylesheet">
 
+  <!-- Remix Icon -->
+  <link rel="stylesheet" href="<?= base_url()?>template/remix/remixicon.css">
+
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Aug 30 2023 with Bootstrap v5.3.1

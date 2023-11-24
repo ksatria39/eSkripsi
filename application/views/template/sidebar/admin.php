@@ -5,7 +5,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<?= base_url()?>">
+        <a class="nav-link collapsed" href="<?= base_url()?>dashboard/admin">
           <span>Dasbor</span>
         </a>
       </li><!-- End Dashboard Nav -->
@@ -41,7 +41,7 @@
       </li><!-- End Progress Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<?= base_url()?>">
+        <a class="nav-link collapsed" href="<?= base_url()?>title/admin">
           <span>Pengajuan Judul</span>
         </a>
       </li><!-- End Title Submission Nav -->
@@ -118,6 +118,24 @@
           </li>
         </ul>
       </li><!-- End Exam Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#after-nav" data-bs-toggle="collapse" href="#">
+          <span>Pasca Ujian</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="after-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="components-alerts.html">
+              <i class="bi bi-circle"></i><span>Proposal</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-accordion.html">
+              <i class="bi bi-circle"></i><span>Skripsi</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End After Exam Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#download-nav" data-bs-toggle="collapse" href="#">

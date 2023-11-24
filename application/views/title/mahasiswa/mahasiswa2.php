@@ -2,7 +2,7 @@
 <section class="section">
 <div class="card">
             <div class="card-body">
-              <p class="card-title"><a href="" class="text-black">Judul Saya</a>  <text class="text-primary">Semua Judul</text></p>
+              <p class="card-title"><a href="<?= base_url()?>title/" class="text-black">Judul Saya</a>  <text class="text-primary">Semua Judul</text></p>
               <!-- Default Table -->
               
                 <div class="d-flex justify-content">

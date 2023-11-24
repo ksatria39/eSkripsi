@@ -7,7 +7,7 @@ class Title extends CI_Controller {
 	{
 		$data = [
 			'title' => "Pengajuan Judul",
-			'content' => 'title/mahasiswa', 
+			'content' => 'title/mahasiswa/mahasiswa', 
 		];
 		$this->load->view('template/overlay/mahasiswa', $data);
 	}
@@ -16,7 +16,7 @@ class Title extends CI_Controller {
 	{
 		$data = [
 			'title' => "Pengajuan Judul",
-			'content' => 'title/mahasiswa2', 
+			'content' => 'title/mahasiswa/mahasiswa2', 
 		];
 		$this->load->view('template/overlay/mahasiswa', $data);
 	}
@@ -25,10 +25,45 @@ class Title extends CI_Controller {
 	{
 		$data = [
 			'title' => "Pengajuan Judul",
-			'content' => 'title/mahasiswa3', 
+			'content' => 'title/mahasiswa/mahasiswa3', 
 		];
 		$this->load->view('template/overlay/mahasiswa', $data);
 	}
 
+	public function dosen()
+	{
+		$data = [
+			'title' => "Pengajuan Judul",
+			'content' => 'title/dosen/dosen', 
+		];
+		$this->load->view('template/overlay/dosen', $data);
+	}
+
+	public function koordinator()
+	{
+		$data = [
+			'title' => "Pengajuan Judul",
+			'content' => 'title/koordinator/koordinator', 
+		];
+		$this->load->view('template/overlay/koordinator', $data);
+	}
+
+	public function admin()
+	{
+		$data = [
+			'title' => "Pengajuan Judul",
+			'content' => 'title/admin/admin', 
+		];
+		$this->load->view('template/overlay/admin', $data);
+	}
+
+	public function admin2()
+	{
+		$data = [
+			'title' => "Pengajuan Judul",
+			'content' => 'title/admin/admin2', 
+		];
+		$this->load->view('template/overlay/admin', $data);
+	}
 
 }

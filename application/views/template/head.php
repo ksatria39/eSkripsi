@@ -9,6 +9,12 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+  <style>
+    td, th {
+      vertical-align: middle;
+    }
+  </style>
+
   <!-- Favicons -->
   <link href="<?= base_url()?>template/assets/img/favicon.png" rel="icon">
   <link href="<?= base_url()?>template/aassets/img/apple-touch-icon.png" rel="apple-touch-icon">

@@ -53,7 +53,7 @@
 
                     <div class="d-flex justify-content-center py-4">
                         <a href="index.html" class="logo d-flex align-items-center w-auto">
-                            <img src="<?= base_url()?>template/assets/img/logo.png" alt="">
+                            <img src="<?= base_url()?>template/assets/img/logoeskripsi.png" alt="">
                         </a>
                     </div>
 
@@ -80,7 +80,7 @@
                       </div>
                     </div>
                     <div class="col-12" align="center">
-                      <button class="btn btn-primary" style="border-radius: 15px;" type="submit">Masuk</button>
+                      <button class="btn btn-primary" style="border-radius: 15px;" type="submit" href="<?= base_url()?>dashboard">Masuk</button>
                     </div>
                     <div class="col-12"align="center">
                       <p class="small mb-0">Belum punya akun? <a href="<?= base_url()?>index.php/register">buat akun di sini.</a></p>

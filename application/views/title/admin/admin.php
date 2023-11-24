@@ -1,9 +1,22 @@
 
 <section class="section">
 <div class="card">
-            <div class="card-body">
-              <p class="card-title"><text class="text-primary">Judul Saya</text>  <a href="" class="text-black">Semua Judul</a></p>
-              <!-- Default Table -->
+        <div class="card-body">
+            <div class="row mt-3">  
+                <div class="d-flex justify-content">
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Cari" aria-label="cari">
+                        <button class="btn btn-outline-primary" type="submit">
+                            <i class="ri-search-line"></i>
+                        </button>
+                    </form>
+
+                    <div style="width: 20px;"></div>
+
+                    <a class="btn btn-primary" href="<?= base_url()?>title/admin2" style="border-radius: 15px;">Tambah</a>
+
+                </div>
+            </div>    
               <table class="table">
                 <thead>
                   <tr>
@@ -27,9 +40,7 @@
                 </tbody>
               </table>
               <!-- End Default Table Example -->
-
-              <button class="btn btn-primary" style="border-radius: 15px;">Tambah</button>
               
-            </div>
-          </div>
+        </div>
+</div>
 </section>

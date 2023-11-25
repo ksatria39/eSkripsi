@@ -80,7 +80,7 @@
                       </div>
                     </div>
                     <div class="col-12" align="center">
-                      <button class="btn btn-primary" style="border-radius: 15px;" type="submit" href="<?= base_url()?>dashboard">Masuk</button>
+                      <a class="btn btn-primary" style="border-radius: 15px;" type="submit" href="<?= base_url()?>dashboard">Masuk</a>
                     </div>
                     <div class="col-12"align="center">
                       <p class="small mb-0">Belum punya akun? <a href="<?= base_url()?>index.php/register">buat akun di sini.</a></p>

@@ -46,7 +46,7 @@
         </a>
         <ul id="registration-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="components-alerts.html">
+            <a href="<?= base_url()?>registration_proposal/dosen">
               <i class="bi bi-circle"></i><span>Proposal</span>
             </a>
           </li>

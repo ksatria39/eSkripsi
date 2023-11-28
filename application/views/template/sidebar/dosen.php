@@ -51,7 +51,7 @@
             </a>
           </li>
           <li>
-            <a href="components-accordion.html">
+            <a href="<?= base_url()?>registration_skripsi/dosen">
               <i class="bi bi-circle"></i><span>Skripsi</span>
             </a>
           </li>

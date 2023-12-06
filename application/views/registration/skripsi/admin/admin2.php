@@ -26,7 +26,7 @@
               </table>
               <!-- End Default Table Example -->
 
-              <a class="btn btn-primary" href="<?= base_url()?>registration_proposal/admin3" style="border-radius: 15px;">Tambah</a>
+              <a class="btn btn-primary" href="<?= base_url()?>registration_skripsi/admin3" style="border-radius: 15px;">Tambah</a>
               
             </div>
           </div>

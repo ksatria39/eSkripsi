@@ -51,7 +51,7 @@ class Registration_Proposal extends CI_Controller {
 	public function admin()
 	{
 		$data = [
-			'title' => "Penjadwalan Ujian Proposal",
+			'title' => "Pendaftaran Ujian Proposal",
 			'content' => 'registration/proposal/admin/admin', 
 		];
 		$this->load->view('template/overlay/admin', $data);
@@ -60,7 +60,7 @@ class Registration_Proposal extends CI_Controller {
 	public function admin2()
 	{
 		$data = [
-			'title' => "Penjadwalan Ujian Proposal",
+			'title' => "Pendaftaran Ujian Proposal",
 			'content' => 'registration/proposal/admin/admin2', 
 		];
 		$this->load->view('template/overlay/admin', $data);
@@ -69,7 +69,7 @@ class Registration_Proposal extends CI_Controller {
 	public function admin3()
 	{
 		$data = [
-			'title' => "Penjadwalan Ujian Proposal",
+			'title' => "Pendaftaran Ujian Proposal",
 			'content' => 'registration/proposal/admin/admin3', 
 		];
 		$this->load->view('template/overlay/admin', $data);

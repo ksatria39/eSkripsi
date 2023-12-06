@@ -23,6 +23,13 @@
                   </div>
                 </div>
 
+                <div class="row mb-3 mt-3">
+                  <label class="col-sm-2 col-form-label">Transkrip Nilai</label>
+                  <div class="col-sm-10">
+                    <input type="file" class="form-control w-50" placeholder="Pilih File">
+                  </div>
+                </div>
+
                   <div class="col-sm-10" align="center">
                     <button type="submit" class="btn btn-primary">Daftar</button>
                   </div>

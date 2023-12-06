@@ -29,7 +29,7 @@
                     <td>2020</td>
                     <td>1</td>
                     <td>
-                        <a href="<?= base_url()?>registration_proposal/admin2" type="submit" class="btn btn-primary">Kelola</a>
+                        <a href="<?= base_url()?>registration_skripsi/admin2" type="submit" class="btn btn-primary">Kelola</a>
                     </td>
                   </tr>
                 </tbody>

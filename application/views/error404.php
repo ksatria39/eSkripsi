@@ -52,7 +52,7 @@
                 <div class="card-body">
 
                     <div class="d-flex justify-content-center py-4">
-                        <a href="index.html" class="logo d-flex align-items-center w-auto">
+                        <a href="<?= base_url() ?>" class="logo d-flex align-items-center w-auto">
                             <img src="<?= base_url()?>template/assets/img/logo.png" alt="">
                         </a>
                     </div>
@@ -60,7 +60,7 @@
                     <h5 class="card-title" align="center">Halaman Tidak Ditemukan</h5>
                     
                     <div class="col-12" align="center">
-                      <button class="btn btn-primary" style="border-radius: 15px;">Kembali Ke Beranda</button>
+                      <a class="btn btn-primary" style="border-radius: 15px;" href="<?= base_url() ?>">Kembali Ke Beranda</a>
                     </div>
 
                 </div>

@@ -18,7 +18,10 @@
                     <th scope="col">No</th>
                     <th scope="col">Judul</th>
                     <th scope="col">Mahasiswa</th>
+                    <th scope="col">Pembimbing 1</th>
+                    <th scope="col">Pembimbing 2</th>
                     <th scope="col">Tanggal Pendaftaran</th>
+                    <th scope="col">Download</th>
                     <th scope="col">Aksi</th>
                   </tr>
                 </thead>
@@ -27,7 +30,13 @@
                     <th scope="row">1</th>
                     <td>Sistem Informasi Balbla</td>
                     <td>Amin</td>
+                    <td>Halo</td>
+                    <td>Halo</td>
                     <td>12/10/2020</td>
+                    <td>
+                        <button type="submit" class="btn btn-primary">Naskah</button>
+                        <button type="submit" class="btn btn-primary">Transkrip</button>
+                    </td>
                     <td>
                         <button type="submit" class="btn btn-primary">Terima</button>
                         <button type="submit" class="btn btn-danger">Tolak</button>

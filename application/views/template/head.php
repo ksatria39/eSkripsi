@@ -10,9 +10,9 @@
   <meta content="" name="keywords">
 
   <style>
-    td, th {
+  td, th {
       vertical-align: middle;
-    }
+  }
   </style>
 
   <!-- Favicons -->
@@ -37,6 +37,10 @@
 
   <!-- Remix Icon -->
   <link rel="stylesheet" href="<?= base_url()?>template/remix/remixicon.css">
+
+  <!-- JS File -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <!-- =======================================================
   * Template Name: NiceAdmin

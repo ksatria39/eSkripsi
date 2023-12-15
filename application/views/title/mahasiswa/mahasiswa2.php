@@ -1,43 +1,57 @@
 
 <section class="section">
-<div class="card">
+        <div class="card">
             <div class="card-body">
-              <p class="card-title"><a href="<?= base_url()?>title/" class="text-black">Judul Saya</a>  <text class="text-primary">Semua Judul</text></p>
-              <!-- Default Table -->
-              
-                <div class="d-flex justify-content">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Cari" aria-label="cari">
-                        <button class="btn btn-outline-primary" type="submit">
-                            <i class="ri-search-line"></i>
-                        </button>
-                    </form>
+              <form>
+                <div class="row mb-3 mt-3">
+                  <label for="inputText" class="col-sm-2 col-form-label">Judul</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control w-50" placeholder="Masukkan Judul">
+                  </div>
                 </div>
 
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Judul</th>
-                    <th scope="col">Mahasiswa</th>
-                    <th scope="col">Pembimbing 1</th>
-                    <th scope="col">Pembimbing 2</th>
-                    <th scope="col">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Sistem Informasi Balbla</td>
-                    <td>Amin</td>
-                    <td>Halo</td>
-                    <td>Halo</td>
-                    <td>Diverifikasi</td>
-                  </tr>
-                </tbody>
-              </table>
-              <!-- End Default Table Example -->
-              
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">Bidang Penelitian</label>
+                  <div class="col-sm-10">
+                    <select class="form-select w-50" aria-label="Default select example">
+                      <option selected="">Pilih Bidang</option>
+                      <option value="1">Sistem Informasi</option>
+                      <option value="2">Data Mining</option>
+                      <option value="3">UI/UX</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">Pembimbing 1</label>
+                  <div class="col-sm-10">
+                    <select class="form-select w-50" aria-label="Default select example">
+                      <option selected="">Pilih Dosen</option>
+                      <option value="1">Yudistira</option>
+                      <option value="2">Bima</option>
+                      <option value="3">Janaka</option>
+                    </select>
+                  </div>
+                </div>
+
+                
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">Pembimbing 2</label>
+                  <div class="col-sm-10">
+                    <select class="form-select w-50" aria-label="Default select example">
+                      <option selected="">Pilih Dosen</option>
+                      <option value="1">Werkudara</option>
+                      <option value="2">Nakula</option>
+                      <option value="3">Sadewa</option>
+                    </select>
+                  </div>
+                </div>
+
+                  <div class="col-sm-10" align="center">
+                    <button type="submit" class="btn btn-primary">Ajukan</button>
+                  </div>
+
+              </form>
             </div>
-          </div>
+        </div>
 </section>

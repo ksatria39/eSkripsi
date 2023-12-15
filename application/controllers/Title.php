@@ -21,15 +21,6 @@ class Title extends CI_Controller {
 		$this->load->view('template/overlay/mahasiswa', $data);
 	}
 
-    public function mahasiswa3()
-	{
-		$data = [
-			'title' => "Pengajuan Judul",
-			'content' => 'title/mahasiswa/mahasiswa3', 
-		];
-		$this->load->view('template/overlay/mahasiswa', $data);
-	}
-
 	public function dosen()
 	{
 		$data = [
@@ -55,6 +46,11 @@ class Title extends CI_Controller {
 			'content' => 'title/admin/admin', 
 		];
 		$this->load->view('template/overlay/admin', $data);
+	}
+
+	public function detail()
+	{
+		$this->load->view('title/admin/detail');
 	}
 
 	public function admin2()

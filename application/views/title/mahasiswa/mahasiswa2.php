@@ -3,17 +3,18 @@
         <div class="card">
             <div class="card-body">
               <form>
+
                 <div class="row mb-3 mt-3">
                   <label for="inputText" class="col-sm-2 col-form-label">Judul</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control w-50" placeholder="Masukkan Judul">
+                    <textarea class="form-control" style="height: 100px" placeholder="Masukkan Judul"></textarea>
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Bidang Penelitian</label>
                   <div class="col-sm-10">
-                    <select class="form-select w-50" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example">
                       <option selected="">Pilih Bidang</option>
                       <option value="1">Sistem Informasi</option>
                       <option value="2">Data Mining</option>
@@ -25,7 +26,7 @@
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Pembimbing 1</label>
                   <div class="col-sm-10">
-                    <select class="form-select w-50" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example">
                       <option selected="">Pilih Dosen</option>
                       <option value="1">Yudistira</option>
                       <option value="2">Bima</option>
@@ -38,7 +39,7 @@
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Pembimbing 2</label>
                   <div class="col-sm-10">
-                    <select class="form-select w-50" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example">
                       <option selected="">Pilih Dosen</option>
                       <option value="1">Werkudara</option>
                       <option value="2">Nakula</option>

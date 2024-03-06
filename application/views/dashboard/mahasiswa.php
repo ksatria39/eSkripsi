@@ -1,7 +1,19 @@
 
 <section class="section">
       <div class="row">
-        <div class="col-lg-6">
+
+        <div class="col-lg-4">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Status Judul</h5>
+              <p>Diverifikasi</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-4">
 
           <div class="card">
             <div class="card-body">
@@ -12,7 +24,7 @@
 
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-4">
 
           <div class="card">
             <div class="card-body">

@@ -28,10 +28,10 @@
                 <tbody>
                   <tr>
                     <th scope="row">1</th>
-                    <td>Sistem Informasi Balbla</td>
-                    <td>Halo</td>
-                    <td>Halo</td>
-                    <td>Sedang Diproses</td>
+                    <td>Rancang Bangun Sistem Informasi Skripsi Menggunakan Metode FAST</td>
+                    <td>Asfan Muqtadir, S.Kom., M.Kom.</td>
+                    <td>Alfian Nurlifa, S.Kom., M.Kom.</td>
+                    <td>Diterima</td>
                     <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Lihat Detail</button></td>
                   </tr>
                 </tbody>
@@ -48,16 +48,16 @@
             <div class="modal-body">
                 <div class="row">
                   <span class="col-sm-5"><b>Judul</b></span>
-                  <span class="col-sm-10">Sistem Informasi Balbla</span>
+                  <span class="col-sm-10">Rancang Bangun Sistem Informasi Skripsi Menggunakan Metode FAST</span>
                 </div>
                 <div class="row">
                   <span class="col-sm-5"><b>Mahasiswa</b></span>
-                  <span class="col-sm-10">Muhammad Amin (1412100017)</span>
+                  <span class="col-sm-10">Ksatria Damar Galih (1412100017)</span>
                 </div>
                 <hr>
                 <div class="row">
                   <span class="col-sm-5"><b>Pembimbing 1</b></span>
-                  <span class="col-sm-10">Amaludin Arifia, S.Kom. M.Kom.</span>
+                  <span class="col-sm-10">Asfan Muqtadir, S.Kom., M.Kom.</span>
                 </div>
                 <div class="row">
                   <span class="col-sm-5"><b>Status</b></span>
@@ -70,20 +70,20 @@
                 <hr>
                 <div class="row">
                   <span class="col-sm-5"><b>Pembimbing 2</b></span>
-                  <span class="col-sm-10">Andik Adi Suryanto, S.T. M.T.</span>
+                  <span class="col-sm-10">Alfian Nurlifa, S.Kom., M.Kom.</span>
                 </div>
                 <div class="row">
                   <span class="col-sm-5"><b>Status</b></span>
-                  <span class="col-sm-10">Ditolak</span>
+                  <span class="col-sm-10">Diterima</span>
                 </div>
                 <div class="row">
                   <span class="col-sm-5"><b>Keterangan</b></span>
-                  <span class="col-sm-10">Sudah pernah dilakukan</span>
+                  <span class="col-sm-10">Menarik</span>
                 </div>
                 <hr>
                 <div class="row">
                   <span class="col-sm-5"><b>Status Akhir</b></span>
-                  <span class="col-sm-10">Sedang Diproses</span>
+                  <span class="col-sm-10">Diterima</span>
                 </div>
             </div>
             <!-- Modal Footer -->

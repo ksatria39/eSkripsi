@@ -6,23 +6,29 @@
               <div class="row mb-3 mt-3">
                   <label for="inputTanggal" class="col-sm-2 col-form-label"><b>Tanggal</b></label>
                   <div class="col-sm-10 w-50 mt-2">
-                    12/12/2020
+                    2 Januari 2024
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputJudul" class="col-sm-2 col-form-label"><b>Judul</b></label>
                   <div class="col-sm-10 w-50 mt-2">
-                    Sistem Informasi Blabla
+                  Rancang Bangun Sistem Informasi Skripsi Menggunakan Metode FAST
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputJudul" class="col-sm-2 col-form-label"><b>Mahasiswa</b></label>
                   <div class="col-sm-10 w-50 mt-2">
-                    Amin
+                    Ksatria Damar Galih
                   </div>
                 </div>
-
-  <table class="table table-borderless w-100">
+                <div class="row mb-3">
+                  <label for="inputJudul" class="col-sm-2 col-form-label"><b>NPM</b></label>
+                  <div class="col-sm-10 w-50 mt-2">
+                    1412200017
+                  </div>
+                </div>
+<hr>
+  <table class="table table-borderless w-75">
     <thead>
       <tr>
         <th>Penilaian Naskah</th>
@@ -33,7 +39,7 @@
       <tr>
         <td>Teknik Penulisan</td>
         <td>
-            <div class="col-sm-4">
+            <div class="col-sm-10">
                 <input type="number" class="form-control">
             </div>
         </td>
@@ -41,7 +47,7 @@
       <tr>
         <td>Konsep Pemikiran</td>
         <td>
-            <div class="col-sm-4">
+            <div class="col-sm-10">
                 <input type="number" class="form-control">
             </div>
         </td>
@@ -49,7 +55,7 @@
       <tr>
         <td>Kajian Pustaka</td>
         <td>
-            <div class="col-sm-4">
+            <div class="col-sm-10">
                 <input type="number" class="form-control">
             </div>
         </td>
@@ -57,7 +63,7 @@
       <tr>
         <td>Metode Penelitian</td>
         <td>
-            <div class="col-sm-4">
+            <div class="col-sm-10">
                 <input type="number" class="form-control">
             </div>
         </td>
@@ -65,7 +71,7 @@
       <tr>
         <td>Hasil penelitian</td>
         <td>
-            <div class="col-sm-4">
+            <div class="col-sm-10">
                 <input type="number" class="form-control">
             </div>
         </td>
@@ -73,7 +79,7 @@
       <tr>
         <td>Kesimpulan</td>
         <td>
-            <div class="col-sm-4">
+            <div class="col-sm-10">
                 <input type="number" class="form-control">
             </div>
         </td>
@@ -81,7 +87,7 @@
       <tr>
         <td>Kepustakaan</td>
         <td>
-            <div class="col-sm-4">
+            <div class="col-sm-10">
                 <input type="number" class="form-control">
             </div>
         </td>
@@ -97,7 +103,7 @@
       <tr>
         <td>Presentasi</td>
         <td>
-            <div class="col-sm-4">
+            <div class="col-sm-10">
                 <input type="number" class="form-control">
             </div>
         </td>
@@ -105,7 +111,7 @@
       <tr>
         <td>Penguasaan Materi</td>
         <td>
-            <div class="col-sm-4">
+            <div class="col-sm-10">
                 <input type="number" class="form-control">
             </div>
         </td>
@@ -114,7 +120,7 @@
       <tr>
         <td>Kemampuan Berargumentasi</td>
         <td>
-            <div class="col-sm-4">
+            <div class="col-sm-10">
                 <input type="number" class="form-control">
             </div>
         </td>
@@ -122,7 +128,24 @@
     </tbody>
   </table>
 </body>
-
+<table class="table">
+<div>
+  <hr>
+                
+                    <p align="right>"<button type="submit" class="btn btn-primary">Tambah Revisi</button></p>
+                  
+                <thead>
+                  <tr>
+                    <th scope="col-sm-2">Halaman</th>
+                    <th scope="col">Isi Revisi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                </tbody>
+              </table>
+  <hr>            
+</div>
                 <div class="row mb-3">
                   <div class="col-sm-10 mx-auto text-center">
                     <button type="submit" class="btn btn-primary">Simpan</button>

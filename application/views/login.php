@@ -73,12 +73,13 @@
                       <div class="invalid-feedback">Kata sandi salah</div>
                     </div>
 
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
                         <label class="form-check-label" for="rememberMe">Ingat saya</label>
                       </div>
-                    </div>
+                    </div> -->
+
                     <div class="col-12" align="center">
                       <a class="btn btn-primary" style="border-radius: 15px;" type="submit" href="<?= base_url()?>dashboard">Masuk</a>
                     </div>

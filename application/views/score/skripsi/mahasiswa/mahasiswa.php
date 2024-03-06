@@ -12,7 +12,8 @@
                     <th scope="col">Penguji 1</th>
                     <th scope="col">Penguji 2</th>
                     <th scope="col">Tanggal Ujian</th>
-                    <th scope="col">Download</th>
+                    <th scope="col">Nilai</th>
+                    <th scope="col">Revisi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -23,10 +24,10 @@
                     <td>Halo</td>
                     <td>Halo</td>
                     <td>Halo</td>
-                    <td>Tanggal</td>
+                    <td>12/12/2012</td>
+                    <td>A</td>
                     <td>
-                        <button type="submit" class="btn btn-primary">Nilai</button>
-                        <button type="submit" class="btn btn-primary">Revisi</button>
+                        <button type="submit" class="btn btn-primary">Unduh</button>
                     </td>
                   </tr>
                 </tbody>

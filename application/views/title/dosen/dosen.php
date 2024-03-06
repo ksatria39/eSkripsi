@@ -29,7 +29,9 @@
                   <tr>
                     <th scope="col">No</th>
                     <th scope="col">Judul</th>
+                    <th scope="col">Bidang</th>
                     <th scope="col">Mahasiswa</th>
+                    <th scope="col">NPM</th>
                     <th scope="col">Tanggal Diajukan</th>
                     <th scope="col">Aksi</th>
                   </tr>
@@ -37,9 +39,11 @@
                 <tbody>
                   <tr>
                     <th scope="row">1</th>
-                    <td>Sistem Informasi Balbla</td>
-                    <td>Amin</td>
-                    <td>12/10/2020</td>
+                    <td>Rancang Bangun Sistem Informasi Skripsi Menggunakan Metode FAST</td>
+                    <td>Sistem Informasi</td>
+                    <td>Ksatria Damar Galih</td>
+                    <td>1412200017</td>
+                    <td>1 Desember 2023</td>
                     <td>
                         <button type="submit" class="btn btn-primary">Terima</button>
                         <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Tolak</button>

@@ -41,7 +41,7 @@
                     <td>12/12/2012</td>
                     <td>00.00</td>
                     <td>
-                        <a href="<?= base_url(); ?>schedule_skripsi/koordinator2" type="submit" class="btn btn-primary">Edit</a>
+                        <a href="<?= base_url(); ?>schedule_proposal/koordinator2" type="submit" class="btn btn-primary">Edit</a>
                     </td>
                   </tr>
                 </tbody>

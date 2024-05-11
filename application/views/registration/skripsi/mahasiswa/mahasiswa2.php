@@ -7,7 +7,7 @@
                 <div class="row mb-3 mt-3">
                   <label class="col-sm-2 col-form-label">Judul</label>
                   <div class="col-sm-10">
-                    <select class="form-select w-50" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example">
                       <option selected="">Pilih Judul</option>
                       <option value="1">Sistem Informasi</option>
                       <option value="2">Data Mining</option>
@@ -19,7 +19,7 @@
                 <div class="row mb-3 mt-3">
                   <label class="col-sm-2 col-form-label">Naskah Proposal</label>
                   <div class="col-sm-10">
-                    <input type="file" class="form-control w-50" placeholder="Pilih File">
+                    <input type="file" class="form-control" placeholder="Pilih File">
                   </div><div class="text-sm text-muted">* .pdf dengan ukuran maksimal 5MB</div>
                 </div>
                 
@@ -28,28 +28,28 @@
                 <div class="row mb-3 mt-3">
                   <label class="col-sm-2 col-form-label">Logbook Bimbingan</label>
                   <div class="col-sm-10">
-                    <input type="file" class="form-control w-50" placeholder="Pilih File">
+                    <input type="file" class="form-control" placeholder="Pilih File">
                   </div><div class="text-sm text-muted">* .pdf dengan ukuran maksimal 5MB</div>
                 </div>
 
                 <div class="row mb-3 mt-3">
                   <label class="col-sm-2 col-form-label">Transkrip Nilai</label>
                   <div class="col-sm-10">
-                    <input type="file" class="form-control w-50" placeholder="Pilih File">
+                    <input type="file" class="form-control" placeholder="Pilih File">
                   </div><div class="text-sm text-muted">* .pdf dengan ukuran maksimal 5MB</div>
                 </div>
 
                 <div class="row mb-3 mt-3">
                   <label class="col-sm-2 col-form-label">Naskah Artikel Jurnal</label>
                   <div class="col-sm-10">
-                    <input type="file" class="form-control w-50" placeholder="Pilih File">
+                    <input type="file" class="form-control" placeholder="Pilih File">
                   </div><div class="text-sm text-muted">* .pdf dengan ukuran maksimal 5MB</div>
                 </div>
 
                 <div class="row mb-3 mt-3">
                   <label class="col-sm-2 col-form-label">Bukti Pembayaran UKT</label>
                   <div class="col-sm-10">
-                    <input type="file" class="form-control w-50" placeholder="Pilih File">
+                    <input type="file" class="form-control" placeholder="Pilih File">
                   </div><div class="text-sm text-muted">* .pdf dengan ukuran maksimal 5MB</div>
                 </div>
 

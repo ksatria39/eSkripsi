@@ -85,10 +85,12 @@
                       <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Kata Sandi" required>
                     </div>
 
+                    <!--
                     <div class="col-12">
                       <label for="rePassword" class="form-label">Ulangi Kata Sandi</label>
                       <input type="password" name="rePassword" class="form-control" id="rePassword" placeholder="Masukkan Ulang Kata Sandi" required>
                     </div>
+                    -->
 
                     <div class="col-12" align="center">
                       <button class="btn btn-primary" style="border-radius: 15px;" type="submit">Daftar</button>
@@ -123,6 +125,7 @@
   <!-- Template Main JS File -->
   <script src="<?= base_url()?>template/assets/js/main.js"></script>
 
+  
 </body>
 
 </html>

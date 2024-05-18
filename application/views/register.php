@@ -1,3 +1,5 @@
+<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,24 +54,26 @@
                 <div class="card-body">
 
                     <div class="d-flex justify-content-center py-4">
-                        <a href="index.html" class="logo d-flex align-items-center w-auto">
+                        <a href="<?= base_url()?>" class="logo d-flex align-items-center w-auto">
                             <img src="<?= base_url()?>template/assets/img/logoeskripsi.png" alt="">
                         </a>
                     </div>
 
-                  <form class="row g-3 needs-validation border-top" novalidate>
-
+                  <form class="row g-3 needs-validation border-top" action="<?php echo base_url('register/register_user'); ?>" method="post" novalidate>
+        
                     <div class="col-12">
                       <label for="npm" class="form-label">NPM</label>
                       <div class="input-group has-validation">
                         <input type="text" name="npm" class="form-control" id="npm" placeholder="Masukkan NPM" required>
+                        <?php echo form_error('npm');?>
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <label for="name" class="form-label">Nama Lengkap</label>
+                      <label for="nama" class="form-label">Nama Lengkap</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Masukkan Nama Lengkap" required>
+                        <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama Lengkap" required>
+                        <?php echo form_error('nama');?>
                       </div>
                     </div>
 
@@ -77,12 +81,14 @@
                       <label for="email" class="form-label">Email</label>
                       <div class="input-group has-validation">
                         <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan Email" required>
+                        <?php echo form_error('email');?>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="password" class="form-label">Kata Sandi</label>
                       <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Kata Sandi" required>
+                      <?php echo form_error('password');?>
                     </div>
 
                     <!--
@@ -95,7 +101,6 @@
                     <div class="col-12" align="center">
                       <button class="btn btn-primary" style="border-radius: 15px;" type="submit">Daftar</button>
                     </div>
-                
                   </form>
 
                 </div>

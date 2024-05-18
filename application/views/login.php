@@ -1,3 +1,5 @@
+<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,25 +54,24 @@
                 <div class="card-body">
 
                     <div class="d-flex justify-content-center py-4">
-                        <a href="index.html" class="logo d-flex align-items-center w-auto">
+                        <a href="<?= base_url()?>" class="logo d-flex align-items-center w-auto">
                             <img src="<?= base_url()?>template/assets/img/logoeskripsi.png" alt="">
                         </a>
                     </div>
 
-                  <form class="row g-3 needs-validation border-top" novalidate>
+                  <form class="row g-3 needs-validation border-top" action="<?php echo base_url('login/login_user'); ?>" method="post" novalidate>
 
+                  <?php echo form_open('login/login_user');?>
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">NPM</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="yourUsername" placeholder="Masukkan NPM" required>
-                        <div class="invalid-feedback">NPM atau Email salah</div>
+                        <input type="text" name="npm_or_email" class="form-control" id="npm_or_email" placeholder="Masukkan NPM" required>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Kata Sandi</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" placeholder="Masukkan Kata Sandi" required>
-                      <div class="invalid-feedback">Kata sandi salah</div>
+                      <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Kata Sandi" required>
                     </div>
 
                     <!-- <div class="col-12">
@@ -81,12 +82,18 @@
                     </div> -->
 
                     <div class="col-12" align="center">
-                      <a class="btn btn-primary" style="border-radius: 15px;" type="submit" href="<?= base_url()?>dashboard">Masuk</a>
+                      <button class="btn btn-primary" style="border-radius: 15px;" type="submit">Masuk</button>
                     </div>
+                    <?php echo form_close();?>
+
+                    <?php if ($this->session->flashdata('error')):?>
+                      <p style="color: red;"><?php echo $this->session->flashdata('error');?></p>
+                    <?php endif;?>
+                  </form>
+
                     <div class="col-12"align="center">
                       <p class="small mb-0">Belum punya akun? <a href="<?= base_url()?>index.php/register">buat akun di sini.</a></p>
                     </div>
-                  </form>
 
                 </div>
               </div>

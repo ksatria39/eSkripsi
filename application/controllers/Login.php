@@ -34,6 +34,7 @@ class Login extends CI_Controller
                 if ($this->User_model->check_password($user->id, $password)) {
                     $this->session->set_userdata('user_id', $user->id);
                     $this->session->set_userdata('group_id', $user->group_id);
+                    $this->session->set_userdata('name', $user->nama);
                     $this->session->set_userdata('is_login', TRUE);
                     redirect('dashboard');
                 } else {

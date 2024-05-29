@@ -5,6 +5,25 @@ class Schedule_Skripsi extends CI_Controller {
 
 	public function index()
 	{
+		if (!$this->session->userdata('is_login')) {
+            redirect('login');
+        } else {
+			if ($this->session->userdata('group_id') == 1) {
+				$this->mahasiswa();
+			} else if ($this->session->userdata('group_id') == 2) {
+				$this->dosen();
+			} else if ($this->session->userdata('group_id') == 3){
+				$this->koordinator();
+			} else if ($this->session->userdata('group_id') == 4) {
+				$this->admin();
+			} else {
+				redirect('login');
+			}
+		}
+	}
+
+	public function mahasiswa()
+	{
 		$data = [
 			'title' => "Jadwal Ujian Skripsi",
 			'content' => 'schedule/skripsi/mahasiswa/mahasiswa', 

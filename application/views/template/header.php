@@ -95,8 +95,13 @@
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Full Name</h6>
-              <span>Role</span>
+              <h6><?= $this->session->userdata('name'); ?></h6>
+              <span>
+              <?php
+                $role = $this->db->where('id', $this->session->userdata('group_id'))->get('role')->row();
+                echo $role->nama;
+              ?>
+              </span>
             </li>
             <li>
               <hr class="dropdown-divider">

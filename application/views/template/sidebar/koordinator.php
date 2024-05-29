@@ -5,7 +5,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<?= base_url()?>dashboard/koordinator">
+        <a class="nav-link collapsed" href="<?= base_url()?>dashboard/">
           <span>Dasbor</span>
         </a>
       </li><!-- End Dashboard Nav -->

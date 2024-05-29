@@ -5,7 +5,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<?= base_url()?>dashboard/admin">
+        <a class="nav-link collapsed" href="<?= base_url()?>dashboard/">
           <span>Dasbor</span>
         </a>
       </li><!-- End Dashboard Nav -->
@@ -51,22 +51,22 @@
             </a>
           </li>
           <li>
-            <a href="<?= base_url()?>registration_proposal/admin">
+            <a href="<?= base_url()?>registration_proposal/">
               <i class="bi bi-circle"></i><span>Daftar Ujian</span>
             </a>
           </li>
           <li>
-            <a href="<?= base_url()?>schedule_proposal/admin">
+            <a href="<?= base_url()?>schedule_proposal/">
               <i class="bi bi-circle"></i><span>Jadwal Ujian</span>
             </a>
           </li>
           <li>
-            <a href="<?= base_url()?>score_proposal/admin">
+            <a href="<?= base_url()?>score_proposal/">
               <i class="bi bi-circle"></i><span>Hasil Ujian</span>
             </a>
           </li>
           <li>
-            <a href="<?= base_url()?>post_proposal/admin">
+            <a href="<?= base_url()?>post_proposal/">
               <i class="bi bi-circle"></i><span>Pasca Ujian</span>
             </a>
           </li>
@@ -84,22 +84,22 @@
             </a>
           </li>
           <li>
-            <a href="<?= base_url()?>registration_skripsi/admin">
+            <a href="<?= base_url()?>registration_skripsi/">
               <i class="bi bi-circle"></i><span>Pendaftaran Ujian</span>
             </a>
           </li>
           <li>
-            <a href="<?= base_url()?>schedule_skripsi/admin">
+            <a href="<?= base_url()?>schedule_skripsi/">
               <i class="bi bi-circle"></i><span>Jadwal Ujian</span>
             </a>
           </li>
           <li>
-            <a href="<?= base_url()?>score_skripsi/admin">
+            <a href="<?= base_url()?>score_skripsi/">
               <i class="bi bi-circle"></i><span>Hasil Ujian</span>
             </a>
           </li>
           <li>
-            <a href="<?= base_url()?>post_skripsi/admin">
+            <a href="<?= base_url()?>post_skripsi/">
               <i class="bi bi-circle"></i><span>Pasca Ujian</span>
             </a>
           </li>

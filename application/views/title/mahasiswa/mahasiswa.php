@@ -2,6 +2,7 @@
 <section class="section">
 <div class="card">
             <div class="card-body">
+
             <ul class="nav nav-tabs mt-3" id="myTabs" role="tablist">
               <li class="nav-item">
                 <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Judul Saya</a>
@@ -14,6 +15,13 @@
               <div class="tab-content mt-2">
                 <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
                   
+              <?php if ($this->session->flashdata('success')):?>
+                <div class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+                <?php echo $this->session->flashdata('success'); ?>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              <?php endif;?>
+                
                 <table class="table">
                 <thead>
                   <tr>
@@ -26,18 +34,26 @@
                   </tr>
                 </thead>
                 <tbody>
+                <?php $no = 1; foreach($myt as $myt) { ?>
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Rancang Bangun Sistem Informasi Skripsi Menggunakan Metode FAST</td>
-                    <td>Asfan Muqtadir, S.Kom., M.Kom.</td>
-                    <td>Alfian Nurlifa, S.Kom., M.Kom.</td>
-                    <td>Diterima</td>
-                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Lihat Detail</button></td>
+                    <th scope="row"><?= $no++; ?></th>
+                    <td><?= $myt->judul; ?></td>
+                    <td>
+                      <?php
+                      $dosen1 = $this->db->where('id', $myt->dospem_1_id)->get('users')->row();
+                      echo $dosen1->nama;
+                      ?>
+                    </td>
+                    <td>
+                      <?php
+                      $dosen2 = $this->db->where('id', $myt->dospem_2_id)->get('users')->row();
+                      echo $dosen2->nama;
+                      ?>
+                    </td>
+                    <td><?= $myt->status; ?></td>
+                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $myt->id; ?>">Lihat Detail</button></td>
                   </tr>
-                </tbody>
-              </table>
-
-<div class="modal fade" id="myModal">
+<div class="modal fade" id="myModal<?= $myt->id; ?>">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
@@ -48,42 +64,52 @@
             <div class="modal-body">
                 <div class="row">
                   <span class="col-sm-5"><b>Judul</b></span>
-                  <span class="col-sm-10">Rancang Bangun Sistem Informasi Skripsi Menggunakan Metode FAST</span>
+                  <span class="col-sm-10"><?= $myt->judul; ?></span>
                 </div>
                 <div class="row">
                   <span class="col-sm-5"><b>Mahasiswa</b></span>
-                  <span class="col-sm-10">Ksatria Damar Galih (1412100017)</span>
+                  <span class="col-sm-10"><?= $myt->nama_mahasiswa; ?></span>
                 </div>
                 <hr>
                 <div class="row">
                   <span class="col-sm-5"><b>Pembimbing 1</b></span>
-                  <span class="col-sm-10">Asfan Muqtadir, S.Kom., M.Kom.</span>
+                  <span class="col-sm-10">
+                      <?php
+                      $dosen1 = $this->db->where('id', $myt->dospem_1_id)->get('users')->row();
+                      echo $dosen1->nama;
+                      ?>
+                  </span>
                 </div>
                 <div class="row">
                   <span class="col-sm-5"><b>Status</b></span>
-                  <span class="col-sm-10">Diterima</span>
+                  <span class="col-sm-10"><?= $myt->status_dospem_1; ?></span>
                 </div>
                 <div class="row">
                   <span class="col-sm-5"><b>Keterangan</b></span>
-                  <span class="col-sm-10">Sangat Bagus</span>
+                  <span class="col-sm-10"><?= $myt->alasan_dospem_1; ?></span>
                 </div>
                 <hr>
                 <div class="row">
                   <span class="col-sm-5"><b>Pembimbing 2</b></span>
-                  <span class="col-sm-10">Alfian Nurlifa, S.Kom., M.Kom.</span>
+                  <span class="col-sm-10">
+                      <?php
+                      $dosen1 = $this->db->where('id', $myt->dospem_1_id)->get('users')->row();
+                      echo $dosen1->nama;
+                      ?>
+                  </span>
                 </div>
                 <div class="row">
                   <span class="col-sm-5"><b>Status</b></span>
-                  <span class="col-sm-10">Diterima</span>
+                  <span class="col-sm-10"><?= $myt->status_dospem_2; ?></span>
                 </div>
                 <div class="row">
                   <span class="col-sm-5"><b>Keterangan</b></span>
-                  <span class="col-sm-10">Menarik</span>
+                  <span class="col-sm-10"><?= $myt->alasan_dospem_2; ?></span>
                 </div>
                 <hr>
                 <div class="row">
                   <span class="col-sm-5"><b>Status Akhir</b></span>
-                  <span class="col-sm-10">Diterima</span>
+                  <span class="col-sm-10"><?= $myt->status; ?></span>
                 </div>
             </div>
             <!-- Modal Footer -->
@@ -93,8 +119,12 @@
         </div>
     </div>
 </div>
-
+                  <?php } ?>
+                </tbody>
+              </table>
                 </div>
+
+
                 <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
                   
                 <div class="d-flex justify-content">
@@ -118,14 +148,26 @@
                   </tr>
                 </thead>
                 <tbody>
+                <?php $no = 1; foreach($t as $t) { ?>
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Sistem Informasi Balbla</td>
-                    <td>Amin</td>
-                    <td>Halo</td>
-                    <td>Halo</td>
-                    <td>Diverifikasi</td>
+                    <th scope="row"><?= $no++; ?></th>
+                    <td><?= $t->judul; ?></td>
+                    <td><?= $t->nama_mahasiswa; ?></td>
+                    <td>
+                      <?php
+                      $dosen1 = $this->db->where('id', $t->dospem_1_id)->get('users')->row();
+                      echo $dosen1->nama;
+                      ?>
+                    </td>
+                    <td>
+                      <?php
+                      $dosen2 = $this->db->where('id', $t->dospem_2_id)->get('users')->row();
+                      echo $dosen2->nama;
+                      ?>
+                    </td>
+                    <td><?= $t->status; ?></td>
                   </tr>
+                  <?php } ?>
                 </tbody>
               </table>
 

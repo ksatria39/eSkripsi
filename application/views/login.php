@@ -59,11 +59,25 @@
                         </a>
                     </div>
 
+              <?php if ($this->session->flashdata('error')):?>
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                <?php echo $this->session->flashdata('error'); ?>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              <?php endif;?>
+
+              <?php if ($this->session->flashdata('success')):?>
+                <div class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+                <?php echo $this->session->flashdata('success'); ?>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              <?php endif;?>
+
                   <form class="row g-3 needs-validation border-top" action="<?php echo base_url('login/login_user'); ?>" method="post" novalidate>
 
                   <?php echo form_open('login/login_user');?>
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">NPM</label>
+                      <label for="yourUsername" class="form-label">NPM/Email</label>
                       <div class="input-group has-validation">
                         <input type="text" name="npm_or_email" class="form-control" id="npm_or_email" placeholder="Masukkan NPM" required>
                       </div>
@@ -85,10 +99,6 @@
                       <button class="btn btn-primary" style="border-radius: 15px;" type="submit">Masuk</button>
                     </div>
                     <?php echo form_close();?>
-
-                    <?php if ($this->session->flashdata('error')):?>
-                      <p style="color: red;"><?php echo $this->session->flashdata('error');?></p>
-                    <?php endif;?>
                   </form>
 
                     <div class="col-12"align="center">

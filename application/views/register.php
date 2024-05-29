@@ -59,6 +59,13 @@
                         </a>
                     </div>
 
+              <?php if ($this->session->flashdata('error')):?>
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                <?php echo $this->session->flashdata('error'); ?>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              <?php endif;?>
+
                   <form class="row g-3 needs-validation border-top" action="<?php echo base_url('register/register_user'); ?>" method="post" novalidate>
         
                     <div class="col-12">
@@ -101,6 +108,7 @@
                     <div class="col-12" align="center">
                       <button class="btn btn-primary" style="border-radius: 15px;" type="submit">Daftar</button>
                     </div>
+
                   </form>
 
                 </div>

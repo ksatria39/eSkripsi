@@ -44,4 +44,41 @@ class User_model extends CI_Model
 
     return false;
     }
+
+    public function getMahasiswa()
+    {
+        $this->db->where('group_id', 1);
+        $this->db->order_by('npm', 'DESC');
+        $query = $this->db->get($this->table);
+        return $query->result();
+    }
+
+    public function getDosen()
+    {
+        $this->db->where('group_id', 2);
+        $this->db->order_by('npm', 'DESC');
+        $query = $this->db->get($this->table);
+        return $query->result();
+    }
+
+    public function getKoordinator()
+    {
+        $this->db->where('group_id', 3);
+        $this->db->order_by('npm', 'DESC');
+        $query = $this->db->get($this->table);
+        return $query->result();
+    }
+
+    public function getAdmin()
+    {
+        $this->db->where('group_id', 4);
+        $this->db->order_by('npm', 'DESC');
+        $query = $this->db->get($this->table);
+        return $query->result();
+    }
+
+    public function getRole()
+    {
+        return $this->db->get('role')->result_array();
+    }
 }

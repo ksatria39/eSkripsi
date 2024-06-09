@@ -3,6 +3,13 @@
 <div class="card">
             <div class="card-body">
 
+              <?php if ($this->session->flashdata('success')):?>
+                <div class="alert alert-info alert-dismissible fade show" style="margin-top: 4rem;" role="alert">
+                <?php echo $this->session->flashdata('success'); ?>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              <?php endif;?>
+
             <ul class="nav nav-tabs mt-3" id="myTabs" role="tablist">
               <li class="nav-item">
                 <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Judul Saya</a>
@@ -14,13 +21,6 @@
 
               <div class="tab-content mt-2">
                 <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
-                  
-              <?php if ($this->session->flashdata('success')):?>
-                <div class="alert alert-info alert-dismissible fade show mt-3" role="alert">
-                <?php echo $this->session->flashdata('success'); ?>
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-              <?php endif;?>
                 
                 <table class="table">
                 <thead>

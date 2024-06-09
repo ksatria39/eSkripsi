@@ -30,6 +30,11 @@ class Title extends CI_Controller {
 
 	public function mahasiswa()
 	{
+
+		if ($this->session->userdata('group_id') != 1) {
+			redirect('error404');
+		}
+
 		$user_id = $this->session->userdata('user_id');
 		$myt = $this->Title_model->getMyTitle($user_id);
 		$title = $this->Title_model->getTitle();
@@ -44,7 +49,10 @@ class Title extends CI_Controller {
     
 	public function mahasiswa2()
 	{
-		
+		if ($this->session->userdata('group_id') != 1) {
+			redirect('error404');
+		}
+
         $research_area = $this->Title_model->getResearchArea();
 		$dosen = $this->Title_model->getDosen();
 		$dosen2 = $this->Title_model->getDosen();
@@ -99,6 +107,10 @@ class Title extends CI_Controller {
 
 	public function dosen()
 	{
+		if ($this->session->userdata('group_id') != 2) {
+			redirect('error404');
+		}
+
 		$id = $this->session->userdata('user_id');
 		$dospem1 = $this->Title_model->getTitleDospem1($id);
 		$dospem2 = $this->Title_model->getTitleDospem2($id);
@@ -161,6 +173,10 @@ class Title extends CI_Controller {
 
 	public function koordinator()
 	{
+		if ($this->session->userdata('group_id') != 3) {
+			redirect('error404');
+		}
+
 		$titleKo = $this->Title_model->getTitleKo();
 		$data = [
 			'title' => "Pengajuan Judul",
@@ -193,6 +209,10 @@ class Title extends CI_Controller {
 
 	public function admin()
 	{
+		if ($this->session->userdata('group_id') != 4) {
+			redirect('error404');
+		}
+
 		$data = [
 			'title' => "Pengajuan Judul",
 			'content' => 'title/admin/admin', 

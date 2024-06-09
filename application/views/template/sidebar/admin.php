@@ -22,13 +22,13 @@
         </a>
         <ul id="data-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="components-alerts.html">
-              <i class="bi bi-circle"></i><span>Mahasiswa</span>
+            <a href="<?= base_url('dm'); ?>">
+              <i class="bi bi-circle"></i><span>Pengguna</span>
             </a>
           </li>
           <li>
             <a href="components-accordion.html">
-              <i class="bi bi-circle"></i><span>Dosen</span>
+              <i class="bi bi-circle"></i><span>Unduhan</span>
             </a>
           </li>
         </ul>

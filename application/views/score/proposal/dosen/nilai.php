@@ -3,7 +3,7 @@
             <div class="card-body">
               <!-- General Form Elements -->
               <form>
-              <div class="row mb-3 mt-3">
+                <div class="row mb-3 mt-3">
                   <label for="inputTanggal" class="col-sm-2 col-form-label"><b>Tanggal</b></label>
                   <div class="col-sm-10 w-50 mt-2">
                     27 Desember 2023
@@ -128,24 +128,7 @@
     </tbody>
   </table>
 </body>
-<table class="table">
-<div>
-  <hr>
-                
-                    <p align="right>"<button type="submit" class="btn btn-primary">Tambah Revisi</button></p>
-                  
-                <thead>
-                  <tr>
-                    <th scope="col-sm-2">Halaman</th>
-                    <th scope="col">Isi Revisi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                </tbody>
-              </table>
-  <hr>            
-</div>
+
                 <div class="row mb-3">
                   <div class="col-sm-10 mx-auto text-center">
                     <button type="submit" class="btn btn-primary">Simpan</button>

@@ -22,6 +22,10 @@
               <div class="tab-content mt-2">
                 <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
                 
+                <?php if (empty($myt)) { ?>
+                  <p>Anda belum mengajukan judul.</p>
+                <?php } else { ?>
+
                 <table class="table">
                 <thead>
                   <tr>
@@ -122,6 +126,9 @@
                   <?php } ?>
                 </tbody>
               </table>
+
+              <?php } ?>
+
                 </div>
 
 
@@ -135,6 +142,10 @@
                         </button>
                     </form>
                 </div>
+
+                <?php if (empty($t)) { ?>
+                  <p>Belum ada judul.</p>
+                <?php } else { ?>
 
               <table class="table">
                 <thead>
@@ -170,6 +181,8 @@
                   <?php } ?>
                 </tbody>
               </table>
+
+              <?php } ?>
 
                 </div>
               </div>

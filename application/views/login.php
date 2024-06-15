@@ -75,7 +75,6 @@
 
                   <form class="row g-3 needs-validation border-top" action="<?php echo base_url('login/login_user'); ?>" method="post" novalidate>
 
-                  <?php echo form_open('login/login_user');?>
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">NPM/Email</label>
                       <div class="input-group has-validation">
@@ -98,7 +97,6 @@
                     <div class="col-12" align="center">
                       <button class="btn btn-primary" style="border-radius: 15px;" type="submit">Masuk</button>
                     </div>
-                    <?php echo form_close();?>
                   </form>
 
                     <div class="col-12"align="center">

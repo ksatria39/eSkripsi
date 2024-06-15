@@ -1,18 +1,27 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Registration_Proposal extends CI_Controller {
+class Registration_Proposal extends CI_Controller
+{
+
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('Proregister_model');
+		$this->load->library('upload');
+	}
 
 	public function index()
 	{
 		if (!$this->session->userdata('is_login')) {
-            redirect('login');
-        } else {
+			redirect('login');
+		} else {
 			if ($this->session->userdata('group_id') == 1) {
 				$this->mahasiswa();
 			} else if ($this->session->userdata('group_id') == 2) {
 				$this->dosen();
-			} else if ($this->session->userdata('group_id') == 3){
+			} else if ($this->session->userdata('group_id') == 3) {
 				$this->koordinator();
 			} else if ($this->session->userdata('group_id') == 4) {
 				$this->admin();
@@ -24,45 +33,168 @@ class Registration_Proposal extends CI_Controller {
 
 	public function mahasiswa()
 	{
+		$myProposal = $this->Proregister_model->getMyProposal($this->session->userdata('user_id'));
 		$data = [
 			'title' => "Pendaftaran Ujian Proposal",
-			'content' => 'registration/proposal/mahasiswa/mahasiswa', 
+			'content' => 'registration/proposal/mahasiswa/mahasiswa',
+			'myProposal' => $myProposal
 		];
 		$this->load->view('template/overlay/mahasiswa', $data);
 	}
 
-    public function mahasiswa2()
+	public function daftar()
 	{
+		$myTitle = $this->Proregister_model->getMyTitle($this->session->userdata('user_id'));
 		$data = [
 			'title' => "Pendaftaran Ujian Proposal",
-			'content' => 'registration/proposal/mahasiswa/mahasiswa2', 
+			'content' => 'registration/proposal/mahasiswa/register',
+			'myTitle' => $myTitle
 		];
 		$this->load->view('template/overlay/mahasiswa', $data);
 	}
+
+	public function addProposal()
+	{
+
+		if ($this->input->post('title_id') == '-- Pilih Judul --') {
+			$this->session->set_flashdata('error', 'Seluruh kolom wajib diisi.');
+			redirect('registration_proposal/daftar');
+		}
+
+		$this->form_validation->set_rules('title_id', 'Judul', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Seluruh kolom wajib diisi.');
+			redirect('registration_proposal/daftar');
+		} else {
+			$config['upload_path'] = './file/proposal/logbook/';
+			$config['allowed_types'] = 'pdf';
+			$config['max_size'] = 10240; // 10MB
+
+			$this->upload->initialize($config);
+
+			if (!$this->upload->do_upload('file_logbook')) {
+				$this->session->set_flashdata('error', $this->upload->display_errors());
+				redirect('registration_proposal/daftar');
+			} else {
+				$upload_data = $this->upload->data();
+				$file_name = $upload_data['file_name'];
+
+				$data = array(
+					'title_id' => $this->input->post('title_id'),
+					'file_logbook' => $file_name,
+					'status_dospem_1' => 'Sedang diproses',
+					'status_dospem_2' => 'Sedang diproses',
+					'status' => 'Sedang diproses'
+				);
+
+				$this->Proregister_model->addProposal($data);
+
+				$this->session->set_flashdata('success', 'Berhasil mendaftar ujian proposal');
+				redirect('registration_proposal');
+			}
+		}
+	}
+
 
 	public function dosen()
 	{
+		$dospem1 = $this->Proregister_model->getProposalDospem1($this->session->userdata('user_id'));
+		$dospem2 = $this->Proregister_model->getProposalDospem2($this->session->userdata('user_id'));
 		$data = [
 			'title' => "Pendaftaran Ujian Proposal",
-			'content' => 'registration/proposal/dosen/dosen', 
+			'content' => 'registration/proposal/dosen/dosen',
+			'dospem1' => $dospem1,
+			'dospem2' => $dospem2,
 		];
 		$this->load->view('template/overlay/dosen', $data);
 	}
 
+	public function accDospem1($id)
+	{
+		$data['status_dospem_1'] = 'Diterima';
+		$this->Proregister_model->accProposal($id, $data);
+
+		$this->session->set_flashdata('success', 'Pendaftaran Ujian Proposal Berhasil Disetujui');
+		redirect('registration_proposal');
+	}
+
+	public function deDospem1($id)
+	{
+		$data['status_dospem_1'] = 'Ditolak';
+		$this->Proregister_model->accProposal($id, $data);
+
+		$this->session->set_flashdata('denied', 'Pendaftaran Ujian Proposal Berhasil Ditolak');
+		redirect('registration_proposal');
+	}
+
+	public function accDospem2($id)
+	{
+		$data['status_dospem_2'] = 'Diterima';
+		$this->Proregister_model->accProposal($id, $data);
+
+		$this->session->set_flashdata('success', 'Pendaftaran Ujian Proposal Berhasil Disetujui');
+		redirect('registration_proposal');
+	}
+
+	public function deDospem2($id)
+	{
+		$data['status_dospem_2'] = 'Ditolak';
+		$this->Proregister_model->accProposal($id, $data);
+
+		$this->session->set_flashdata('denied', 'Judul Berhasil Ditolak');
+		redirect('registration_proposal');
+	}
+
 	public function koordinator()
 	{
+		$dospem1 = $this->Proregister_model->getProposalDospem1($this->session->userdata('user_id'));
+		$dospem2 = $this->Proregister_model->getProposalDospem2($this->session->userdata('user_id'));
+		$koordinator = $this->Proregister_model->getProposalKoo($this->session->userdata('user_id'));
+		$rooms = $this->Proregister_model->getRooms();
 		$data = [
 			'title' => "Pendaftaran Ujian Proposal",
-			'content' => 'registration/proposal/koordinator/koordinator', 
+			'content' => 'registration/proposal/koordinator/koordinator',
+			'dospem1' => $dospem1,
+			'dospem2' => $dospem2,
+			'koordinator' => $koordinator,
+			'rooms' => $rooms
 		];
 		$this->load->view('template/overlay/koordinator', $data);
+	}
+
+	public function accProposal()
+	{
+		$id = $this->input->post('id');
+		$tanggal = $this->input->post('tanggal');
+		$jam = $this->input->post('jam');
+		$room = $this->input->post('room_id');
+		$data = [
+			'status' => 'Diterima',
+			'tanggal' => $tanggal,
+			'jam' => $jam,
+			'room_id' => $room
+		];
+		$this->Proregister_model->accProposal($id, $data);
+
+		$this->session->set_flashdata('success', 'Pendaftaran Ujian Proposal Berhasil Disetujui');
+		redirect('registration_proposal');
+	}
+
+	public function deProposal($id)
+	{
+		$data['status'] = 'Ditolak';
+		$this->Proregister_model->accProposal($id, $data);
+
+		$this->session->set_flashdata('denied', 'Judul Berhasil Ditolak');
+		redirect('registration_proposal');
 	}
 
 	public function koordinator2()
 	{
 		$data = [
 			'title' => "Penjadwalan Ujian Proposal",
-			'content' => 'registration/proposal/koordinator/koordinator2', 
+			'content' => 'registration/proposal/koordinator/koordinator2',
 		];
 		$this->load->view('template/overlay/koordinator', $data);
 	}
@@ -71,7 +203,7 @@ class Registration_Proposal extends CI_Controller {
 	{
 		$data = [
 			'title' => "Pendaftaran Ujian Proposal",
-			'content' => 'registration/proposal/admin/admin', 
+			'content' => 'registration/proposal/admin/admin',
 		];
 		$this->load->view('template/overlay/admin', $data);
 	}
@@ -80,7 +212,7 @@ class Registration_Proposal extends CI_Controller {
 	{
 		$data = [
 			'title' => "Pendaftaran Ujian Proposal",
-			'content' => 'registration/proposal/admin/admin2', 
+			'content' => 'registration/proposal/admin/admin2',
 		];
 		$this->load->view('template/overlay/admin', $data);
 	}
@@ -89,9 +221,8 @@ class Registration_Proposal extends CI_Controller {
 	{
 		$data = [
 			'title' => "Pendaftaran Ujian Proposal",
-			'content' => 'registration/proposal/admin/admin3', 
+			'content' => 'registration/proposal/admin/admin3',
 		];
 		$this->load->view('template/overlay/admin', $data);
 	}
-
 }

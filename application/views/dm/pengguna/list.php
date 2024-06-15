@@ -52,7 +52,7 @@
                 <tbody>
                 <?php $no = 1; foreach($mahasiswa as $mahasiswa) { ?>
                   <tr>
-                    <th scope="row"><?= $no; ?></th>
+                    <th scope="row"><?= $no++; ?></th>
                     <td><?= $mahasiswa->npm; ?></td>
                     <td><?= $mahasiswa->nama; ?></td>
                     <td><?= $mahasiswa->email; ?></td>
@@ -94,7 +94,7 @@
                 <tbody>
                 <?php $no = 1; foreach($dosen as $dosen) { ?>
                   <tr>
-                    <th scope="row"><?= $no; ?></th>
+                    <th scope="row"><?= $no++; ?></th>
                     <td><?= $dosen->npm; ?></td>
                     <td><?= $dosen->nama; ?></td>
                     <td><?= $dosen->email; ?></td>
@@ -136,7 +136,7 @@
                 <tbody>
                 <?php $no = 1; foreach($koordinator as $koordinator) { ?>
                   <tr>
-                    <th scope="row"><?= $no; ?></th>
+                    <th scope="row"><?= $no++; ?></th>
                     <td><?= $koordinator->npm; ?></td>
                     <td><?= $koordinator->nama; ?></td>
                     <td><?= $koordinator->email; ?></td>
@@ -178,7 +178,7 @@
                 <tbody>
                 <?php $no = 1; foreach($admin as $admin) { ?>
                   <tr>
-                    <th scope="row"><?= $no; ?></th>
+                    <th scope="row"><?= $no++; ?></th>
                     <td><?= $admin->npm; ?></td>
                     <td><?= $admin->nama; ?></td>
                     <td><?= $admin->email; ?></td>

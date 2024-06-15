@@ -47,7 +47,7 @@
                 <tbody>
                 <?php $no = 1; foreach($titleKo as $titleKo) { ?>
                   <tr>
-                    <th scope="row"><?= $no; ?></th>
+                    <th scope="row"><?= $no++; ?></th>
                     <td><?= $titleKo->judul; ?></td>
                     <td>
                       <?php

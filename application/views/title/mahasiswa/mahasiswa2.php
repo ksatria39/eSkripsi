@@ -22,7 +22,7 @@
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Bidang Penelitian</label>
                   <div class="col-sm-10">
-                    <select class="form-select" name="bidang_id" id="bidang_id aria-label="Default select example">
+                    <select class="form-select" name="bidang_id" id="bidang_id" aria-label="Default select example">
                       <option selected="">Pilih Bidang</option>
                       <?php foreach ($research_area as $area) : ?>
                         <option value="<?= $area['id']; ?>" <?= set_select('bidang_id', $area['id']); ?>><?= $area['nama']; ?></option>

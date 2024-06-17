@@ -11,9 +11,9 @@ class Skpregister_model extends CI_Model
 
 	public function getMySkripsi($user_id)
 	{
-		$this->db->select('*, pro_register.status as pro_status, pro_register.status_dospem_1 as pro_status_dospem_1, pro_register.status_dospem_2 as pro_status_dospem_2');
-		$this->db->from('pro_register');
-		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
+		$this->db->select('*, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2, skp_register.id as skp_id');
+		$this->db->from('skp_register');
+		$this->db->join('title', 'skp_register.title_id = title.id', 'inner');
 		$this->db->where('title.mahasiswa', $user_id);
 		$query = $this->db->get();
 		return $query->result();
@@ -29,37 +29,37 @@ class Skpregister_model extends CI_Model
 
 	public function addSkripsi($data)
 	{
-		$this->db->insert('pro_register', $data);
+		$this->db->insert('skp_register', $data);
 	}
 
 	public function getSkripsiDospem1($id)
 	{
-		$this->db->select('*, pro_register.status as pro_status, pro_register.status_dospem_1 as pro_status_dospem_1, pro_register.status_dospem_2 as pro_status_dospem_2, pro_register.id as pro_id');
-		$this->db->from('pro_register');
-		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
+		$this->db->select('*, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2, skp_register.id as skp_id');
+		$this->db->from('skp_register');
+		$this->db->join('title', 'skp_register.title_id = title.id', 'inner');
 		$this->db->where('title.dospem_1_id', $id);
-		$this->db->where('pro_register.status_dospem_1', 'Sedang diproses');
+		$this->db->where('skp_register.status_dospem_1', 'Sedang diproses');
 		$query = $this->db->get('');
 		return $query->result();
 	}
 
 	public function getSkripsiDospem2($id)
 	{
-		$this->db->select('*, pro_register.status as pro_status, pro_register.status_dospem_1 as pro_status_dospem_1, pro_register.status_dospem_2 as pro_status_dospem_2, pro_register.id as pro_id');
-		$this->db->from('pro_register');
-		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
+		$this->db->select('*, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2, skp_register.id as skp_id');
+		$this->db->from('skp_register');
+		$this->db->join('title', 'skp_register.title_id = title.id', 'inner');
 		$this->db->where('title.dospem_2_id', $id);
-		$this->db->where('pro_register.status_dospem_2', 'Sedang diproses');
+		$this->db->where('skp_register.status_dospem_2', 'Sedang diproses');
 		$query = $this->db->get('');
 		return $query->result();
 	}
 
 	public function getSkripsiKoo($id)
 	{
-		$this->db->select('*, pro_register.status as pro_status, pro_register.status_dospem_1 as pro_status_dospem_1, pro_register.status_dospem_2 as pro_status_dospem_2, pro_register.id as pro_id');
-		$this->db->from('pro_register');
-		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
-		$this->db->where('pro_register.status', 'Sedang diproses');
+		$this->db->select('*, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2, skp_register.id as skp_id');
+		$this->db->from('skp_register');
+		$this->db->join('title', 'skp_register.title_id = title.id', 'inner');
+		$this->db->where('skp_register.status', 'Sedang diproses');
 		$query = $this->db->get('');
 		return $query->result();
 	}
@@ -67,7 +67,7 @@ class Skpregister_model extends CI_Model
 	public function accSkripsi($id, $data)
 	{
 		$this->db->where('id', $id);
-		$this->db->update('pro_register', $data);
+		$this->db->update('skp_register', $data);
 	}
 
 	public function getRooms()

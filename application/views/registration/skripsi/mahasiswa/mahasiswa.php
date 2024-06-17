@@ -1,64 +1,172 @@
-
 <section class="section">
-<div class="card">
-            <div class="card-body">
+	<div class="card">
+		<div class="card-body">
 
-                <div class="d-flex justify-content mt-3">
+			<!-- <div style="margin-top: 4rem;">
+                <?php
+								// if (empty($myProposal)) { 
+								?>
+                  <p>Anda belum mendaftarkan diri untuk ujian proposal.</p>
+                <?php
+								//  } else {
+								?>
+                </div> -->
+
+			<!-- <div class="d-flex justify-content mt-3">
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Cari" aria-label="cari">
                         <button class="btn btn-outline-primary" type="submit">
                             <i class="ri-search-line"></i>
                         </button>
                     </form>
-                </div>
+                </div> -->
 
-              <table class="table mt-3">
-                <thead>
-                  <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Judul</th>
-                    <th scope="col">Mahasiswa</th>
-                    <th scope="col">Pembimbing 1</th>
-                    <th scope="col">Pembimbing 2</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Detail</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Rancang Bangun Sistem Informasi Skripsi Menggunakan Metode FAST</td>
-                    <td>Amin</td>
-                    <td>Asfan Muqtadir, S.Kom., M.Kom.</td>
-                    <td>Alfian Nurlifa, S.Kom., M.Kom.</td>
-                    <td>Diverifikasi</td>
-                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Lihat Detail</button></td>
-                  </tr>
-                </tbody>
-              </table>
-              <!-- End Default Table Example -->
+			<?php if ($this->session->flashdata('success')) : ?>
+				<div class="alert alert-info alert-dismissible fade show" style="margin-top: 4rem;" role="alert">
+					<?php echo $this->session->flashdata('success'); ?>
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			<?php endif; ?>
 
-              
-              <a class="btn btn-primary position-absolute top-0 end-0 m-3" href="<?= base_url()?>registration_skripsi/mahasiswa2" style="border-radius: 15px;">
-                <i class="ri-add-line"></i>Tambah
-              </a>
-            </div>
-          </div>
+			<?php if (empty($mySkripsi)) { ?>
+				<p style="margin-top: 4rem;">Anda belum mendaftar untuk mengikuti ujian skripsi.</p>
+			<?php } else { ?>
+
+				<table class="table" style="margin-top: 4rem;">
+					<thead>
+						<tr>
+							<th scope="col">No</th>
+							<th scope="col">Judul</th>
+							<th scope="col">Pembimbing 1</th>
+							<th scope="col">Pembimbing 2</th>
+							<th scope="col">Status</th>
+							<th scope="col">Detail</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php $no = 1;
+						foreach ($mySkripsi as $mySkripsi) { ?>
+							<tr>
+								<th scope="row"><?= $no++; ?></th>
+								<td><?= $mySkripsi->judul; ?></td>
+								<td>
+									<?php
+									$dosen1 = $this->db->where('id', $mySkripsi->dospem_1_id)->get('users')->row();
+									echo $dosen1->nama;
+									?>
+								</td>
+								<td>
+									<?php
+									$dosen2 = $this->db->where('id', $mySkripsi->dospem_2_id)->get('users')->row();
+									echo $dosen2->nama;
+									?>
+								</td>
+								<td><?= $mySkripsi->skp_status; ?></td>
+								<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $mySkripsi->id; ?>">Lihat Detail</button></td>
+							</tr>
+							<div class="modal fade" id="myModal<?= $mySkripsi->id; ?>">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<!-- Modal Header -->
+										<div class="modal-header">
+											<h4 class="modal-title">Detail</h4>
+										</div>
+										<!-- Modal Body -->
+										<div class="modal-body">
+											<div class="row">
+												<span class="col-sm-5"><b>Judul</b></span>
+												<span class="col-sm-10"><?= $mySkripsi->judul; ?></span>
+											</div>
+											<div class="row">
+												<span class="col-sm-5"><b>Mahasiswa</b></span>
+												<span class="col-sm-10">
+													<?php
+													$mhs = $this->db->where('id', $mySkripsi->mahasiswa)->get('users')->row();
+													echo $dosen1->nama;
+													?>
+												</span>
+											</div>
+											<hr>
+											<div class="row">
+												<span class="col-sm-5"><b>Pembimbing 1</b></span>
+												<span class="col-sm-10">
+													<?php
+													$dosen1 = $this->db->where('id', $mySkripsi->dospem_1_id)->get('users')->row();
+													echo $dosen1->nama;
+													?>
+												</span>
+											</div>
+											<div class="row">
+												<span class="col-sm-5"><b>Status</b></span>
+												<span class="col-sm-10"><?= $mySkripsi->skp_status_dospem_1; ?></span>
+											</div>
+											<!-- <div class="row">
+                  <span class="col-sm-5"><b>Keterangan</b></span>
+                  <span class="col-sm-10"><?= $mySkripsi->alasan_dospem_1; ?></span>
+                </div> -->
+											<hr>
+											<div class="row">
+												<span class="col-sm-5"><b>Pembimbing 2</b></span>
+												<span class="col-sm-10">
+													<?php
+													$dosen1 = $this->db->where('id', $mySkripsi->dospem_1_id)->get('users')->row();
+													echo $dosen1->nama;
+													?>
+												</span>
+											</div>
+											<div class="row">
+												<span class="col-sm-5"><b>Status</b></span>
+												<span class="col-sm-10"><?= $mySkripsi->skp_status_dospem_2; ?></span>
+											</div>
+											<!-- <div class="row">
+                  <span class="col-sm-5"><b>Keterangan</b></span>
+                  <span class="col-sm-10"><?= $mySkripsi->alasan_dospem_2; ?></span>
+                </div> -->
+											<hr>
+											<div class="row">
+												<span class="col-sm-5"><b>Status Akhir</b></span>
+												<span class="col-sm-10"><?= $mySkripsi->skp_status; ?></span>
+											</div>
+											<hr>
+											<div class="row">
+												<span class="col-sm-5"><b>Berkas</b></span>
+												<a class="btn btn-primary" href="<?= base_url() ?>/file/skripsi/logbook/<?= $mySkripsi->file_logbook; ?>">Logbook</a></span>
+											</div>
+										</div>
+										<!-- Modal Footer -->
+										<div class="modal-footer ">
+											<button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						<?php } ?>
+					</tbody>
+				</table>
+
+			<?php } ?>
+			<!-- End Default Table Example -->
+
+
+			<a class="btn btn-primary position-absolute top-0 end-0 m-3" href="<?= base_url() ?>/registration_skripsi/daftar" style="border-radius: 15px;">
+				<i class="ri-add-line"></i>Tambah
+			</a>
+
+		</div>
+	</div>
 </section>
 
 
-<div class="modal fade" id="myModal">
+<!-- <div class="modal fade" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Detail</h4>
             </div>
-            <!-- Modal Body -->
             <div class="modal-body">
                 <div class="row">
                   <span class="col-sm-5"><b>Judul</b></span>
-                  <span class="col-sm-10">Rancang Bangun Sistem Informasi Skripsi Menggunakan Metode FAST (Sub Sistem Pendaftaran dan Penilaian)</span>
+                  <span class="col-sm-10">Sistem Informasi Balbla</span>
                 </div>
                 <div class="row">
                   <span class="col-sm-5"><b>Mahasiswa</b></span>
@@ -73,10 +181,6 @@
                   <span class="col-sm-5"><b>Status</b></span>
                   <span class="col-sm-10">Diterima</span>
                 </div>
-                <div class="row">
-                  <span class="col-sm-5"><b>Keterangan</b></span>
-                  <span class="col-sm-10">Sangat Bagus</span>
-                </div>
                 <hr>
                 <div class="row">
                   <span class="col-sm-5"><b>Pembimbing 2</b></span>
@@ -86,20 +190,15 @@
                   <span class="col-sm-5"><b>Status</b></span>
                   <span class="col-sm-10">Ditolak</span>
                 </div>
-                <div class="row">
-                  <span class="col-sm-5"><b>Keterangan</b></span>
-                  <span class="col-sm-10">Sudah pernah dilakukan</span>
-                </div>
                 <hr>
                 <div class="row">
                   <span class="col-sm-5"><b>Status Akhir</b></span>
                   <span class="col-sm-10">Sedang Diproses</span>
                 </div>
             </div>
-            <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>
-</div>
+</div> -->

@@ -4,12 +4,12 @@
 
 			<!-- <div style="margin-top: 4rem;">
                 <?php
-								// if (empty($myProposal)) { 
-								?>
+				// if (empty($myProposal)) { 
+				?>
                   <p>Anda belum mendaftarkan diri untuk ujian proposal.</p>
                 <?php
-								//  } else {
-								?>
+				//  } else {
+				?>
                 </div> -->
 
 			<!-- <div class="d-flex justify-content mt-3">
@@ -28,121 +28,123 @@
 				</div>
 			<?php endif; ?>
 
-			<table class="table" style="margin-top: 4rem;">
-				<thead>
-					<tr>
-						<th scope="col">No</th>
-						<th scope="col">Judul</th>
-						<th scope="col">Pembimbing 1</th>
-						<th scope="col">Pembimbing 2</th>
-						<th scope="col">Status</th>
-						<th scope="col">Detail</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php $no = 1;
-					foreach ($myProposal as $myProposal) { ?>
+			<?php if (empty($myProposal)) { ?>
+				<p>Anda belum mendaftar untuk mengikuti ujian proposal.</p>
+			<?php } else { ?> -->
+
+				<table class="table" style="margin-top: 4rem;">
+					<thead>
 						<tr>
-							<th scope="row"><?= $no++; ?></th>
-							<td><?= $myProposal->judul; ?></td>
-							<td>
-								<?php
-								$dosen1 = $this->db->where('id', $myProposal->dospem_1_id)->get('users')->row();
-								echo $dosen1->nama;
-								?>
-							</td>
-							<td>
-								<?php
-								$dosen2 = $this->db->where('id', $myProposal->dospem_2_id)->get('users')->row();
-								echo $dosen2->nama;
-								?>
-							</td>
-							<td><?= $myProposal->pro_status; ?></td>
-							<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $myProposal->id; ?>">Lihat Detail</button></td>
+							<th scope="col">No</th>
+							<th scope="col">Judul</th>
+							<th scope="col">Pembimbing 1</th>
+							<th scope="col">Pembimbing 2</th>
+							<th scope="col">Status</th>
+							<th scope="col">Detail</th>
 						</tr>
-						<div class="modal fade" id="myModal<?= $myProposal->id; ?>">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<!-- Modal Header -->
-									<div class="modal-header">
-										<h4 class="modal-title">Detail</h4>
-									</div>
-									<!-- Modal Body -->
-									<div class="modal-body">
-										<div class="row">
-											<span class="col-sm-5"><b>Judul</b></span>
-											<span class="col-sm-10"><?= $myProposal->judul; ?></span>
+					</thead>
+					<tbody>
+						<?php $no = 1;
+						foreach ($myProposal as $myProposal) { ?>
+							<tr>
+								<th scope="row"><?= $no++; ?></th>
+								<td><?= $myProposal->judul; ?></td>
+								<td>
+									<?php
+									$dosen1 = $this->db->where('id', $myProposal->dospem_1_id)->get('users')->row();
+									echo $dosen1->nama;
+									?>
+								</td>
+								<td>
+									<?php
+									$dosen2 = $this->db->where('id', $myProposal->dospem_2_id)->get('users')->row();
+									echo $dosen2->nama;
+									?>
+								</td>
+								<td><?= $myProposal->pro_status; ?></td>
+								<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $myProposal->id; ?>">Lihat Detail</button></td>
+							</tr>
+							<div class="modal fade" id="myModal<?= $myProposal->id; ?>">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<!-- Modal Header -->
+										<div class="modal-header">
+											<h4 class="modal-title">Detail</h4>
 										</div>
-										<div class="row">
-											<span class="col-sm-5"><b>Mahasiswa</b></span>
-											<span class="col-sm-10">
-												<?php
-												$mhs = $this->db->where('id', $myProposal->mahasiswa)->get('users')->row();
-												echo $dosen1->nama;
-												?>
-											</span>
-										</div>
-										<hr>
-										<div class="row">
-											<span class="col-sm-5"><b>Pembimbing 1</b></span>
-											<span class="col-sm-10">
-												<?php
-												$dosen1 = $this->db->where('id', $myProposal->dospem_1_id)->get('users')->row();
-												echo $dosen1->nama;
-												?>
-											</span>
-										</div>
-										<div class="row">
-											<span class="col-sm-5"><b>Status</b></span>
-											<span class="col-sm-10"><?= $myProposal->pro_status_dospem_1; ?></span>
-										</div>
-										<!-- <div class="row">
+										<!-- Modal Body -->
+										<div class="modal-body">
+											<div class="row">
+												<span class="col-sm-5"><b>Judul</b></span>
+												<span class="col-sm-10"><?= $myProposal->judul; ?></span>
+											</div>
+											<div class="row">
+												<span class="col-sm-5"><b>Mahasiswa</b></span>
+												<span class="col-sm-10">
+													<?php
+													$mhs = $this->db->where('id', $myProposal->mahasiswa)->get('users')->row();
+													echo $dosen1->nama;
+													?>
+												</span>
+											</div>
+											<hr>
+											<div class="row">
+												<span class="col-sm-5"><b>Pembimbing 1</b></span>
+												<span class="col-sm-10">
+													<?php
+													$dosen1 = $this->db->where('id', $myProposal->dospem_1_id)->get('users')->row();
+													echo $dosen1->nama;
+													?>
+												</span>
+											</div>
+											<div class="row">
+												<span class="col-sm-5"><b>Status</b></span>
+												<span class="col-sm-10"><?= $myProposal->pro_status_dospem_1; ?></span>
+											</div>
+											<!-- <div class="row">
                   <span class="col-sm-5"><b>Keterangan</b></span>
                   <span class="col-sm-10"><?= $myProposal->alasan_dospem_1; ?></span>
                 </div> -->
-										<hr>
-										<div class="row">
-											<span class="col-sm-5"><b>Pembimbing 2</b></span>
-											<span class="col-sm-10">
-												<?php
-												$dosen1 = $this->db->where('id', $myProposal->dospem_1_id)->get('users')->row();
-												echo $dosen1->nama;
-												?>
-											</span>
-										</div>
-										<div class="row">
-											<span class="col-sm-5"><b>Status</b></span>
-											<span class="col-sm-10"><?= $myProposal->pro_status_dospem_2; ?></span>
-										</div>
-										<!-- <div class="row">
+											<hr>
+											<div class="row">
+												<span class="col-sm-5"><b>Pembimbing 2</b></span>
+												<span class="col-sm-10">
+													<?php
+													$dosen1 = $this->db->where('id', $myProposal->dospem_1_id)->get('users')->row();
+													echo $dosen1->nama;
+													?>
+												</span>
+											</div>
+											<div class="row">
+												<span class="col-sm-5"><b>Status</b></span>
+												<span class="col-sm-10"><?= $myProposal->pro_status_dospem_2; ?></span>
+											</div>
+											<!-- <div class="row">
                   <span class="col-sm-5"><b>Keterangan</b></span>
                   <span class="col-sm-10"><?= $myProposal->alasan_dospem_2; ?></span>
                 </div> -->
-										<hr>
-										<div class="row">
-											<span class="col-sm-5"><b>Status Akhir</b></span>
-											<span class="col-sm-10"><?= $myProposal->pro_status; ?></span>
+											<hr>
+											<div class="row">
+												<span class="col-sm-5"><b>Status Akhir</b></span>
+												<span class="col-sm-10"><?= $myProposal->pro_status; ?></span>
+											</div>
+											<hr>
+											<div class="row">
+												<span class="col-sm-5"><b>Berkas</b></span>
+												<a class="btn btn-primary" href="<?= base_url() ?>/file/proposal/logbook/<?= $myProposal->file_logbook; ?>">Logbook</a></span>
+											</div>
 										</div>
-										<hr>
-										<div class="row">
-											<span class="col-sm-5"><b>Berkas</b></span>
-											<a class="btn btn-primary" href="<?= base_url() ?>/file/proposal/logbook/<?= $myProposal->file_logbook; ?>">Logbook</a></span>
+										<!-- Modal Footer -->
+										<div class="modal-footer ">
+											<button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
 										</div>
-									</div>
-									<!-- Modal Footer -->
-									<div class="modal-footer ">
-										<button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
 									</div>
 								</div>
 							</div>
-						</div>
-					<?php } ?>
-				</tbody>
-			</table>
+						<?php } ?>
+					</tbody>
+				</table>
 
-			<?php
-			//  } 
-			?>
+			<!-- <?php } ?> -->
 			<!-- End Default Table Example -->
 
 

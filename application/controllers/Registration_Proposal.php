@@ -33,6 +33,10 @@ class Registration_Proposal extends CI_Controller
 
 	public function mahasiswa()
 	{
+		if ($this->session->userdata('group_id') != 1) {
+			redirect('error404');
+		}
+
 		$myProposal = $this->Proregister_model->getMyProposal($this->session->userdata('user_id'));
 		$data = [
 			'title' => "Pendaftaran Ujian Proposal",
@@ -44,6 +48,10 @@ class Registration_Proposal extends CI_Controller
 
 	public function daftar()
 	{
+		if ($this->session->userdata('group_id') != 1) {
+			redirect('error404');
+		}
+
 		$myTitle = $this->Proregister_model->getMyTitle($this->session->userdata('user_id'));
 		$data = [
 			'title' => "Pendaftaran Ujian Proposal",
@@ -55,6 +63,10 @@ class Registration_Proposal extends CI_Controller
 
 	public function addProposal()
 	{
+
+		if ($this->session->userdata('group_id') != 1) {
+			redirect('error404');
+		}
 
 		if ($this->input->post('title_id') == '-- Pilih Judul --') {
 			$this->session->set_flashdata('error', 'Seluruh kolom wajib diisi.');
@@ -99,6 +111,10 @@ class Registration_Proposal extends CI_Controller
 
 	public function dosen()
 	{
+		if ($this->session->userdata('group_id') != 2) {
+			redirect('error404');
+		}
+
 		$dospem1 = $this->Proregister_model->getProposalDospem1($this->session->userdata('user_id'));
 		$dospem2 = $this->Proregister_model->getProposalDospem2($this->session->userdata('user_id'));
 		$data = [
@@ -112,6 +128,10 @@ class Registration_Proposal extends CI_Controller
 
 	public function accDospem1($id)
 	{
+		if ($this->session->userdata('group_id') != 2) {
+			redirect('error404');
+		}
+
 		$data['status_dospem_1'] = 'Diterima';
 		$this->Proregister_model->accProposal($id, $data);
 
@@ -121,6 +141,10 @@ class Registration_Proposal extends CI_Controller
 
 	public function deDospem1($id)
 	{
+		if ($this->session->userdata('group_id') != 2) {
+			redirect('error404');
+		}
+
 		$data['status_dospem_1'] = 'Ditolak';
 		$this->Proregister_model->accProposal($id, $data);
 
@@ -130,6 +154,10 @@ class Registration_Proposal extends CI_Controller
 
 	public function accDospem2($id)
 	{
+		if ($this->session->userdata('group_id') != 2) {
+			redirect('error404');
+		}
+
 		$data['status_dospem_2'] = 'Diterima';
 		$this->Proregister_model->accProposal($id, $data);
 
@@ -139,15 +167,23 @@ class Registration_Proposal extends CI_Controller
 
 	public function deDospem2($id)
 	{
+		if ($this->session->userdata('group_id') != 2) {
+			redirect('error404');
+		}
+
 		$data['status_dospem_2'] = 'Ditolak';
 		$this->Proregister_model->accProposal($id, $data);
 
-		$this->session->set_flashdata('denied', 'Judul Berhasil Ditolak');
+		$this->session->set_flashdata('denied', 'Pendaftaran Ujian Proposal Berhasil Disetujui');
 		redirect('registration_proposal');
 	}
 
 	public function koordinator()
 	{
+		if ($this->session->userdata('group_id') != 3) {
+			redirect('error404');
+		} 
+
 		$dospem1 = $this->Proregister_model->getProposalDospem1($this->session->userdata('user_id'));
 		$dospem2 = $this->Proregister_model->getProposalDospem2($this->session->userdata('user_id'));
 		$koordinator = $this->Proregister_model->getProposalKoo($this->session->userdata('user_id'));
@@ -165,6 +201,18 @@ class Registration_Proposal extends CI_Controller
 
 	public function accProposal()
 	{
+		if ($this->session->userdata('group_id') != 3) {
+			redirect('error404');
+		} 
+
+		$this->form_validation->set_rules('tanggal', 'Tanggal', 'required');
+		$this->form_validation->set_rules('jam', 'Jam', 'required');
+
+		if ($this->form_validation->run() == FALSE || $this->input->post('room_id') == '-- Pilih Ruangan Ujian --') {
+			$this->session->set_flashdata('error', 'Silahkan atur jadwal dan tempat ujian untuk menyetujui pendaftaran.');
+			redirect('registration_proposal');
+		}
+		
 		$id = $this->input->post('id');
 		$tanggal = $this->input->post('tanggal');
 		$jam = $this->input->post('jam');
@@ -175,6 +223,7 @@ class Registration_Proposal extends CI_Controller
 			'jam' => $jam,
 			'room_id' => $room
 		];
+
 		$this->Proregister_model->accProposal($id, $data);
 
 		$this->session->set_flashdata('success', 'Pendaftaran Ujian Proposal Berhasil Disetujui');
@@ -183,6 +232,10 @@ class Registration_Proposal extends CI_Controller
 
 	public function deProposal($id)
 	{
+		if ($this->session->userdata('group_id') != 3) {
+			redirect('error404');
+		} 
+
 		$data['status'] = 'Ditolak';
 		$this->Proregister_model->accProposal($id, $data);
 
@@ -190,17 +243,12 @@ class Registration_Proposal extends CI_Controller
 		redirect('registration_proposal');
 	}
 
-	public function koordinator2()
-	{
-		$data = [
-			'title' => "Penjadwalan Ujian Proposal",
-			'content' => 'registration/proposal/koordinator/koordinator2',
-		];
-		$this->load->view('template/overlay/koordinator', $data);
-	}
-
 	public function admin()
 	{
+		if ($this->session->userdata('group_id') != 4) {
+			redirect('error404');
+		} 
+
 		$data = [
 			'title' => "Pendaftaran Ujian Proposal",
 			'content' => 'registration/proposal/admin/admin',
@@ -208,21 +256,21 @@ class Registration_Proposal extends CI_Controller
 		$this->load->view('template/overlay/admin', $data);
 	}
 
-	public function admin2()
-	{
-		$data = [
-			'title' => "Pendaftaran Ujian Proposal",
-			'content' => 'registration/proposal/admin/admin2',
-		];
-		$this->load->view('template/overlay/admin', $data);
-	}
+	// public function admin2()
+	// {
+	// 	$data = [
+	// 		'title' => "Pendaftaran Ujian Proposal",
+	// 		'content' => 'registration/proposal/admin/admin2',
+	// 	];
+	// 	$this->load->view('template/overlay/admin', $data);
+	// }
 
-	public function admin3()
-	{
-		$data = [
-			'title' => "Pendaftaran Ujian Proposal",
-			'content' => 'registration/proposal/admin/admin3',
-		];
-		$this->load->view('template/overlay/admin', $data);
-	}
+	// public function admin3()
+	// {
+	// 	$data = [
+	// 		'title' => "Pendaftaran Ujian Proposal",
+	// 		'content' => 'registration/proposal/admin/admin3',
+	// 	];
+	// 	$this->load->view('template/overlay/admin', $data);
+	// }
 }

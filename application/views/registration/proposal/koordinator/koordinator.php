@@ -16,6 +16,13 @@
 				</div>
 			<?php endif; ?>
 
+			<?php if ($this->session->flashdata('error')) : ?>
+				<div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+					<?php echo $this->session->flashdata('error'); ?>
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			<?php endif; ?>
+
 			<ul class="nav nav-tabs mt-3" id="myTabs" role="tablist">
 				<li class="nav-item">
 					<a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Pembimbing 1</a>

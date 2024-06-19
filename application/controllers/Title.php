@@ -35,8 +35,7 @@ class Title extends CI_Controller {
 			redirect('error404');
 		}
 
-		$user_id = $this->session->userdata('user_id');
-		$myt = $this->Title_model->getMyTitle($user_id);
+		$myt = $this->Title_model->getMyTitle($this->session->userdata('user_id'));
 		$title = $this->Title_model->getTitle();
 		$data = [
 			'title' => "Pengajuan Judul",
@@ -177,11 +176,16 @@ class Title extends CI_Controller {
 			redirect('error404');
 		}
 
+		$id = $this->session->userdata('user_id');
+		$dospem1 = $this->Title_model->getTitleDospem1($id);
+		$dospem2 = $this->Title_model->getTitleDospem2($id);
 		$titleKo = $this->Title_model->getTitleKo();
 		$data = [
 			'title' => "Pengajuan Judul",
-			'content' => 'title/koordinator/koordinator', 
-			'titleKo' => $titleKo
+			'content' => 'title/koordinator/koordinator2', 
+			'titleKo' => $titleKo,
+			'dospem1' => $dospem1,
+			'dospem2' => $dospem2
 		];
 		$this->load->view('template/overlay/koordinator', $data);
 	}

@@ -73,5 +73,19 @@ class Proregister_model extends CI_Model
     public function getRooms()
     {
         return $this->db->get('rooms')->result_array();
-    }
+	}
+
+	public function getDosen()
+	{
+		$this->db->where('group_id', '2');
+		$this->db->or_where('group_id', '3');
+		$query = $this->db->get('users');
+		return $query->result_array();
+	}
+
+	public function setDosuji($id,$data)
+	{
+		$this->db->where('id', $id);
+		$this->db->update('title', $data);
+	}
 }

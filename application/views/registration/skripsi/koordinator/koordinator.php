@@ -140,6 +140,7 @@
 									<th scope="col">Status Pembimbing 1</th>
 									<th scope="col">Pembimbing 2</th>
 									<th scope="col">Status Pembimbing 2</th>
+									<th scope="col">Logbook Bimbingan</th>
 									<th scope="col">Aksi</th>
 								</tr>
 							</thead>
@@ -169,6 +170,7 @@
 											?>
 										</td>
 										<td><?= $data3->skp_status_dospem_2; ?></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>file/skripsi/logbook/<?= $data3->file_logbook; ?>">Unduh</a></td>
 										<td>
 											<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal<?= $data3->skp_id; ?>">Terima</button>
 											<a href="<?= base_url('registration_skripsi/deSkripsi') ?>/<?= $data3->skp_id; ?>" class="btn btn-danger">Tolak</a>

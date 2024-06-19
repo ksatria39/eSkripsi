@@ -128,10 +128,6 @@ class Registration_Skripsi extends CI_Controller
 
 	public function accDospem1($id)
 	{
-		if ($this->session->userdata('group_id') != 2) {
-			redirect('error404');
-		}
-
 		$data['status_dospem_1'] = 'Diterima';
 		$this->Skpregister_model->accSkripsi($id, $data);
 
@@ -141,10 +137,6 @@ class Registration_Skripsi extends CI_Controller
 
 	public function deDospem1($id)
 	{
-		if ($this->session->userdata('group_id') != 2) {
-			redirect('error404');
-		}
-
 		$data['status_dospem_1'] = 'Ditolak';
 		$this->Skpregister_model->accSkripsi($id, $data);
 
@@ -154,9 +146,6 @@ class Registration_Skripsi extends CI_Controller
 
 	public function accDospem2($id)
 	{
-		if ($this->session->userdata('group_id') != 2) {
-			redirect('error404');
-		}
 
 		$data['status_dospem_2'] = 'Diterima';
 		$this->Skpregister_model->accSkripsi($id, $data);
@@ -167,9 +156,6 @@ class Registration_Skripsi extends CI_Controller
 
 	public function deDospem2($id)
 	{
-		if ($this->session->userdata('group_id') != 2) {
-			redirect('error404');
-		}
 
 		$data['status_dospem_2'] = 'Ditolak';
 		$this->Skpregister_model->accSkripsi($id, $data);

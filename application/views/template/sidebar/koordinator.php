@@ -11,7 +11,7 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<?= base_url()?>">
+        <a class="nav-link collapsed" href="<?= base_url()?>/announcement">
           <span>Pengumuman</span>
         </a>
       </li><!-- End Announcment Nav -->

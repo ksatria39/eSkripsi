@@ -81,4 +81,32 @@ class User_model extends CI_Model
     {
         return $this->db->get('role')->result_array();
     }
+
+	public function get_profile($user_id)
+	{
+		$this->db->where('id', $user_id);
+		$query = $this->db->get('users');
+		return $query->row();
+	}
+
+	public function update_profile($user_id, $data)
+	{
+		$this->db->where('id', $user_id);
+		$this->db->update('users', $data);
+		return $this->db->affected_rows();
+	}
+
+	public function get_user_by_id($id)
+	{
+		$this->db->where('id', $id);
+		$query = $this->db->get('users');
+		return $query->row();
+	}
+
+	public function update_password($id, $new_password)
+	{
+		$this->db->where('id', $id);
+		$this->db->update('users', array('password' => password_hash($new_password, PASSWORD_DEFAULT)));
+		return $this->db->affected_rows();
+	}
 }

@@ -30,7 +30,7 @@
 
 			<?php if (empty($myProposal)) { ?>
 				<p>Anda belum mendaftar untuk mengikuti ujian proposal.</p>
-			<?php } else { ?> -->
+			<?php } else { ?>
 
 				<table class="table" style="margin-top: 4rem;">
 					<thead>
@@ -144,7 +144,7 @@
 					</tbody>
 				</table>
 
-			<!-- <?php } ?> -->
+			<?php } ?>
 			<!-- End Default Table Example -->
 
 

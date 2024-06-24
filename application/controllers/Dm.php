@@ -94,6 +94,37 @@ class Dm extends CI_Controller
 		}
 	}
 
+	public function delete_user($id)
+	{
+		$this->load->model('User_model');
+
+        // Get the user data
+        $user = $this->User_model->get_user_by_id($id);
+
+        if (!$user) {
+            // User not found, show error message
+            $this->session->set_flashdata('error', 'User not found');
+            redirect('user/list');
+        }
+
+        // Delete the user, ignoring foreign key constraints
+        $this->db->trans_start();
+        $this->db->query('SET FOREIGN_KEY_CHECKS = 0');
+        $this->User_model->delete($id);
+        $this->db->query('SET FOREIGN_KEY_CHECKS = 1');
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === FALSE) {
+            // Error deleting user, show error message
+            $this->session->set_flashdata('error', 'Gagal Menghapus Pengguna');
+            redirect('dm');
+        } else {
+            // User deleted successfully, show success message
+            $this->session->set_flashdata('success', 'Pengguna Berhasil Dihapus');
+            redirect('dm');
+        }
+	}
+
 	public function research_area()
 	{
 		$ra = $this->Ra_model->get();

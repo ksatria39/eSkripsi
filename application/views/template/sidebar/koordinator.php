@@ -71,12 +71,12 @@
             </a>
           </li>
           <li>
-            <a href="<?= base_url()?>schedule_skripsi/koordiantor">
+            <a href="<?= base_url()?>schedule_skripsi/">
               <i class="bi bi-circle"></i><span>Jadwal Ujian</span>
             </a>
           </li>
           <li>
-            <a href="<?= base_url()?>score_skripsi/koordinator">
+            <a href="<?= base_url()?>score_skripsi/">
               <i class="bi bi-circle"></i><span>Hasil Ujian</span>
             </a>
           </li>

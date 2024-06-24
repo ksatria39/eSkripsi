@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Proschedule_model extends CI_Model
+class Skpschedule_model extends CI_Model
 {
 	private $table = 'users';
 
@@ -12,10 +12,10 @@ class Proschedule_model extends CI_Model
 
 	public function getAll()
 	{
-		$this->db->select('*, pro_register.id as pro_id, pro_register.status as pro_status, pro_register.status_dospem_1 as pro_status_dospem_1, pro_register.status_dospem_2 as pro_status_dospem_2');
-		$this->db->from('pro_register');
-		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
-		$this->db->where('pro_register.status', 'Diterima');
+		$this->db->select('*, skp_register.id as skp_id, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2');
+		$this->db->from('skp_register');
+		$this->db->join('title', 'skp_register.title_id = title.id', 'inner');
+		$this->db->where('skp_register.status', 'Diterima');
 		$this->db->where('tanggal >=', date('Y-m-d'));
 		$this->db->order_by('tanggal', 'ASC');
 		$query = $this->db->get();
@@ -24,11 +24,11 @@ class Proschedule_model extends CI_Model
 
 	public function getMhs($user_id)
 	{
-		$this->db->select('*, pro_register.id as pro_id, pro_register.status as pro_status, pro_register.status_dospem_1 as pro_status_dospem_1, pro_register.status_dospem_2 as pro_status_dospem_2');
-		$this->db->from('pro_register');
-		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
+		$this->db->select('*, skp_register.id as skp_id, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2');
+		$this->db->from('skp_register');
+		$this->db->join('title', 'skp_register.title_id = title.id', 'inner');
 		$this->db->where('title.mahasiswa', $user_id);
-		$this->db->where('pro_register.status', 'Diterima');
+		$this->db->where('skp_register.status', 'Diterima');
 		$this->db->where('tanggal >=', date('Y-m-d'));
 		$this->db->order_by('tanggal', 'ASC');
 		$query = $this->db->get();
@@ -37,10 +37,10 @@ class Proschedule_model extends CI_Model
 
 	public function getDsn($user_id)
 	{
-		$this->db->select('*, pro_register.id as pro_id, pro_register.status as pro_status, pro_register.status_dospem_1 as pro_status_dospem_1, pro_register.status_dospem_2 as pro_status_dospem_2');
-		$this->db->from('pro_register');
-		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
-		$this->db->where('pro_register.status', 'Diterima');
+		$this->db->select('*, skp_register.id as skp_id, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2');
+		$this->db->from('skp_register');
+		$this->db->join('title', 'skp_register.title_id = title.id', 'inner');
+		$this->db->where('skp_register.status', 'Diterima');
 		$this->db->where('tanggal >=', date('Y-m-d'));
 		$this->db->order_by('tanggal', 'ASC');
 		$this->db->group_start();
@@ -56,7 +56,7 @@ class Proschedule_model extends CI_Model
 	public function update($id, $data)
 	{
 		$this->db->where('id', $id);
-		$this->db->update('pro_register', $data);
+		$this->db->update('skp_register', $data);
 		return $this->db->affected_rows();
 	}
 

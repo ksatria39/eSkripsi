@@ -109,4 +109,10 @@ class User_model extends CI_Model
 		$this->db->update('users', array('password' => password_hash($new_password, PASSWORD_DEFAULT)));
 		return $this->db->affected_rows();
 	}
+
+	public function delete($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('users');
+	}
 }

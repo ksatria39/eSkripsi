@@ -113,11 +113,13 @@ class Title extends CI_Controller {
 		$id = $this->session->userdata('user_id');
 		$dospem1 = $this->Title_model->getTitleDospem1($id);
 		$dospem2 = $this->Title_model->getTitleDospem2($id);
+		$t = $this->Title_model->getAllTitleDosen($id);
 		$data = [
 			'title' => "Pengajuan Judul",
 			'content' => 'title/dosen/dosen', 
 			'dospem1' => $dospem1,
-			'dospem2' => $dospem2
+			'dospem2' => $dospem2,
+			't' => $t
 		];
 		$this->load->view('template/overlay/dosen', $data);
 	}
@@ -180,12 +182,16 @@ class Title extends CI_Controller {
 		$dospem1 = $this->Title_model->getTitleDospem1($id);
 		$dospem2 = $this->Title_model->getTitleDospem2($id);
 		$titleKo = $this->Title_model->getTitleKo();
+		$dosen = $this->Title_model->getDosen();
+		$t = $this->Title_model->getTitle();
 		$data = [
 			'title' => "Pengajuan Judul",
-			'content' => 'title/koordinator/koordinator2', 
+			'content' => 'title/koordinator/koordinator', 
 			'titleKo' => $titleKo,
 			'dospem1' => $dospem1,
-			'dospem2' => $dospem2
+			'dospem2' => $dospem2,
+			'dosen' => $dosen,
+			't' => $t
 		];
 		$this->load->view('template/overlay/koordinator', $data);
 	}
@@ -195,6 +201,22 @@ class Title extends CI_Controller {
 	{
 		$id = $this->input->post('id');
 		$data['status'] = 'Diterima';
+		$this->Title_model->accTitle($id, $data);
+
+		$this->session->set_flashdata('success', 'Judul Berhasil Disetujui');
+		redirect('title');
+	}
+	public function accTitle2()
+	{
+		if ($this->input->post('dospem2') == '-- Pilih Dosen --') {
+			$this->session->set_flashdata('error', 'Silahkan atur dosen pembimbing 2 pengganti');
+			redirect('title');
+		}
+
+		$id = $this->input->post('id');
+		$data['status'] = 'Diterima';
+		$data['dospem_2_id'] = $this->input->post('dospem2');
+		$data['status_dospem_2'] = 'Diterima';
 		$this->Title_model->accTitle($id, $data);
 
 		$this->session->set_flashdata('success', 'Judul Berhasil Disetujui');
@@ -217,23 +239,11 @@ class Title extends CI_Controller {
 			redirect('error404');
 		}
 
+		$titles = $this->Title_model->getTitle();
 		$data = [
 			'title' => "Pengajuan Judul",
 			'content' => 'title/admin/admin', 
-		];
-		$this->load->view('template/overlay/admin', $data);
-	}
-
-	public function detail()
-	{
-		$this->load->view('title/admin/detail');
-	}
-
-	public function admin2()
-	{
-		$data = [
-			'title' => "Pengajuan Judul",
-			'content' => 'title/admin/admin2', 
+			'titles' => $titles
 		];
 		$this->load->view('template/overlay/admin', $data);
 	}

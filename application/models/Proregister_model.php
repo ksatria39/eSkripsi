@@ -9,6 +9,15 @@ class Proregister_model extends CI_Model
         parent::__construct();
     }
 
+	public function getProposal()
+	{
+		$this->db->select('*, pro_register.status as pro_status, pro_register.status_dospem_1 as pro_status_dospem_1, pro_register.status_dospem_2 as pro_status_dospem_2');
+		$this->db->from('pro_register');
+		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
     public function getMyProposal($user_id)
     {
         $this->db->select('*, pro_register.status as pro_status, pro_register.status_dospem_1 as pro_status_dospem_1, pro_register.status_dospem_2 as pro_status_dospem_2');

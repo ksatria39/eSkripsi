@@ -43,6 +43,17 @@ class Title_model extends CI_Model
         return $query->result();
     }
 
+	public function getAllTitleDosen($user_id)
+	{
+		$this->db->select('title.*, users.nama as nama_mahasiswa');
+		$this->db->join('users', 'title.mahasiswa = users.id', 'left');
+		$this->db->where('dospem_1_id', $user_id);
+		$this->db->or_where('dospem_2_id', $user_id);
+		$this->db->order_by('title.id', 'DESC');
+		$query = $this->db->get('title');
+		return $query->result();
+	}
+
     public function getMyTitle($user_id)
     {
         $this->db->select('title.*, users.nama as nama_mahasiswa');

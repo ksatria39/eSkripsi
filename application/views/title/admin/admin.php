@@ -1,102 +1,90 @@
-
 <section class="section">
-<div class="card">
-        <div class="card-body">
-            <div class="row mt-3">  
-                <div class="d-flex justify-content">
+	<div class="card">
+		<div class="card-body">
+
+			<?php if (empty($titles)) { ?>
+				<p>Belum ada judul yang diajukan.</p>
+			<?php } else { ?>
+
+				<!-- <div class="d-flex justify-content mt-3">
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Cari" aria-label="cari">
                         <button class="btn btn-outline-primary" type="submit">
                             <i class="ri-search-line"></i>
                         </button>
                     </form>
+                </div> -->
 
-                    <div style="width: 20px;"></div>
-                </div>
-            </div>    
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Judul</th>
-                    <th scope="col">Mahasiswa</th>
-                    <th scope="col">Pembimbing 1</th>
-                    <th scope="col">Pembimbing 2</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Sistem Informasi Balbla</td>
-                    <td>Amin</td>
-                    <td>Halo</td>
-                    <td>Halo</td>
-                    <td>Diverifikasi</td>
-                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Lihat Detail</button></td>
-                  </tr>
-                </tbody>
-              </table>
-              <!-- End Default Table Example -->
-    
-        </div>
-</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">No</th>
+							<th scope="col">Judul</th>
+							<th scope="col">Mahasiswa</th>
+							<th scope="col">Pembimbing 1</th>
+							<th scope="col">Status Pembimbing 1</th>
+							<th scope="col">Pembimbing 2</th>
+							<th scope="col">Status Pembimbing 2</th>
+							<th scope="col">Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php $no = 1;
+						foreach ($titles as $title) { ?>
+							<tr>
+								<th scope="row"><?= $no++; ?></th>
+								<td><?= $title->judul; ?></td>
+								<td>
+									<?php
+									$mahasiswa = $this->db->where('id', $title->mahasiswa)->get('users')->row();
+									echo $mahasiswa->nama;
+									?>
+								</td>
+								<td>
+									<?php
+									$dosen1 = $this->db->where('id', $title->dospem_1_id)->get('users')->row();
+									echo $dosen1->nama;
+									?>
+								</td>
+								<td>
+									<?php if ($title->status_dospem_1 == "Diterima") { ?>
+										<span class="badge rounded-pill bg-success">Diterima</span>
+									<?php } else if ($title->status_dospem_1 == "Ditolak") { ?>
+										<span class="badge rounded-pill bg-danger">Ditolak</span>
+									<?php } else { ?>
+										<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+									<?php } ?>
+								</td>
+								<td>
+									<?php
+									$dosen2 = $this->db->where('id', $title->dospem_2_id)->get('users')->row();
+									echo $dosen2->nama;
+									?>
+								</td>
+								<td>
+									<?php if ($title->status_dospem_2 == "Diterima") { ?>
+										<span class="badge rounded-pill bg-success">Diterima</span>
+									<?php } else if ($title->status_dospem_2 == "Ditolak") { ?>
+										<span class="badge rounded-pill bg-danger">Ditolak</span>
+									<?php } else { ?>
+										<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+									<?php } ?>
+								</td>
+								<td>
+									<?php if ($title->status == "Diterima") { ?>
+										<span class="badge rounded-pill bg-success">Diterima</span>
+									<?php } else if ($title->status == "Ditolak") { ?>
+										<span class="badge rounded-pill bg-danger">Ditolak</span>
+									<?php } else { ?>
+										<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+									<?php } ?>
+								</td>
+							</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+			<?php } ?>
+
+		</div>
+	</div>
 </section>
-
-<div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Detail</h4>
-            </div>
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <div class="row">
-                  <span class="col-sm-5"><b>Judul</b></span>
-                  <span class="col-sm-10">Sistem Informasi Balbla</span>
-                </div>
-                <div class="row">
-                  <span class="col-sm-5"><b>Mahasiswa</b></span>
-                  <span class="col-sm-10">Muhammad Amin (1412100017)</span>
-                </div>
-                <hr>
-                <div class="row">
-                  <span class="col-sm-5"><b>Pembimbing 1</b></span>
-                  <span class="col-sm-10">Amaludin Arifia, S.Kom. M.Kom.</span>
-                </div>
-                <div class="row">
-                  <span class="col-sm-5"><b>Status</b></span>
-                  <span class="col-sm-10">Diterima</span>
-                </div>
-                <div class="row">
-                  <span class="col-sm-5"><b>Keterangan</b></span>
-                  <span class="col-sm-10">Sangat Bagus</span>
-                </div>
-                <hr>
-                <div class="row">
-                  <span class="col-sm-5"><b>Pembimbing 2</b></span>
-                  <span class="col-sm-10">Andik Adi Suryanto, S.T. M.T.</span>
-                </div>
-                <div class="row">
-                  <span class="col-sm-5"><b>Status</b></span>
-                  <span class="col-sm-10">Ditolak</span>
-                </div>
-                <div class="row">
-                  <span class="col-sm-5"><b>Keterangan</b></span>
-                  <span class="col-sm-10">Sudah pernah dilakukan</span>
-                </div>
-                <hr>
-                <div class="row">
-                  <span class="col-sm-5"><b>Status Akhir</b></span>
-                  <span class="col-sm-10">Sedang Diproses</span>
-                </div>
-            </div>
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
-            </div>
-        </div>
-    </div>
-</div>

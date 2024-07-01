@@ -76,9 +76,9 @@
                   <form class="row g-3 needs-validation border-top" action="<?php echo base_url('login/login_user'); ?>" method="post" novalidate>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">NPM/Email</label>
+                      <label for="yourUsername" class="form-label">NPM/NIDN/Email</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="npm_or_email" class="form-control" id="npm_or_email" placeholder="Masukkan NPM" required>
+                        <input type="text" name="npm_or_email" class="form-control" id="npm_or_email" placeholder="Masukkan NPM, NIDN, atau Email" required>
                       </div>
                     </div>
 

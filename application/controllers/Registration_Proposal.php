@@ -128,10 +128,7 @@ class Registration_Proposal extends CI_Controller
 
 	public function accDospem1($id)
 	{
-		if ($this->session->userdata('group_id') != 2) {
-			redirect('error404');
-		}
-
+		
 		$data['status_dospem_1'] = 'Diterima';
 		$this->Proregister_model->accProposal($id, $data);
 
@@ -141,10 +138,7 @@ class Registration_Proposal extends CI_Controller
 
 	public function deDospem1($id)
 	{
-		if ($this->session->userdata('group_id') != 2) {
-			redirect('error404');
-		}
-
+		
 		$data['status_dospem_1'] = 'Ditolak';
 		$this->Proregister_model->accProposal($id, $data);
 
@@ -154,10 +148,7 @@ class Registration_Proposal extends CI_Controller
 
 	public function accDospem2($id)
 	{
-		if ($this->session->userdata('group_id') != 2) {
-			redirect('error404');
-		}
-
+		
 		$data['status_dospem_2'] = 'Diterima';
 		$this->Proregister_model->accProposal($id, $data);
 
@@ -167,9 +158,7 @@ class Registration_Proposal extends CI_Controller
 
 	public function deDospem2($id)
 	{
-		if ($this->session->userdata('group_id') != 2) {
-			redirect('error404');
-		}
+		
 
 		$data['status_dospem_2'] = 'Ditolak';
 		$this->Proregister_model->accProposal($id, $data);
@@ -261,9 +250,11 @@ class Registration_Proposal extends CI_Controller
 			redirect('error404');
 		}
 
+		$proposal = $this->Proregister_model->getProposal();
 		$data = [
 			'title' => "Pendaftaran Ujian Proposal",
 			'content' => 'registration/proposal/admin/admin',
+			'proposal' => $proposal,
 		];
 		$this->load->view('template/overlay/admin', $data);
 	}

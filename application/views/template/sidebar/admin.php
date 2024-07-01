@@ -5,7 +5,7 @@
 
 		<li class="nav-item">
 			<a class="nav-link collapsed" href="<?= base_url() ?>dashboard/">
-				<span>Dasbor</span>
+				<i class="ri-home-6-fill"></i><span>Dasbor</span>
 			</a>
 		</li><!-- End Dashboard Nav -->
 
@@ -31,7 +31,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="components-accordion.html">
+					<a href="<?= base_url('download'); ?>">
 						<i class="bi bi-circle"></i><span>Unduhan</span>
 					</a>
 				</li>
@@ -40,13 +40,13 @@
 
 		<li class="nav-item">
 			<a class="nav-link collapsed" href="<?= base_url() ?>title/admin">
-				<span>Pengajuan Judul</span>
+				<i class="ri-quill-pen-fill"></i><span>Pengajuan Judul</span>
 			</a>
 		</li><!-- End Title Submission Nav -->
 
 		<li class="nav-item">
 			<a class="nav-link collapsed" data-bs-target="#proposal-nav" data-bs-toggle="collapse" href="#">
-				<span>Proposal</span><i class="bi bi-chevron-down ms-auto"></i>
+				<i class="ri-book-fill"></i><span>Proposal</span><i class="bi bi-chevron-down ms-auto"></i>
 			</a>
 			<ul id="proposal-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 				<li>
@@ -79,7 +79,7 @@
 
 		<li class="nav-item">
 			<a class="nav-link collapsed" data-bs-target="#skripsi-nav" data-bs-toggle="collapse" href="#">
-				<span>Skripsi</span><i class="bi bi-chevron-down ms-auto"></i>
+				<i class="ri-book-line"></i><span>Skripsi</span><i class="bi bi-chevron-down ms-auto"></i>
 			</a>
 			<ul id="skripsi-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 				<li>
@@ -202,24 +202,6 @@
         </ul>
       </li>
       -->
-
-		<li class="nav-item">
-			<a class="nav-link collapsed" data-bs-target="#download-nav" data-bs-toggle="collapse" href="#">
-				<span>Unduh</span><i class="bi bi-chevron-down ms-auto"></i>
-			</a>
-			<ul id="download-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-				<li>
-					<a href="components-alerts.html">
-						<i class="bi bi-circle"></i><span>Panduan</span>
-					</a>
-				</li>
-				<li>
-					<a href="components-accordion.html">
-						<i class="bi bi-circle"></i><span>Template</span>
-					</a>
-				</li>
-			</ul>
-		</li><!-- End Download Nav -->
 
 	</ul>
 

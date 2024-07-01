@@ -23,6 +23,9 @@
 				<li class="nav-item">
 					<a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Pembimbing 2</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="tab3-tab" data-bs-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Riwayat</a>
+				</li>
 			</ul>
 
 			<div class="tab-content mt-2">
@@ -32,14 +35,14 @@
 						<p>Tidak ada judul yang menunggu persetujuan.</p>
 					<?php } else { ?>
 
-						<div class="d-flex justify-content mt-3">
+						<!-- <div class="d-flex justify-content mt-3">
 							<form class="d-flex">
 								<input class="form-control me-2" type="search" placeholder="Cari" aria-label="cari">
 								<button class="btn btn-outline-primary" type="submit">
 									<i class="ri-search-line"></i>
 								</button>
 							</form>
-						</div>
+						</div> -->
 
 						<table class="table">
 							<thead>
@@ -125,14 +128,14 @@
 						<p>Tidak ada judul yang menunggu persetujuan.</p>
 					<?php } else { ?>
 
-						<div class="d-flex justify-content mt-3">
+						<!-- <div class="d-flex justify-content mt-3">
 							<form class="d-flex">
 								<input class="form-control me-2" type="search" placeholder="Cari" aria-label="cari">
 								<button class="btn btn-outline-primary" type="submit">
 									<i class="ri-search-line"></i>
 								</button>
 							</form>
-						</div>
+						</div> -->
 
 						<table class="table">
 							<thead>
@@ -212,6 +215,90 @@
 
 				</div>
 
+				<div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
+
+					<!-- <div class="d-flex justify-content">
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Cari" aria-label="cari">
+                        <button class="btn btn-outline-primary" type="submit">
+                            <i class="ri-search-line"></i>
+                        </button>
+                    </form>
+                </div> -->
+
+					<?php if (empty($t)) { ?>
+						<p>Belum ada judul.</p>
+					<?php } else { ?>
+
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">No</th>
+									<th scope="col">Judul</th>
+									<th scope="col">Mahasiswa</th>
+									<th scope="col">Pembimbing 1</th>
+									<th scope="col">Status Pembimbing 1</th>
+									<th scope="col">Pembimbing 2</th>
+									<th scope="col">Status Pembimbing 2</th>
+									<th scope="col">Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php $no = 1;
+								foreach ($t as $t) { ?>
+									<tr>
+										<th scope="row"><?= $no++; ?></th>
+										<td><?= $t->judul; ?></td>
+										<td><?= $t->nama_mahasiswa; ?></td>
+										<td>
+											<?php
+											$dosen1 = $this->db->where('id', $t->dospem_1_id)->get('users')->row();
+											echo $dosen1->nama;
+											?>
+										</td>
+										<td>
+											<?php if ($t->status_dospem_1 == "Diterima") { ?>
+												<span class="badge rounded-pill bg-success">Diterima</span>
+											<?php } else if ($t->status_dospem_1 == "Ditolak") { ?>
+												<span class="badge rounded-pill bg-danger">Ditolak</span>
+											<?php } else { ?>
+												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+											<?php } ?>
+										</td>
+										<td>
+											<?php
+											$dosen2 = $this->db->where('id', $t->dospem_2_id)->get('users')->row();
+											echo $dosen2->nama;
+											?>
+										</td>
+										<td>
+											<?php if ($t->status_dospem_2 == "Diterima") { ?>
+												<span class="badge rounded-pill bg-success">Diterima</span>
+											<?php } else if ($t->status_dospem_2 == "Ditolak") { ?>
+												<span class="badge rounded-pill bg-danger">Ditolak</span>
+											<?php } else { ?>
+												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+											<?php } ?>
+										</td>
+										<td>
+											<?php if ($t->status == "Diterima") { ?>
+												<span class="badge rounded-pill bg-success">Diterima</span>
+											<?php } else if ($t->status == "Ditolak") { ?>
+												<span class="badge rounded-pill bg-danger">Ditolak</span>
+											<?php } else { ?>
+												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+											<?php } ?>
+										</td>
+									</tr>
+								<?php } ?>
+							</tbody>
+						</table>
+
+					<?php } ?>
+
+				</div>
+
 			</div>
 		</div>
+	</div>
 </section>

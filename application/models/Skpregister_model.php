@@ -9,6 +9,15 @@ class Skpregister_model extends CI_Model
 		parent::__construct();
 	}
 
+	public function getSkripsi()
+	{
+		$this->db->select('*, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2, skp_register.id as skp_id');
+		$this->db->from('skp_register');
+		$this->db->join('title', 'skp_register.title_id = title.id', 'inner');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function getMySkripsi($user_id)
 	{
 		$this->db->select('*, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2, skp_register.id as skp_id');

@@ -6,7 +6,7 @@ class Score_Proposal extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
-        $this->load->model('Score_model');
+        $this->load->model('Proscore_model');
     }
 
 	public function index()
@@ -49,40 +49,49 @@ class Score_Proposal extends CI_Controller {
 
 		$id = $this->session->userdata('user_id');
 
-		$dosuji1 = $this->Score_model->getProDosuji1($id);
-		$dosuji2 = $this->Score_model->getProDosuji2($id);
+		$dosuji1 = $this->Proscore_model->getDosuji1($id);
+		$dosuji2 = $this->Proscore_model->getDosuji2($id);
+		$dospem1 = $this->Proscore_model->getDospem1($id);
+		$dospem2 = $this->Proscore_model->getDospem2($id);
 		$data = [
 			'title' => "Penilaian Ujian Proposal",
 			'content' => 'score/proposal/dosen/dosen', 
 			'dosuji1' => $dosuji1,
-			'dosuji2' => $dosuji2
+			'dosuji2' => $dosuji2,
+			'dospem1'=> $dospem1,
+			'dospem2'=> $dospem2
 		];
 		$this->load->view('template/overlay/dosen', $data);
 	}
 
-	public function nilai()
+	public function nilai_pembimbing($id, $role)
 	{
 		if ($this->session->userdata('group_id') != 2) {
 			redirect('error404');
 		}
 
+		$ujian = $this->Proscore_model->getUjian($id);
 		$data = [
 			'title' => "Penilaian Ujian Proposal",
-			'content' => 'score/proposal/dosen/nilai', 
+			'content' => 'score/proposal/dosen/nilai_dospem', 
+			'role' => $role,
+			'ujian' => $ujian
 		];
 		$this->load->view('template/overlay/dosen', $data);
 	}
 
-	public function revisi()
+	public function nilai_penguji($id, $role)
 	{
-
 		if ($this->session->userdata('group_id') != 2) {
 			redirect('error404');
 		}
 
+		$ujian = $this->Proscore_model->getUjian($id);
 		$data = [
 			'title' => "Penilaian Ujian Proposal",
-			'content' => 'score/proposal/dosen/revisi', 
+			'content' => 'score/proposal/dosen/nilai_dosuji',
+			'role' => $role,
+			'ujian' => $ujian
 		];
 		$this->load->view('template/overlay/dosen', $data);
 	}

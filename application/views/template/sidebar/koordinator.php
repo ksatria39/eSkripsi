@@ -11,7 +11,7 @@
 
 		<li class="nav-item">
 			<a class="nav-link collapsed" href="<?= base_url() ?>/announcement">
-				<span>Pengumuman</span>
+				<i class="ri-megaphone-fill"></i><span>Pengumuman</span>
 			</a>
 		</li><!-- End Announcment Nav -->
 

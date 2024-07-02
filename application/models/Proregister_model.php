@@ -97,4 +97,9 @@ class Proregister_model extends CI_Model
 		$this->db->where('id', $id);
 		$this->db->update('title', $data);
 	}
+
+	public function addUjian($data)
+	{
+		$this->db->insert('pro_nilai', $data);
+	}
 }

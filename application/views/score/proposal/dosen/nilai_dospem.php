@@ -2,8 +2,8 @@
 	<div class="card">
 		<div class="card-body">
 			<!-- General Form Elements -->
-			<form action="" method="post">
-				<input type="hidden" value="<?= $role ?>">
+			<form action="<?= base_url('score_proposal/insert_nilai_pembimbing') ?>" method="post">
+				<input type="hidden" name="id" id="id" value="<?= $ujian->nilai_id ?>">
 				<div class="row mb-3 mt-3">
 					<label for="inputTanggal" class="col-sm-2 col-form-label"><b>Tanggal</b></label>
 					<div class="col-sm-10 w-50 mt-2">
@@ -38,7 +38,7 @@
 					<thead>
 						<tr>
 							<th>A. Penilaian Naskah</th>
-							<th>Skor 1-100</th>
+							<th>Skor 0-100</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -46,7 +46,7 @@
 							<td>Teknik Penulisan</td>
 							<td>
 								<div class="col-sm-10">
-									<input type="number" name="naskah_penulisan" id="naskah_penulisan" class="form-control" min="0" max="100" required>
+									<input type="number" value="<?= $ujian->naskah_penulisan ?>" name="naskah_penulisan" id="naskah_penulisan" class="form-control" min="0" max="100" required>
 								</div>
 							</td>
 						</tr>
@@ -54,7 +54,7 @@
 							<td>Konsep Pemikiran</td>
 							<td>
 								<div class="col-sm-10">
-									<input type="number" name="naskah_pemikiran" id="naskah_pemikiran" class="form-control" min="0" max="100" required>
+									<input type="number" value="<?= $ujian->naskah_pemikiran ?>" name="naskah_pemikiran" id="naskah_pemikiran" class="form-control" min="0" max="100" required>
 								</div>
 							</td>
 						</tr>
@@ -62,7 +62,7 @@
 							<td>Kajian Pustaka</td>
 							<td>
 								<div class="col-sm-10">
-									<input type="number" name="naskah_kajian" id="naskah_kajian" class="form-control" min="0" max="100" required>
+									<input type="number" value="<?= $ujian->naskah_kajian ?>" name="naskah_kajian" id="naskah_kajian" class="form-control" min="0" max="100" required>
 								</div>
 							</td>
 						</tr>
@@ -70,7 +70,7 @@
 							<td>Metode Penelitian</td>
 							<td>
 								<div class="col-sm-10">
-									<input type="number" name="naskah_metode" id="naskah_metode" class="form-control" min="0" max="100" required>
+									<input type="number" value="<?= $ujian->naskah_metode ?>" name="naskah_metode" id="naskah_metode" class="form-control" min="0" max="100" required>
 								</div>
 							</td>
 						</tr>
@@ -78,7 +78,7 @@
 							<td>Hasil penelitian</td>
 							<td>
 								<div class="col-sm-10">
-									<input type="number" name="naskah_hasil" id="naskah_penulisan" class="form-control" min="0" max="100" required>
+									<input type="number" value="<?= $ujian->naskah_hasil ?>" name="naskah_hasil" id="naskah_penulisan" class="form-control" min="0" max="100" required>
 								</div>
 							</td>
 						</tr>
@@ -86,7 +86,7 @@
 							<td>Kesimpulan</td>
 							<td>
 								<div class="col-sm-10">
-									<input type="number" name="naskah_kesimpulan" id="naskah_kesimpulan" class="form-control" min="0" max="100" required>
+									<input type="number" value="<?= $ujian->naskah_kesimpulan ?>" name="naskah_kesimpulan" id="naskah_kesimpulan" class="form-control" min="0" max="100" required>
 								</div>
 							</td>
 						</tr>
@@ -94,7 +94,7 @@
 							<td>Kepustakaan</td>
 							<td>
 								<div class="col-sm-10">
-									<input type="number" name="naskah_kepustakaan" id="naskah_kepustakaan" class="form-control" min="0" max="100" required>
+									<input type="number" value="<?= $ujian->naskah_kepustakaan ?>" name="naskah_kepustakaan" id="naskah_kepustakaan" class="form-control" min="0" max="100" required>
 								</div>
 							</td>
 						</tr>
@@ -102,7 +102,7 @@
 					<thead>
 						<tr>
 							<th>B. Penilaian Pelaksanaan Ujian</th>
-							<th>Skor 1-100</th>
+							<th>Skor 0-100</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -110,7 +110,7 @@
 							<td>Presentasi</td>
 							<td>
 								<div class="col-sm-10">
-									<input type="number" name="pelaksanaan_presentasi" id="pelaksanaan_presentasi" class="form-control" min="0" max="100" required>
+									<input type="number" value="<?= $ujian->pelaksanaan_presentasi ?>" name="pelaksanaan_presentasi" id="pelaksanaan_presentasi" class="form-control" min="0" max="100" required>
 								</div>
 							</td>
 						</tr>
@@ -118,7 +118,7 @@
 							<td>Penguasaan Materi</td>
 							<td>
 								<div class="col-sm-10">
-									<input type="number" name="pelaksanaan_penguasaan" id="pelaksanaan_penguasaan" class="form-control" min="0" max="100" required>
+									<input type="number" value="<?= $ujian->pelaksanaan_penguasaan ?>" name="pelaksanaan_penguasaan" id="pelaksanaan_penguasaan" class="form-control" min="0" max="100" required>
 								</div>
 							</td>
 						</tr>
@@ -127,7 +127,7 @@
 							<td>Kemampuan Berargumentasi</td>
 							<td>
 								<div class="col-sm-10">
-									<input type="number" name="pelaksanaan_argumentasi" id="pelaksanaan_argumentasi" class="form-control" min="0" max="100" required>
+									<input type="number" value="<?= $ujian->pelaksanaan_argumentasi ?>" name="pelaksanaan_argumentasi" id="pelaksanaan_argumentasi" class="form-control" min="0" max="100" required>
 								</div>
 							</td>
 						</tr>
@@ -135,7 +135,7 @@
 					<thead>
 						<tr>
 							<th>C. Penilaian Pembimbingan</th>
-							<th>Skor 1-100</th>
+							<th>Skor 0-100</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -143,7 +143,7 @@
 							<td>Ketekunan</td>
 							<td>
 								<div class="col-sm-10">
-									<input type="number" name="bimbingan_ketekunan" id="bimbingan_ketekunan" class="form-control" min="0" max="100" required>
+									<input type="number" value="<?= $ujian->bimbingan_ketekunan ?>" name="bimbingan_ketekunan" id="bimbingan_ketekunan" class="form-control" min="0" max="100" required>
 								</div>
 							</td>
 						</tr>
@@ -151,7 +151,7 @@
 							<td>Adab</td>
 							<td>
 								<div class="col-sm-10">
-									<input type="number" name="bimbingan_adab" id="bimbingan_adab" class="form-control" min="0" max="100" required>
+									<input type="number" value="<?= $ujian->bimbingan_adab ?>" name="bimbingan_adab" id="bimbingan_adab" class="form-control" min="0" max="100" required>
 								</div>
 							</td>
 						</tr>
@@ -160,7 +160,7 @@
 							<td>Kemandirian</td>
 							<td>
 								<div class="col-sm-10">
-									<input type="number" name="bimbingan_kemandirian" id="bimbingan_kemandirian" class="form-control" min="0" max="100" required>
+									<input type="number" value="<?= $ujian->bimbingan_kemandirian ?>" name="bimbingan_kemandirian" id="bimbingan_kemandirian" class="form-control" min="0" max="100" required>
 								</div>
 							</td>
 						</tr>

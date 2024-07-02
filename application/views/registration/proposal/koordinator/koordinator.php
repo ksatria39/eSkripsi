@@ -189,8 +189,10 @@
 												<div class="modal-body">
 													<form class="row g-3 needs-validation border-top" action="<?php echo base_url('registration_proposal/accProposal'); ?>" method="post" novalidate>
 
-														<input type="hidden" id="id" name="id" value="<?= $data3->pro_id; ?>"></input>
-														<input type="hidden" id="title_id" name="title_id" value="<?= $data3->title_id; ?>"></input>
+														<input type="hidden" id="id" name="id" value="<?= $data3->pro_id; ?>">
+														<input type="hidden" id="title_id" name="title_id" value="<?= $data3->title_id; ?>">
+														<input type="hidden" id="dospem1" name="dospem1" value="<?= $data3->dospem_1_id; ?>">
+														<input type="hidden" id="dospem2" name="dospem2" value="<?= $data3->dospem_2_id; ?>">
 
 														<div class="col-12">
 															<label for="tanggal" class="form-label">Tanggal</label>
@@ -218,8 +220,8 @@
 															<label for="title_id" class="form-label">Dosen Penguji 1</label>
 															<select class="form-select" name="dosuji1" id="dosuji1" aria-label="Default select example">
 																<option selected="">-- Pilih Penguji 1 --</option>
-																<?php foreach ($dosuji1 as $dosuji1) : ?>
-																	<option value="<?= $dosuji1['id']; ?>" <?= set_select('id', $dosuji1['id']); ?>><?= $dosuji1['nama']; ?></option>
+																<?php foreach ($dosuji1 as $penguji1) : ?>
+																	<option value="<?= $penguji1['id']; ?>" <?= set_select('id', $penguji1['id']); ?>><?= $penguji1['nama']; ?></option>
 																<?php endforeach; ?>
 															</select>
 														</div>
@@ -228,8 +230,8 @@
 															<label for="title_id" class="form-label">Dosen Penguji 2</label>
 															<select class="form-select" name="dosuji2" id="dosuji2" aria-label="Default select example">
 																<option selected="">-- Pilih Penguji 2 --</option>
-																<?php foreach ($dosuji2 as $dosuji2) : ?>
-																	<option value="<?= $dosuji2['id']; ?>" <?= set_select('id', $dosuji2['id']); ?>><?= $dosuji2['nama']; ?></option>
+																<?php foreach ($dosuji2 as $penguji2) : ?>
+																	<option value="<?= $penguji2['id']; ?>" <?= set_select('id', $penguji2['id']); ?>><?= $penguji2['nama']; ?></option>
 																<?php endforeach; ?>
 															</select>
 														</div>
@@ -255,4 +257,6 @@
 
 				</div>
 			</div>
+		</div>
+	</div>
 </section>

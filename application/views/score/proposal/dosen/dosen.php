@@ -2,6 +2,13 @@
 	<div class="card">
 		<div class="card-body">
 
+			<?php if ($this->session->flashdata('success')) : ?>
+				<div class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+					<?php echo $this->session->flashdata('success'); ?>
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			<?php endif; ?>
+
 			<ul class="nav nav-tabs mt-3" id="myTabs" role="tablist">
 				<li class="nav-item">
 					<a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Pembimbing 1</a>
@@ -68,7 +75,7 @@
 										</td>
 										<td><?php echo $dospem1->jam; ?></td>
 										<td>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_pembimbing/<?= $dospem1->pro_id ?>/dospem-1">Nilai</a>
+											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_pembimbing/<?= $dospem1->nilai_id ?>">Nilai</a>
 										</td>
 									</tr>
 								<?php } ?>
@@ -130,7 +137,7 @@
 										</td>
 										<td><?php echo $dospem2->jam; ?></td>
 										<td>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_pembimbing/<?= $dospem2->pro_id ?>/dospem-2">Nilai</a>
+											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_pembimbing/<?= $dospem2->nilai_id ?>">Nilai</a>
 										</td>
 									</tr>
 								<?php } ?>
@@ -191,7 +198,7 @@
 										</td>
 										<td><?php echo $dosuji1->jam; ?></td>
 										<td>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_penguji/<?= $dosuji1->pro_id ?>/dosuji-1">Nilai</a>
+											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_penguji/<?= $dosuji1->nilai_id ?>">Nilai</a>
 										</td>
 									</tr>
 								<?php } ?>
@@ -252,7 +259,7 @@
 										</td>
 										<td><?php echo $dosuji2->jam; ?></td>
 										<td>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_penguji/<?= $dosuji2->pro_id ?>/dosuji-2">Nilai</a>
+											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_penguji/<?= $dosuji2->nilai_id ?>">Nilai</a>
 										</td>
 									</tr>
 								<?php } ?>

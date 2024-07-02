@@ -11,13 +11,13 @@
 
 		<li class="nav-item">
 			<a class="nav-link collapsed" href="<?= base_url() ?>">
-				<span>Pengumuman</span>
+				<i class="ri-megaphone-fill"></i><span>Pengumuman</span>
 			</a>
 		</li><!-- End Announcment Nav -->
 
 		<li class="nav-item">
 			<a class="nav-link collapsed" data-bs-target="#data-nav" data-bs-toggle="collapse" href="#">
-				<span>Data Master</span><i class="bi bi-chevron-down ms-auto"></i>
+				<i class="ri-stack-fill"></i><span>Data Master</span><i class="bi bi-chevron-down ms-auto"></i>
 			</a>
 			<ul id="data-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 				<li>

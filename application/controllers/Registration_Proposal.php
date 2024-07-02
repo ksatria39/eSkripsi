@@ -206,7 +206,7 @@ class Registration_Proposal extends CI_Controller
 			redirect('registration_proposal');
 		}
 
-		$id = $this->input->post('id');
+		$id_register = $this->input->post('id');
 		$tanggal = $this->input->post('tanggal');
 		$jam = $this->input->post('jam');
 		$room = $this->input->post('room_id');
@@ -216,7 +216,7 @@ class Registration_Proposal extends CI_Controller
 			'jam' => $jam,
 			'room_id' => $room
 		];
-		$this->Proregister_model->accProposal($id, $data);
+		$this->Proregister_model->accProposal($id_register, $data);
 
 		$title_id = $this->input->post('title_id');
 		$dosuji1 = $this->input->post('dosuji1');
@@ -226,6 +226,37 @@ class Registration_Proposal extends CI_Controller
 			'dosuji_2_id' => $dosuji2,
 		];
 		$this->Proregister_model->setDosuji($title_id, $data2);
+
+		$dospem1= $this->input->post('dospem1');
+		$dospem2 = $this->input->post('dospem2');
+
+		$data_ujian_1 = [
+			'pro_register_id' => $id_register,
+			'dosen_id' => $dospem1,
+			'as' => 'dospem-1'
+		];
+		$this->Proregister_model->addUjian($data_ujian_1);
+
+		$data_ujian_2 = [
+			'pro_register_id' => $id_register,
+			'dosen_id' => $dospem2,
+			'as' => 'dospem-2'
+		];
+		$this->Proregister_model->addUjian($data_ujian_2);
+
+		$data_ujian_3 = [
+			'pro_register_id' => $id_register,
+			'dosen_id' => $dosuji1,
+			'as' => 'dosuji-1'
+		];
+		$this->Proregister_model->addUjian($data_ujian_3);
+
+		$data_ujian_4 = [
+			'pro_register_id' => $id_register,
+			'dosen_id' => $dosuji2,
+			'as' => 'dosuji-2'
+		];
+		$this->Proregister_model->addUjian($data_ujian_4);
 
 		$this->session->set_flashdata('success', 'Pendaftaran Ujian Proposal Berhasil Disetujui');
 		redirect('registration_proposal');

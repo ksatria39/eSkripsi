@@ -64,4 +64,15 @@ class Proschedule_model extends CI_Model
 	{
 		return $this->db->get('rooms')->result_array();
 	}
+
+	public function get_berita_acara($id)
+	{
+		$this->db->select('*, pro_register.id as pro_id');
+		$this->db->from('pro_register');
+		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
+		$this->db->where('pro_register.id', $id);
+		$query = $this->db->get();
+		return $query->row();
+	}
+	
 }

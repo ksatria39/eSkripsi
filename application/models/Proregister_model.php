@@ -102,4 +102,6 @@ class Proregister_model extends CI_Model
 	{
 		$this->db->insert('pro_nilai', $data);
 	}
+
+	
 }

@@ -68,7 +68,7 @@
 								<td><?php echo $ujian->jam; ?></td>
 								<td>
 									<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_pembimbing/">Lihat</a>
-									<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_pembimbing/">Unduh</a>
+									<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/download_nilai/<?= $ujian->pro_id ?>">Unduh</a>
 								</td>
 							</tr>
 						<?php } ?>

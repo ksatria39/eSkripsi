@@ -97,13 +97,57 @@ class Proscore_model extends CI_Model
 	{
 		$this->db->select('*, pro_register.id as pro_id');
 		$this->db->from('pro_register');
+		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
 		$this->db->where('pro_register.id', $id);
 		$query = $this->db->get();
 		return $query->row();
 	}
 
-	public function getNilaiDospem1($id)
+	public function getNilaiDospem1($id,$dosen)
 	{
-		
+		$this->db->select('*');
+		$this->db->from('pro_nilai');
+		$this->db->where('pro_register_id', $id);
+		$this->db->where('dosen_id', $dosen);
+		$this->db->where('as','dospem-1');
+		// $this->db->order_by('id','desc');
+		$query = $this->db->get();
+		return $query->row();
+	}
+
+	public function getNilaiDospem2($id, $dosen)
+	{
+		$this->db->select('*');
+		$this->db->from('pro_nilai');
+		$this->db->where('pro_register_id', $id);
+		$this->db->where('dosen_id', $dosen);
+		$this->db->where('as', 'dospem-2');
+		// $this->db->order_by('id', 'desc');
+		$query = $this->db->get();
+		return $query->row();
+	}
+
+	public function getNilaiDosuji1($id, $dosen)
+	{
+		$this->db->select('*');
+		$this->db->from('pro_nilai');
+		$this->db->where('pro_register_id', $id);
+		$this->db->where('dosen_id', $dosen);
+		$this->db->where('as', 'dosuji-1');
+		// $this->db->order_by('id', 'desc');
+		$query = $this->db->get();
+		return $query->row();
+	}
+
+	public function getNilaiDosuji2($id, $dosen)
+	{
+		$this->db->select('*');
+		$this->db->from('pro_nilai');
+		$this->db->where('pro_register_id', $id);
+		$this->db->where('dosen_id', $dosen);
+		$this->db->where('as', 'dosuji-2');
+		// $this->db->order_by('id', 'desc');
+		$query = $this->db->get();
+		return $query->row();
 	}
 }

@@ -42,6 +42,11 @@
 					</a>
 				</li>
 				<li>
+					<a href="<?= base_url() ?>score_proposal">
+						<i class="bi bi-circle"></i><span>Penilaian Ujian</span>
+					</a>
+				</li>
+				<li>
 					<a href="<?= base_url() ?>score_proposal/koordinator">
 						<i class="bi bi-circle"></i><span>Hasil Ujian</span>
 					</a>
@@ -76,7 +81,7 @@
 				</li>
 				<li>
 					<a href="<?= base_url() ?>score_skripsi/">
-						<i class="bi bi-circle"></i><span>Hasil Ujian</span>
+						<i class="bi bi-circle"></i><span>Penilaian Ujian</span>
 					</a>
 				</li>
 				<li>

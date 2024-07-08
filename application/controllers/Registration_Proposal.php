@@ -63,7 +63,6 @@ class Registration_Proposal extends CI_Controller
 
 	public function addProposal()
 	{
-
 		if ($this->session->userdata('group_id') != 1) {
 			redirect('error404');
 		}
@@ -79,6 +78,7 @@ class Registration_Proposal extends CI_Controller
 			$this->session->set_flashdata('error', 'Seluruh kolom wajib diisi.');
 			redirect('registration_proposal/daftar');
 		} else {
+			// Upload logbook
 			$config['upload_path'] = './file/proposal/logbook/';
 			$config['allowed_types'] = 'pdf';
 			$config['max_size'] = 10240; // 10MB
@@ -89,21 +89,43 @@ class Registration_Proposal extends CI_Controller
 				$this->session->set_flashdata('error', $this->upload->display_errors());
 				redirect('registration_proposal/daftar');
 			} else {
-				$upload_data = $this->upload->data();
-				$file_name = $upload_data['file_name'];
+				$upload_data_logbook = $this->upload->data();
+				$file_name_logbook = $upload_data_logbook['file_name'];
 
-				$data = array(
-					'title_id' => $this->input->post('title_id'),
-					'file_logbook' => $file_name,
-					'status_dospem_1' => 'Sedang diproses',
-					'status_dospem_2' => 'Sedang diproses',
-					'status' => 'Sedang diproses'
-				);
+				// Upload naskah
+				$config_naskah['upload_path'] = './file/proposal/naskah/';
+				$config_naskah['allowed_types'] = 'pdf';
+				$config_naskah['max_size'] = 10240; // 10MB
 
-				$this->Proregister_model->addProposal($data);
+				$this->upload->initialize($config_naskah);
 
-				$this->session->set_flashdata('success', 'Berhasil mendaftar ujian proposal');
-				redirect('registration_proposal');
+				if (!$this->upload->do_upload('file_naskah')) {
+					$this->session->set_flashdata('error', $this->upload->display_errors());
+					redirect('registration_proposal/daftar');
+				} else {
+					$upload_data_naskah = $this->upload->data();
+					$file_name_naskah = $upload_data_naskah['file_name'];
+
+					$data = array(
+						'title_id' => $this->input->post('title_id'),
+						'file_logbook' => $file_name_logbook,
+						'file_naskah' => $file_name_naskah,
+						'status_dospem_1' => 'Sedang diproses',
+						'status_dospem_2' => 'Sedang diproses',
+						'status' => 'Sedang diproses'
+					);
+
+					$this->Proregister_model->addProposal($data);
+
+					$data2 = [
+						'status_ujian_proposal' => 'Terdaftar'
+					];
+
+					$this->Proregister_model->setTitle($this->input->post('title_id'), $data2);
+
+					$this->session->set_flashdata('success', 'Berhasil mendaftar ujian proposal');
+					redirect('registration_proposal');
+				}
 			}
 		}
 	}
@@ -123,49 +145,32 @@ class Registration_Proposal extends CI_Controller
 			'dospem1' => $dospem1,
 			'dospem2' => $dospem2,
 		];
+		// var_export($data['dospem2'][2]);
+		// die;
 		$this->load->view('template/overlay/dosen', $data);
 	}
 
-	public function accDospem1($id)
+	public function update_status_dospem1($id)
 	{
-		
-		$data['status_dospem_1'] = 'Diterima';
-		$this->Proregister_model->accProposal($id, $data);
-
-		$this->session->set_flashdata('success', 'Pendaftaran Ujian Proposal Berhasil Disetujui');
-		redirect('registration_proposal');
+		$status = $this->input->post('status');
+		if (!empty($status)) {
+			$data['status_dospem_1'] = $status;
+			$this->Proregister_model->accProposal($id, $data);
+		}
+		redirect("registration_proposal");
 	}
 
-	public function deDospem1($id)
+	public function update_status_dospem2($id)
 	{
-		
-		$data['status_dospem_1'] = 'Ditolak';
-		$this->Proregister_model->accProposal($id, $data);
-
-		$this->session->set_flashdata('denied', 'Pendaftaran Ujian Proposal Berhasil Ditolak');
-		redirect('registration_proposal');
+		$status = $this->input->post('status');
+		if (!empty($status)) {
+			$data['status_dospem_2'] = $status;
+			$this->Proregister_model->accProposal($id, $data);
+		}
+		redirect("registration_proposal");
 	}
 
-	public function accDospem2($id)
-	{
-		
-		$data['status_dospem_2'] = 'Diterima';
-		$this->Proregister_model->accProposal($id, $data);
 
-		$this->session->set_flashdata('success', 'Pendaftaran Ujian Proposal Berhasil Disetujui');
-		redirect('registration_proposal');
-	}
-
-	public function deDospem2($id)
-	{
-		
-
-		$data['status_dospem_2'] = 'Ditolak';
-		$this->Proregister_model->accProposal($id, $data);
-
-		$this->session->set_flashdata('denied', 'Pendaftaran Ujian Proposal Berhasil Disetujui');
-		redirect('registration_proposal');
-	}
 
 	public function koordinator()
 	{
@@ -227,7 +232,7 @@ class Registration_Proposal extends CI_Controller
 		];
 		$this->Proregister_model->setDosuji($title_id, $data2);
 
-		$dospem1= $this->input->post('dospem1');
+		$dospem1 = $this->input->post('dospem1');
 		$dospem2 = $this->input->post('dospem2');
 
 		$data_ujian_1 = [

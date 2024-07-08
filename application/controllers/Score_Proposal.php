@@ -20,7 +20,7 @@ class Score_Proposal extends CI_Controller
 			} else if ($this->session->userdata('group_id') == 2) {
 				$this->dosen();
 			} else if ($this->session->userdata('group_id') == 3) {
-				$this->koordinator();
+				$this->dosen();
 			} else if ($this->session->userdata('group_id') == 4) {
 				$this->admin();
 			} else {
@@ -62,7 +62,7 @@ class Score_Proposal extends CI_Controller
 		$dosuji1 = $this->db->where('id', $data->dosuji_1_id)->get('users')->row();
 		$dosuji2 = $this->db->where('id', $data->dosuji_2_id)->get('users')->row();
 		$dospem1 = $this->db->where('id', $data->dospem_1_id)->get('users')->row();
-		$dospem2 = $this->db->where('id', $data->dospem_1_id)->get('users')->row();
+		$dospem2 = $this->db->where('id', $data->dospem_2_id)->get('users')->row();
 		$mahasiswa = $this->db->where('id', $data->mahasiswa)->get('users')->row();
 		$room = $this->db->where('id', $data->room_id)->get('rooms')->row();
 
@@ -90,15 +90,15 @@ class Score_Proposal extends CI_Controller
 
 		if ($skor_akhir >= 81 && $skor_akhir <= 100) {
 			$nilai_akhir = 'A';
-		} else if ($skor_akhir >= 76 && $skor_akhir <= 80) {
+		} else if ($skor_akhir >= 76 && $skor_akhir < 81) {
 			$nilai_akhir = 'AB';
-		} else if ($skor_akhir >= 71 && $skor_akhir <= 75) {
+		} else if ($skor_akhir >= 71 && $skor_akhir < 76) {
 			$nilai_akhir = 'B';
-		} else if ($skor_akhir >= 66 && $skor_akhir <= 70) {
+		} else if ($skor_akhir >= 66 && $skor_akhir < 71) {
 			$nilai_akhir = 'BC';
-		} else if ($skor_akhir >= 56 && $skor_akhir <= 65) {
+		} else if ($skor_akhir >= 56 && $skor_akhir < 66) {
 			$nilai_akhir = 'C';
-		} else if ($skor_akhir >= 46 && $skor_akhir <= 55) {
+		} else if ($skor_akhir >= 46 && $skor_akhir < 56) {
 			$nilai_akhir = 'D';
 		} else {
 			$nilai_akhir = 'E';
@@ -263,7 +263,9 @@ class Score_Proposal extends CI_Controller
 
 	public function dosen()
 	{
-		if ($this->session->userdata('group_id') != 2) {
+		$allowed_group_ids = [2, 3];
+
+		if (!in_array($this->session->userdata('group_id'), $allowed_group_ids)) {
 			redirect('error404');
 		}
 
@@ -281,12 +283,20 @@ class Score_Proposal extends CI_Controller
 			'dospem1' => $dospem1,
 			'dospem2' => $dospem2
 		];
-		$this->load->view('template/overlay/dosen', $data);
+
+		if ($this->session->userdata('group_id') == 2) {
+			$template = 'template/overlay/dosen';
+		} elseif ($this->session->userdata('group_id') == 3) {
+			$template = 'template/overlay/koordinator';
+		}
+		$this->load->view($template, $data);
 	}
 
 	public function nilai_pembimbing($id)
 	{
-		if ($this->session->userdata('group_id') != 2) {
+		$allowed_group_ids = [2, 3];
+
+		if (!in_array($this->session->userdata('group_id'), $allowed_group_ids)) {
 			redirect('error404');
 		}
 
@@ -301,6 +311,7 @@ class Score_Proposal extends CI_Controller
 
 	public function insert_nilai_pembimbing()
 	{
+
 		$id = $this->input->post('id');
 
 		$naskah_penulisan = $this->input->post('naskah_penulisan');
@@ -374,12 +385,76 @@ class Score_Proposal extends CI_Controller
 
 		$this->Proscore_model->insertNilai($id, $data);
 		$this->session->set_flashdata('success', 'Nilai berhasil disimpan');
+
+		$getNilai = $this->db->where('id', $id)->get('pro_nilai')->row();
+		$getRegister = $this->db->where('id', $getNilai->pro_register_id)->get('pro_register')->row();
+		$getTitle = $this->db->where('id', $getRegister->title_id)->get('title')->row();
+
+		$nilaiDospem1 = $this->Proscore_model->getNilaiDospem1($getRegister->id, $getTitle->dospem_1_id);
+		$nilaiDospem2 = $this->Proscore_model->getNilaiDospem2($getRegister->id, $getTitle->dospem_2_id);
+		$nilaiDosuji1 = $this->Proscore_model->getNilaiDosuji1($getRegister->id, $getTitle->dosuji_1_id);
+		$nilaiDosuji2 = $this->Proscore_model->getNilaiDosuji2($getRegister->id, $getTitle->dosuji_2_id);
+
+		$rata_bimbingan = ($nilaiDospem1->rata_c + $nilaiDospem2->rata_c) / 2;
+
+		$rata_naskah_dospem = ($nilaiDospem1->rata_a + $nilaiDospem2->rata_a) / 2;
+		$rata_pelaksanaan_dospem = ($nilaiDospem1->rata_b + $nilaiDospem2->rata_b) / 2;
+		$rata_naskah_dosuji = ($nilaiDosuji1->rata_a + $nilaiDosuji2->rata_a) / 2;
+		$rata_pelaksanaan_dosuji = ($nilaiDosuji1->rata_b + $nilaiDosuji2->rata_b) / 2;
+
+		$rata_naskah = ($rata_naskah_dospem + $rata_naskah_dosuji) / 2;
+		$rata_pelaksanaan = ($rata_pelaksanaan_dospem + $rata_pelaksanaan_dosuji) / 2;
+
+		$bs_rata_bimbingan = $rata_bimbingan * 20;
+		$bs_rata_naskah = $rata_naskah * 30;
+		$bs_rata_pelaksanaan = $rata_pelaksanaan * 50;
+
+		$skor_total = $bs_rata_bimbingan + $bs_rata_naskah + $bs_rata_pelaksanaan;
+		$skor_akhir = $skor_total / 100;
+
+		if ($skor_akhir >= 81 && $skor_akhir <= 100) {
+			$nilai_akhir = 'A';
+		} else if ($skor_akhir >= 76 && $skor_akhir < 81) {
+			$nilai_akhir = 'AB';
+		} else if ($skor_akhir >= 71 && $skor_akhir < 76) {
+			$nilai_akhir = 'B';
+		} else if ($skor_akhir >= 66 && $skor_akhir < 71) {
+			$nilai_akhir = 'BC';
+		} else if ($skor_akhir >= 56 && $skor_akhir < 66) {
+			$nilai_akhir = 'C';
+		} else if ($skor_akhir >= 46 && $skor_akhir < 56) {
+			$nilai_akhir = 'D';
+		} else {
+			$nilai_akhir = 'E';
+		}
+
+		if ($skor_akhir < 56) {
+			$status = 'Tidak lulus';
+		} else {
+			$status = 'Lulus';
+		}
+
+		$data2 = [
+			'status_ujian_proposal' => $status
+		];
+
+		$this->Proscore_model->insertNilaiTitle($getTitle->id, $data2);
+
+		$data3 = [
+			'nilai' => $skor_akhir,
+			'nilai_huruf' => $nilai_akhir
+		];
+
+		$this->Proscore_model->insertNilaiRegister($getRegister->id, $data3);
+
 		redirect('score_proposal');
 	}
 
 	public function nilai_penguji($id)
 	{
-		if ($this->session->userdata('group_id') != 2) {
+		$allowed_group_ids = [2, 3];
+
+		if (!in_array($this->session->userdata('group_id'), $allowed_group_ids)) {
 			redirect('error404');
 		}
 
@@ -455,6 +530,68 @@ class Score_Proposal extends CI_Controller
 
 		$this->Proscore_model->insertNilai($id, $data);
 		$this->session->set_flashdata('success', 'Nilai berhasil disimpan');
+
+		$getNilai = $this->db->where('id', $id)->get('pro_nilai')->row();
+		$getRegister = $this->db->where('id', $getNilai->pro_register_id)->get('pro_register')->row();
+		$getTitle = $this->db->where('id', $getRegister->title_id)->get('title')->row();
+
+		$nilaiDospem1 = $this->Proscore_model->getNilaiDospem1($getRegister->id, $getTitle->dospem_1_id);
+		$nilaiDospem2 = $this->Proscore_model->getNilaiDospem2($getRegister->id, $getTitle->dospem_2_id);
+		$nilaiDosuji1 = $this->Proscore_model->getNilaiDosuji1($getRegister->id, $getTitle->dosuji_1_id);
+		$nilaiDosuji2 = $this->Proscore_model->getNilaiDosuji2($getRegister->id, $getTitle->dosuji_2_id);
+
+		$rata_bimbingan = ($nilaiDospem1->rata_c + $nilaiDospem2->rata_c) / 2;
+
+		$rata_naskah_dospem = ($nilaiDospem1->rata_a + $nilaiDospem2->rata_a) / 2;
+		$rata_pelaksanaan_dospem = ($nilaiDospem1->rata_b + $nilaiDospem2->rata_b) / 2;
+		$rata_naskah_dosuji = ($nilaiDosuji1->rata_a + $nilaiDosuji2->rata_a) / 2;
+		$rata_pelaksanaan_dosuji = ($nilaiDosuji1->rata_b + $nilaiDosuji2->rata_b) / 2;
+
+		$rata_naskah = ($rata_naskah_dospem + $rata_naskah_dosuji) / 2;
+		$rata_pelaksanaan = ($rata_pelaksanaan_dospem + $rata_pelaksanaan_dosuji) / 2;
+
+		$bs_rata_bimbingan = $rata_bimbingan * 20;
+		$bs_rata_naskah = $rata_naskah * 30;
+		$bs_rata_pelaksanaan = $rata_pelaksanaan * 50;
+
+		$skor_total = $bs_rata_bimbingan + $bs_rata_naskah + $bs_rata_pelaksanaan;
+		$skor_akhir = $skor_total / 100;
+
+		if ($skor_akhir >= 81 && $skor_akhir <= 100) {
+			$nilai_akhir = 'A';
+		} else if ($skor_akhir >= 76 && $skor_akhir < 81) {
+			$nilai_akhir = 'AB';
+		} else if ($skor_akhir >= 71 && $skor_akhir < 76) {
+			$nilai_akhir = 'B';
+		} else if ($skor_akhir >= 66 && $skor_akhir < 71) {
+			$nilai_akhir = 'BC';
+		} else if ($skor_akhir >= 56 && $skor_akhir < 66) {
+			$nilai_akhir = 'C';
+		} else if ($skor_akhir >= 46 && $skor_akhir < 56) {
+			$nilai_akhir = 'D';
+		} else {
+			$nilai_akhir = 'E';
+		}
+
+		if ($skor_akhir < 56) {
+			$status = 'Tidak lulus';
+		} else {
+			$status = 'Lulus';
+		}
+
+		$data2 = [
+			'status_ujian_proposal' => $status
+		];
+
+		$this->Proscore_model->insertNilaiTitle($getTitle->id, $data2);
+
+		$data3 = [
+			'nilai' => $skor_akhir,
+			'nilai_huruf' => $nilai_akhir
+		];
+
+		$this->Proscore_model->insertNilaiRegister($getRegister->id, $data3);
+
 		redirect('score_proposal');
 	}
 
@@ -478,9 +615,11 @@ class Score_Proposal extends CI_Controller
 			redirect('error404');
 		}
 
+		$ujian = $this->Proscore_model->getNilaiAll();
 		$data = [
 			'title' => "Nilai Ujian Proposal",
 			'content' => 'score/proposal/koordinator/koordinator',
+			'ujian' => $ujian
 		];
 		$this->load->view('template/overlay/koordinator', $data);
 	}

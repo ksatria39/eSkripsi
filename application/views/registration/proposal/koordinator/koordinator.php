@@ -36,7 +36,17 @@
 			</ul>
 
 			<div class="tab-content mt-2">
+
 				<div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+
+					<!-- <div class="d-flex justify-content mt-3">
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Cari" aria-label="cari">
+                        <button class="btn btn-outline-primary" type="submit">
+                            <i class="ri-search-line"></i>
+                        </button>
+                    </form>
+                </div> -->
 
 					<?php if (empty($dospem1)) { ?>
 						<p>Tidak ada pendaftaran ujian proposal yang menunggu persetujuan.</p>
@@ -49,27 +59,50 @@
 									<th scope="col">Judul</th>
 									<th scope="col">Mahasiswa</th>
 									<th scope="col">NPM</th>
+									<th scope="col">Status</th>
 									<th scope="col">Logbook Bimbingan</th>
+									<th scope="col">Naskah Proposal</th>
 									<th scope="col">Aksi</th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php $no = 1;
-								foreach ($dospem1 as $data1) { ?>
+								foreach ($dospem1 as $dospem1) { ?>
 									<tr>
 										<th scope="row"><?= $no++; ?></th>
-										<td><?= $data1->judul; ?></td>
+										<td><?= $dospem1->judul; ?></td>
 										<td>
 											<?php
-											$mahasiswa = $this->db->where('id', $data1->mahasiswa)->get('users')->row();
+											$mahasiswa = $this->db->where('id', $dospem1->mahasiswa)->get('users')->row();
 											echo $mahasiswa->nama;
 											?>
 										</td>
-										<td><?= $mahasiswa->npm; ?></td>
-										<td><a class="btn btn-primary" href="<?= base_url() ?>file/proposal/logbook/<?= $data1->file_logbook; ?>">Unduh</a></td>
 										<td>
-											<a href="<?= base_url('registration_proposal/accDospem1') ?>/<?= $data1->pro_id; ?>" class="btn btn-primary">Terima</a>
-											<a href="<?= base_url('registration_proposal/deDospem1') ?>/<?= $data1->pro_id; ?>" class="btn btn-danger">Tolak</a>
+											<?php
+											echo $mahasiswa->npm;
+											?>
+										</td>
+										<td>
+											<?php if ($dospem1->pro_status_dospem_1 == "Diterima") { ?>
+												<span class="badge rounded-pill bg-success">Diterima</span>
+											<?php } else if ($dospem1->pro_status_dospem_1 == "Ditolak") { ?>
+												<span class="badge rounded-pill bg-danger">Ditolak</span>
+											<?php } else { ?>
+												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+											<?php } ?>
+										</td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>file/proposal/logbook/<?= $dospem1->file_logbook; ?>">Unduh</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>file/proposal/naskah/<?= $dospem1->file_naskah; ?>">Unduh</a></td>
+										<td width="15%">
+											<form id="updateStatus<?= $dospem1->pro_id ?>" action=" <?= base_url() ?>registration_proposal/update_status_dospem1/<?= $dospem1->pro_id ?>" method="post">
+												<div class="d-flex gap-3">
+													<select name="status" id="status<?= $dospem1->pro_id ?>" class="form-control" onchange="this.form.submit();">
+														<option value="Sedang diproses" <?php if ($dospem1->pro_status_dospem_1 == 'Sedang diproses') echo 'selected'; ?>>Sedang diproses</option>
+														<option value="Diterima" <?php if ($dospem1->pro_status_dospem_1 == 'Diterima') echo 'selected'; ?>>Diterima</option>
+														<option value="Ditolak" <?php if ($dospem1->pro_status_dospem_1 == 'Ditolak') echo 'selected'; ?>>Ditolak</option>
+													</select>
+												</div>
+											</form>
 										</td>
 									</tr>
 								<?php } ?>
@@ -79,8 +112,16 @@
 					<?php } ?>
 
 				</div>
-
 				<div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+
+					<!-- <div class="d-flex justify-content mt-3">
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Cari" aria-label="cari">
+                        <button class="btn btn-outline-primary" type="submit">
+                            <i class="ri-search-line"></i>
+                        </button>
+                    </form>
+                </div> -->
 
 					<?php if (empty($dospem2)) { ?>
 						<p>Tidak ada pendaftaran ujian proposal yang menunggu persetujuan.</p>
@@ -93,27 +134,50 @@
 									<th scope="col">Judul</th>
 									<th scope="col">Mahasiswa</th>
 									<th scope="col">NPM</th>
+									<th scope="col">Status</th>
 									<th scope="col">Logbook Bimbingan</th>
+									<th scope="col">Naskah Proposal</th>
 									<th scope="col">Aksi</th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php $no = 1;
-								foreach ($dospem2 as $data2) { ?>
+								foreach ($dospem2 as $dospem2) { ?>
 									<tr>
 										<th scope="row"><?= $no++; ?></th>
-										<td><?= $data2->judul; ?></td>
+										<td><?= $dospem2->judul; ?></td>
 										<td>
 											<?php
-											$mahasiswa = $this->db->where('id', $data2->mahasiswa)->get('users')->row();
+											$mahasiswa = $this->db->where('id', $dospem2->mahasiswa)->get('users')->row();
 											echo $mahasiswa->nama;
 											?>
 										</td>
-										<td><?= $mahasiswa->npm; ?></td>
-										<td><a class="btn btn-primary" href="<?= base_url() ?>file/proposal/logbook/<?= $data2->file_logbook; ?>">Unduh</a></td>
 										<td>
-											<a href="<?= base_url('registration_proposal/accDospem2') ?>/<?= $data2->pro_id; ?>" class="btn btn-primary">Terima</a>
-											<a href="<?= base_url('registration_proposal/deDospem2') ?>/<?= $data2->pro_id; ?>" class="btn btn-danger">Tolak</a>
+											<?php
+											echo $mahasiswa->npm;
+											?>
+										</td>
+										<td>
+											<?php if ($dospem2->pro_status_dospem_2 == "Diterima") { ?>
+												<span class="badge rounded-pill bg-success">Diterima</span>
+											<?php } else if ($dospem2->pro_status_dospem_2 == "Ditolak") { ?>
+												<span class="badge rounded-pill bg-danger">Ditolak</span>
+											<?php } else { ?>
+												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+											<?php } ?>
+										</td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>file/proposal/logbook/<?= $dospem2->file_logbook; ?>">Unduh</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>file/proposal/naskah/<?= $dospem2->file_naskah; ?>">Unduh</a></td>
+										<td width="15%">
+											<form id="updateStatus<?= $dospem2->pro_id ?>" action=" <?= base_url() ?>registration_proposal/update_status_dospem2/<?= $dospem2->pro_id ?>" method="post">
+												<div class="d-flex gap-3">
+													<select name="status" id="status<?= $dospem2->pro_id ?>" class="form-control" onchange="this.form.submit();">
+														<option value="Sedang diproses" <?php if ($dospem2->pro_status_dospem_2 == 'Sedang diproses') echo 'selected'; ?>>Sedang diproses</option>
+														<option value="Diterima" <?php if ($dospem2->pro_status_dospem_2 == 'Diterima') echo 'selected'; ?>>Diterima</option>
+														<option value="Ditolak" <?php if ($dospem2->pro_status_dospem_2 == 'Ditolak') echo 'selected'; ?>>Ditolak</option>
+													</select>
+												</div>
+											</form>
 										</td>
 									</tr>
 								<?php } ?>
@@ -162,14 +226,30 @@
 											echo $dosen1->nama;
 											?>
 										</td>
-										<td><?= $data3->pro_status_dospem_1; ?></td>
+										<td>
+											<?php if ($data3->pro_status_dospem_1 == "Diterima") { ?>
+												<span class="badge rounded-pill bg-success">Diterima</span>
+											<?php } else if ($data3->pro_status_dospem_1 == "Ditolak") { ?>
+												<span class="badge rounded-pill bg-danger">Ditolak</span>
+											<?php } else { ?>
+												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+											<?php } ?>
+										</td>
 										<td>
 											<?php
 											$dosen2 = $this->db->where('id', $data3->dospem_2_id)->get('users')->row();
 											echo $dosen2->nama;
 											?>
 										</td>
-										<td><?= $data3->pro_status_dospem_2; ?></td>
+										<td>
+											<?php if ($data3->pro_status_dospem_2 == "Diterima") { ?>
+												<span class="badge rounded-pill bg-success">Diterima</span>
+											<?php } else if ($data3->pro_status_dospem_2 == "Ditolak") { ?>
+												<span class="badge rounded-pill bg-danger">Ditolak</span>
+											<?php } else { ?>
+												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+											<?php } ?>
+										</td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>file/proposal/logbook/<?= $data3->file_logbook; ?>">Unduh</a></td>
 										<td>
 											<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal<?= $data3->pro_id; ?>">Terima</button>

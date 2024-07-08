@@ -89,6 +89,18 @@ class Proscore_model extends CI_Model
 		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
 		$this->db->where('title.mahasiswa', $id);
 		$this->db->where('pro_register.status','diterima');
+		$this->db->order_by('pro_register.id', 'desc');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function getNilaiAll()
+	{
+		$this->db->select('*, pro_register.id as pro_id');
+		$this->db->from('pro_register');
+		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
+		$this->db->where('pro_register.status', 'diterima');
+		$this->db->order_by('pro_register.id', 'desc');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -110,7 +122,7 @@ class Proscore_model extends CI_Model
 		$this->db->where('pro_register_id', $id);
 		$this->db->where('dosen_id', $dosen);
 		$this->db->where('as','dospem-1');
-		// $this->db->order_by('id','desc');
+		$this->db->order_by('id','desc');
 		$query = $this->db->get();
 		return $query->row();
 	}
@@ -122,7 +134,7 @@ class Proscore_model extends CI_Model
 		$this->db->where('pro_register_id', $id);
 		$this->db->where('dosen_id', $dosen);
 		$this->db->where('as', 'dospem-2');
-		// $this->db->order_by('id', 'desc');
+		$this->db->order_by('id', 'desc');
 		$query = $this->db->get();
 		return $query->row();
 	}
@@ -134,7 +146,7 @@ class Proscore_model extends CI_Model
 		$this->db->where('pro_register_id', $id);
 		$this->db->where('dosen_id', $dosen);
 		$this->db->where('as', 'dosuji-1');
-		// $this->db->order_by('id', 'desc');
+		$this->db->order_by('id', 'desc');
 		$query = $this->db->get();
 		return $query->row();
 	}
@@ -146,8 +158,20 @@ class Proscore_model extends CI_Model
 		$this->db->where('pro_register_id', $id);
 		$this->db->where('dosen_id', $dosen);
 		$this->db->where('as', 'dosuji-2');
-		// $this->db->order_by('id', 'desc');
+		$this->db->order_by('id', 'desc');
 		$query = $this->db->get();
 		return $query->row();
+	}
+
+	public function insertNilaiTitle($id, $data)
+	{
+		$this->db->where('id', $id);
+		$this->db->update('title', $data);
+	}
+
+	public function insertNilaiRegister($id, $data)
+	{
+		$this->db->where('id', $id);
+		$this->db->update('pro_register', $data);
 	}
 }

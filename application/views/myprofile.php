@@ -48,6 +48,38 @@
 					</div>
 				</div>
 
+				<?php if($this->session->userdata('group_id') == 1) { ?>
+				<div class="row mb-3 mt-3">
+					<label for="inputText" class="col-sm-2 col-form-label">Angkatan</label>
+					<div class="col-sm-10">
+						<select class="form-control" id="angkatan" name="angkatan">
+							<!-- Pilihan tahun akan dihasilkan secara dinamis menggunakan JavaScript -->
+						</select>
+					</div>
+				</div>
+				<?php } ?>
+
+				<script>
+					const selectTahun = document.getElementById('angkatan');
+
+					const currentYear = new Date().getFullYear();
+					const startYear = currentYear - 3 ;
+					const endYear = currentYear - 10;
+					const angkatan = <?php echo $myProfile->angkatan; ?>;
+
+					for (let year = startYear; year >= endYear; year--) {
+						const option = document.createElement('option');
+						option.value = year;
+						option.textContent = year;
+
+						if (year === angkatan) {
+							option.selected = true;
+						}
+
+						selectTahun.appendChild(option);
+					}
+				</script>
+
 				<div class="row mb-3 mt-3">
 					<label class="col-sm-2 col-form-label">Jenis Kelamin</label>
 					<div class="col-sm-10">

@@ -179,9 +179,25 @@
 										<td><?= $item->judul; ?></td>
 										<td><?= $this->db->where('id', $item->mahasiswa)->get('users')->row()->nama; ?></td>
 										<td><?= $this->db->where('id', $item->dospem_1_id)->get('users')->row()->nama; ?></td>
-										<td><?= $item->status_dospem_1; ?></td>
+										<td>
+											<?php if ($item->status_dospem_1 == "Diterima") { ?>
+												<span class="badge rounded-pill bg-success">Diterima</span>
+											<?php } else if ($item->status_dospem_1 == "Ditolak") { ?>
+												<span class="badge rounded-pill bg-danger">Ditolak</span>
+											<?php } else { ?>
+												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+											<?php } ?>
+										</td>
 										<td><?= $this->db->where('id', $item->dospem_2_id)->get('users')->row()->nama; ?></td>
-										<td><?= $item->status_dospem_2; ?></td>
+										<td>
+											<?php if ($item->status_dospem_2 == "Diterima") { ?>
+												<span class="badge rounded-pill bg-success">Diterima</span>
+											<?php } else if ($item->status_dospem_2 == "Ditolak") { ?>
+												<span class="badge rounded-pill bg-danger">Ditolak</span>
+											<?php } else { ?>
+												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+											<?php } ?>
+										</td>
 										<td>
 											<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3<?= $item->id; ?>">Lihat Detail</button>
 										</td>

@@ -44,6 +44,7 @@ class Profile extends CI_Controller
 			'tgl_lahir' => $this->input->post('tgl_lahir'),
 			'alamat' => $this->input->post('alamat'),
 			'telepon' => $this->input->post('telepon'),
+			'angkatan' => $this->input->post('angkatan'),
 		);
 		$this->User_model->update_profile($this->session->userdata('user_id'), $data);
 		$this->session->set_flashdata('success', 'Berhasil Memperbarui Profil.');

@@ -14,13 +14,33 @@ class Title_model extends CI_Model
         return $this->db->get('research_area')->result_array();
     }
 
-    public function getDosen()
-    {
-		$this->db->where('group_id','2');
-		$this->db->or_where('group_id','3');
-		$query = $this->db->get('users');
-		return $query->result_array();
-    }
+	public function getDosen()
+	{
+		$current_year = date('Y');
+		$target_year = $current_year - 4;
+
+		$this->db->select('u.id, u.nama, COUNT(m.id) AS jumlah_mahasiswa');
+		$this->db->from('users u');
+		$this->db->join('title t', '(u.id = t.dospem_1_id OR u.id = t.dospem_2_id) AND t.status = "Diterima"', 'left');
+		$this->db->join('users m', 'm.id = t.mahasiswa AND m.group_id = 1 AND m.angkatan = ' . $target_year, 'left');
+		$this->db->where('(u.group_id = 2 OR u.group_id = 3)');
+		$this->db->group_by('u.id, u.nama');
+		$this->db->order_by('jumlah_mahasiswa', 'DESC');
+
+		$query = $this->db->get();
+
+		$dosen_mahasiswa = array();
+		foreach ($query->result() as $row) {
+			$dosen_mahasiswa[] = array(
+				'id_dosen' => $row->id,
+				'nama_dosen' => $row->nama,
+				'jumlah_mahasiswa' => $row->jumlah_mahasiswa
+			);
+		}
+
+		return $dosen_mahasiswa;
+	}
+
 
     public function addTitle($data)
     {

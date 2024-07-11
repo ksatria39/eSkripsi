@@ -20,6 +20,7 @@ class Register extends CI_Controller
         $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required|is_unique[users.email]');
         $this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('angkatan', 'Angkatan', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('register');
@@ -29,7 +30,8 @@ class Register extends CI_Controller
                 'nama' => $this->input->post('nama'),
                 'email' => $this->input->post('email'),
                 'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-                'group_id' => 1
+                'group_id' => 1,
+				'angkatan' => $this->input->post('angkatan'),
             );
             $user_id = $this->User_model->register_user($data);
             if ($user_id) {

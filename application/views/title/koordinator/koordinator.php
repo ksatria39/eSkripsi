@@ -281,8 +281,8 @@
 															<label for="title_id" class="form-label">Dosen Pembimbing 2</label>
 															<select class="form-select" name="dospem2" id="dospem2" aria-label="Default select example">
 																<option selected="">-- Pilih Dosen --</option>
-																<?php foreach ($dosen as $d) : ?>
-																	<option value="<?= $d['id']; ?>" <?= set_select('id', $d['id']); ?>><?= $d['nama']; ?></option>
+																<?php foreach ($dosen as $dosen2) : ?>
+																	<option value="<?= $dosen2['id_dosen']; ?>" <?= set_select('dospem_2_id', $dosen2['id_dosen']); ?>><?= $dosen2['nama_dosen']; ?></option>
 																<?php endforeach; ?>
 															</select>
 														</div>

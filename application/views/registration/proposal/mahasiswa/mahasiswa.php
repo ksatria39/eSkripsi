@@ -62,9 +62,9 @@
 									?>
 								</td>
 								<td><?= $myProposal->pro_status; ?></td>
-								<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $myProposal->id; ?>">Lihat Detail</button></td>
+								<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $myProposal->pro_id; ?>">Lihat Detail</button></td>
 							</tr>
-							<div class="modal fade" id="myModal<?= $myProposal->id; ?>">
+							<div class="modal fade" id="myModal<?= $myProposal->pro_id; ?>">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<!-- Modal Header -->
@@ -100,10 +100,6 @@
 												<span class="col-sm-5"><b>Status</b></span>
 												<span class="col-sm-10"><?= $myProposal->pro_status_dospem_1; ?></span>
 											</div>
-											<!-- <div class="row">
-                  <span class="col-sm-5"><b>Keterangan</b></span>
-                  <span class="col-sm-10"><?= $myProposal->alasan_dospem_1; ?></span>
-                </div> -->
 											<hr>
 											<div class="row">
 												<span class="col-sm-5"><b>Pembimbing 2</b></span>
@@ -118,10 +114,6 @@
 												<span class="col-sm-5"><b>Status</b></span>
 												<span class="col-sm-10"><?= $myProposal->pro_status_dospem_2; ?></span>
 											</div>
-											<!-- <div class="row">
-                  <span class="col-sm-5"><b>Keterangan</b></span>
-                  <span class="col-sm-10"><?= $myProposal->alasan_dospem_2; ?></span>
-                </div> -->
 											<hr>
 											<div class="row">
 												<span class="col-sm-5"><b>Status Akhir</b></span>
@@ -130,7 +122,7 @@
 											<hr>
 											<div class="row">
 												<span class="col-sm-5"><b>Berkas</b></span>
-												<a class="btn btn-primary" href="<?= base_url() ?>/file/proposal/logbook/<?= $myProposal->file_logbook; ?>">Logbook</a></span>
+												<a class="btn btn-primary" href="<?= base_url() ?>registration_proposal/view_naskah/<?= $myProposal->file_naskah; ?>">Naskah</a></span>
 											</div>
 										</div>
 										<!-- Modal Footer -->

@@ -53,7 +53,7 @@
 									<th scope="col">Status</th>
 									<th scope="col">Logbook Bimbingan</th>
 									<th scope="col">Naskah Proposal</th>
-									<th scope="col">Aksi</th>
+									<th scope="col">Respon</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -82,8 +82,8 @@
 												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
 											<?php } ?>
 										</td>
-										<td><a class="btn btn-primary" href="<?= base_url() ?>file/proposal/logbook/<?= $dospem1->file_logbook; ?>">Unduh</a></td>
-										<td><a class="btn btn-primary" href="<?= base_url() ?>file/proposal/naskah/<?= $dospem1->file_naskah; ?>">Unduh</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>file/proposal/logbook/">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_proposal/view_naskah/<?= $dospem1->file_naskah; ?>">Lihat</a></td>
 										<td width="15%">
 											<form id="updateStatus<?= $dospem1->pro_id ?>" action=" <?= base_url() ?>registration_proposal/update_status_dospem1/<?= $dospem1->pro_id ?>" method="post">
 												<div class="d-flex gap-3">
@@ -128,7 +128,7 @@
 									<th scope="col">Status</th>
 									<th scope="col">Logbook Bimbingan</th>
 									<th scope="col">Naskah Proposal</th>
-									<th scope="col">Aksi</th>
+									<th scope="col">Respon</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -157,8 +157,8 @@
 												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
 											<?php } ?>
 										</td>
-										<td><a class="btn btn-primary" href="<?= base_url() ?>file/proposal/logbook/<?= $dospem2->file_logbook; ?>">Unduh</a></td>
-										<td><a class="btn btn-primary" href="<?= base_url() ?>file/proposal/naskah/<?= $dospem2->file_naskah; ?>">Unduh</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>file/proposal/logbook/">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_proposal/view_naskah/<?= $dospem2->file_naskah; ?>">Lihat</a></td>
 										<td width="15%">
 											<form id="updateStatus<?= $dospem2->pro_id ?>" action=" <?= base_url() ?>registration_proposal/update_status_dospem2/<?= $dospem2->pro_id ?>" method="post">
 												<div class="d-flex gap-3">

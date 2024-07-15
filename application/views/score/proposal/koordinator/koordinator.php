@@ -19,7 +19,9 @@
 							<th scope="col">Tanggal ujian</th>
 							<th scope="col">Ruang</th>
 							<th scope="col">Jam</th>
-							<th scope="col">Nilai</th>
+							<th scope="col">Status Ujian</th>
+							<th scope="col">Nilai Akhir</th>
+							<th scope="col">Lembar Penilaian</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -66,7 +68,10 @@
 									?>
 								</td>
 								<td><?php echo $ujian->jam; ?></td>
+								<td><?php echo $ujian->status_ujian_proposal; ?></td>
+								<td><?php echo $ujian->nilai; ?> (<?= $ujian->nilai_huruf; ?>)</td>
 								<td>
+									<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/view_nilai/<?= $ujian->pro_id ?>">Lihat</a>
 									<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/download_nilai/<?= $ujian->pro_id ?>">Unduh</a>
 								</td>
 							</tr>

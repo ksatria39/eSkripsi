@@ -28,15 +28,46 @@ class Post_Proposal extends CI_Controller {
 		}
 	}
 
+	public function view_naskah($file_naskah)
+	{
+		if (!$this->session->userdata('is_login')) {
+			redirect('login');
+		} else {
+			if ($this->session->userdata('group_id') == 1) {
+				$overlay = 'template/overlay/mahasiswa';
+			} else if ($this->session->userdata('group_id') == 2) {
+				$overlay = 'template/overlay/dosen';
+			} else if ($this->session->userdata('group_id') == 3) {
+				$overlay = 'template/overlay/koordinator';
+			} else if ($this->session->userdata('group_id') == 4) {
+				$overlay = 'template/overlay/admin';
+			} else {
+				redirect('login');
+			}
+		}
+
+		$data = [
+			'title' => "Naskah Proposal",
+			'content' => 'post/proposal/view_naskah',
+			'file_naskah' => $file_naskah
+		];
+		$this->load->view($overlay, $data);
+	}
+
 	public function mahasiswa()
 	{
 		$judul = $this->Propasca_model->get_title($this->session->userdata('user_id'));
-		$cek = $this->Propasca_model->cek($judul->judul_id);
+
+		if ($judul) {
+			$content = 'post/proposal/mahasiswa/mahasiswa';
+		} else {
+			$content = 'post/proposal/mahasiswa/mahasiswa2';
+		}
+
 		$data = [
 			'title' => "Pasca Ujian Proposal",
-			'content' => 'post/proposal/mahasiswa/mahasiswa', 
+			'content' => $content, 
 			'judul' => $judul,
-			'cek' => $cek
 		];
 		$this->load->view('template/overlay/mahasiswa', $data);
 	}

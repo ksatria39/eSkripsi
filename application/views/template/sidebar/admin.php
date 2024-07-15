@@ -31,6 +31,11 @@
 					</a>
 				</li>
 				<li>
+					<a href="<?= base_url('dm/room'); ?>">
+						<i class="bi bi-circle"></i><span>Ruang Ujian</span>
+					</a>
+				</li>
+				<li>
 					<a href="<?= base_url('download'); ?>">
 						<i class="bi bi-circle"></i><span>Unduhan</span>
 					</a>

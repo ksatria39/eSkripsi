@@ -16,8 +16,7 @@ class Proschedule_model extends CI_Model
 		$this->db->from('pro_register');
 		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
 		$this->db->where('pro_register.status', 'Diterima');
-		$this->db->where('tanggal >=', date('Y-m-d'));
-		$this->db->order_by('tanggal', 'ASC');
+		$this->db->order_by('tanggal', 'DESC');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -29,8 +28,7 @@ class Proschedule_model extends CI_Model
 		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
 		$this->db->where('title.mahasiswa', $user_id);
 		$this->db->where('pro_register.status', 'Diterima');
-		$this->db->where('tanggal >=', date('Y-m-d'));
-		$this->db->order_by('tanggal', 'ASC');
+		$this->db->order_by('tanggal', 'DESC');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -41,8 +39,7 @@ class Proschedule_model extends CI_Model
 		$this->db->from('pro_register');
 		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
 		$this->db->where('pro_register.status', 'Diterima');
-		$this->db->where('tanggal >=', date('Y-m-d'));
-		$this->db->order_by('tanggal', 'ASC');
+		$this->db->order_by('tanggal', 'DESC');
 		$this->db->group_start();
 		$this->db->or_where('title.dospem_1_id', $user_id);
 		$this->db->or_where('title.dospem_2_id', $user_id);

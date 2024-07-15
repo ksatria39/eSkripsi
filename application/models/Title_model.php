@@ -89,6 +89,7 @@ class Title_model extends CI_Model
         $this->db->select('title.*');
         $this->db->where('dospem_1_id', $id);
         $this->db->where('status_dospem_1', 'Sedang diproses');
+		$this->db->order_by('title.id', 'DESC');
         $query = $this->db->get('title');
         return $query->result();
     }
@@ -98,6 +99,7 @@ class Title_model extends CI_Model
         $this->db->select('title.*');
         $this->db->where('dospem_2_id', $id);
         $this->db->where('status_dospem_2', 'Sedang diproses');
+		$this->db->order_by('title.id', 'DESC');
         $query = $this->db->get('title');
         return $query->result();
     }
@@ -106,6 +108,7 @@ class Title_model extends CI_Model
     {
         $this->db->select('title.*');
         $this->db->where('status', 'Sedang diproses');
+		$this->db->order_by('title.id', 'DESC');
         $query = $this->db->get('title');
         return $query->result();
     }

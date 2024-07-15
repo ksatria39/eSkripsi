@@ -23,21 +23,6 @@
 					</div>
 				</div>
 
-				<!-- <div class="row mb-3 mt-3">
-                  <label class="col-sm-2 col-form-label">Naskah Proposal</label>
-                  <div class="col-sm-10">
-                    <input type="file" class="form-control" name="naskah" id="naskah" placeholder="Pilih File">
-                  </div><div class="text-sm text-muted">* .pdf dengan ukuran maksimal 5MB</div>
-                </div> -->
-
-				<div class="row mb-3 mt-3">
-					<label class="col-sm-2 col-form-label">Logbook Bimbingan</label>
-					<div class="col-sm-10">
-						<input type="file" class="form-control" name="file_logbook" id="file_logbook" placeholder="Pilih File">
-					</div>
-					<div class="text-sm text-muted">* .pdf dengan ukuran maksimal 5MB</div>
-				</div>
-
 				<div class="row mb-3 mt-3">
 					<label class="col-sm-2 col-form-label">Naskah Proposal</label>
 					<div class="col-sm-10">

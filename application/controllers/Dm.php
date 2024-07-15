@@ -9,6 +9,7 @@ class Dm extends CI_Controller
 		parent::__construct();
 		$this->load->model('User_model');
 		$this->load->model('Ra_model');
+		$this->load->model('Room_model');
 	}
 
 	public function index()
@@ -159,5 +160,41 @@ class Dm extends CI_Controller
 		$this->Ra_model->delete($id);
 		$this->session->set_flashdata('success', 'Berhasil Menghapus Bidang Penelitian');
 		redirect('dm/research_area');
+	}
+
+	public function room()
+	{
+		$rooms = $this->Room_model->get();
+		$data = [
+			'title' => "Bidang Penelitian",
+			'content' => 'dm/room',
+			'rooms' => $rooms
+		];
+		$this->load->view('template/overlay/admin', $data);
+	}
+
+	public function add_room()
+	{
+		$this->form_validation->set_rules('ra', 'Nama Ruangan', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Harap Masukkan Nama Bidang Penelitian');
+			redirect('dm/room');
+		} else {
+			$data = array(
+				'nama' => $this->input->post('ra'),
+			);
+			$this->Room_model->create($data);
+
+			$this->session->set_flashdata('success', 'Berhasil Menambahkan Bidang Penelitian');
+			redirect('dm/room');
+		}
+	}
+
+	public function delete_room($id)
+	{
+		$this->Room_model->delete($id);
+		$this->session->set_flashdata('success', 'Berhasil Menghapus Bidang Penelitian');
+		redirect('dm/room');
 	}
 }

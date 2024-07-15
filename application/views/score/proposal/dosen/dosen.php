@@ -52,6 +52,7 @@
 									<th scope="col">Ruang</th>
 									<th scope="col">Jam</th>
 									<th scope="col">Aksi</th>
+									<th scope="col">Lembar Penilaian</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -76,6 +77,10 @@
 										<td><?php echo $dospem1->jam; ?></td>
 										<td>
 											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_pembimbing/<?= $dospem1->nilai_id ?>">Nilai</a>
+										</td>
+										<td>
+											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/view_nilai/<?= $dospem1->pro_id ?>">Lihat</a>
+											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/download_nilai/<?= $dospem1->pro_id ?>">Unduh</a>
 										</td>
 									</tr>
 								<?php } ?>
@@ -114,6 +119,7 @@
 									<th scope="col">Ruang</th>
 									<th scope="col">Jam</th>
 									<th scope="col">Aksi</th>
+									<th scope="col">Lembar Penilaian</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -138,6 +144,10 @@
 										<td><?php echo $dospem2->jam; ?></td>
 										<td>
 											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_pembimbing/<?= $dospem2->nilai_id ?>">Nilai</a>
+										</td>
+										<td>
+											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/view_nilai/<?= $dospem2->pro_id ?>">Lihat</a>
+											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/download_nilai/<?= $dospem2->pro_id ?>">Unduh</a>
 										</td>
 									</tr>
 								<?php } ?>
@@ -175,6 +185,7 @@
 									<th scope="col">Ruang</th>
 									<th scope="col">Jam</th>
 									<th scope="col">Aksi</th>
+									<th scope="col">Lembar Penilaian</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -199,6 +210,10 @@
 										<td><?php echo $dosuji1->jam; ?></td>
 										<td>
 											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_penguji/<?= $dosuji1->nilai_id ?>">Nilai</a>
+										</td>
+										<td>
+											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/view_nilai/<?= $dosuji1->pro_id ?>">Lihat</a>
+											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/download_nilai/<?= $dosuji1->pro_id ?>">Unduh</a>
 										</td>
 									</tr>
 								<?php } ?>
@@ -236,6 +251,7 @@
 									<th scope="col">Ruang</th>
 									<th scope="col">Jam</th>
 									<th scope="col">Aksi</th>
+									<th scope="col">Lembar Penilaian</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -260,6 +276,10 @@
 										<td><?php echo $dosuji2->jam; ?></td>
 										<td>
 											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_penguji/<?= $dosuji2->nilai_id ?>">Nilai</a>
+										</td>
+										<td>
+											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/view_nilai/<?= $dosuji2->pro_id ?>">Lihat</a>
+											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/download_nilai/<?= $dosuji2->pro_id ?>">Unduh</a>
 										</td>
 									</tr>
 								<?php } ?>

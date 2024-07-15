@@ -9,6 +9,11 @@
 				</div>
 			<?php endif; ?>
 
+			<?php
+			$this->load->model('Propasca_model');
+			$cek = $this->Propasca_model->cek($judul->judul_id); 
+			?>
+
 			<?php if ($cek == 0) { ?>
 
 				<form method="post" action="<?php echo base_url('post_proposal/upload'); ?>" enctype="multipart/form-data">
@@ -43,7 +48,7 @@
 			<?php } else { ?>
 
 				<div class="alert alert-info alert-dismissible fade show mt-3" role="alert">
-					Tahap pasca proposal telah selesai.
+					Tahap pasca ujian proposal telah selesai.
 				</div>
 
 			<?php } ?>

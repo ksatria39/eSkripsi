@@ -32,6 +32,7 @@ class Skpregister_model extends CI_Model
 	{
 		$this->db->where('mahasiswa', $user_id);
 		$this->db->where('status', 'Diterima');
+		$this->db->where('status_ujian_proposal','Selesai');
 		$query = $this->db->get('title');
 		return $query->result_array();
 	}

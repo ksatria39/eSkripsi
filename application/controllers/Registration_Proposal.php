@@ -31,6 +31,32 @@ class Registration_Proposal extends CI_Controller
 		}
 	}
 
+	public function view_naskah($file_naskah)
+	{
+		if (!$this->session->userdata('is_login')) {
+			redirect('login');
+		} else {
+			if ($this->session->userdata('group_id') == 1) {
+				$overlay = 'template/overlay/mahasiswa';
+			} else if ($this->session->userdata('group_id') == 2) {
+				$overlay = 'template/overlay/dosen';
+			} else if ($this->session->userdata('group_id') == 3) {
+				$overlay = 'template/overlay/koordinator';
+			} else if ($this->session->userdata('group_id') == 4) {
+				$overlay = 'template/overlay/admin';
+			} else {
+				redirect('login');
+			}
+		}
+
+		$data = [
+			'title' => "Naskah Proposal",
+			'content' => 'registration/proposal/view_naskah',
+			'file_naskah' => $file_naskah
+		];
+		$this->load->view($overlay, $data);
+	}
+
 	public function mahasiswa()
 	{
 		if ($this->session->userdata('group_id') != 1) {
@@ -78,57 +104,42 @@ class Registration_Proposal extends CI_Controller
 			$this->session->set_flashdata('error', 'Seluruh kolom wajib diisi.');
 			redirect('registration_proposal/daftar');
 		} else {
-			// Upload logbook
-			$config['upload_path'] = './file/proposal/logbook/';
-			$config['allowed_types'] = 'pdf';
-			$config['max_size'] = 10240; // 10MB
+			// Upload naskah
+			$config_naskah['upload_path'] = './file/proposal/naskah/';
+			$config_naskah['allowed_types'] = 'pdf';
+			$config_naskah['max_size'] = 10240; // 10MB
 
-			$this->upload->initialize($config);
+			$this->upload->initialize($config_naskah);
 
-			if (!$this->upload->do_upload('file_logbook')) {
+			if (!$this->upload->do_upload('file_naskah')) {
 				$this->session->set_flashdata('error', $this->upload->display_errors());
 				redirect('registration_proposal/daftar');
 			} else {
-				$upload_data_logbook = $this->upload->data();
-				$file_name_logbook = $upload_data_logbook['file_name'];
+				$upload_data_naskah = $this->upload->data();
+				$file_name_naskah = $upload_data_naskah['file_name'];
 
-				// Upload naskah
-				$config_naskah['upload_path'] = './file/proposal/naskah/';
-				$config_naskah['allowed_types'] = 'pdf';
-				$config_naskah['max_size'] = 10240; // 10MB
+				$data = array(
+					'title_id' => $this->input->post('title_id'),
+					'file_naskah' => $file_name_naskah,
+					'status_dospem_1' => 'Sedang diproses',
+					'status_dospem_2' => 'Sedang diproses',
+					'status' => 'Sedang diproses'
+				);
 
-				$this->upload->initialize($config_naskah);
+				$this->Proregister_model->addProposal($data);
 
-				if (!$this->upload->do_upload('file_naskah')) {
-					$this->session->set_flashdata('error', $this->upload->display_errors());
-					redirect('registration_proposal/daftar');
-				} else {
-					$upload_data_naskah = $this->upload->data();
-					$file_name_naskah = $upload_data_naskah['file_name'];
+				$data2 = [
+					'status_ujian_proposal' => 'Terdaftar'
+				];
 
-					$data = array(
-						'title_id' => $this->input->post('title_id'),
-						'file_logbook' => $file_name_logbook,
-						'file_naskah' => $file_name_naskah,
-						'status_dospem_1' => 'Sedang diproses',
-						'status_dospem_2' => 'Sedang diproses',
-						'status' => 'Sedang diproses'
-					);
+				$this->Proregister_model->setTitle($this->input->post('title_id'), $data2);
 
-					$this->Proregister_model->addProposal($data);
-
-					$data2 = [
-						'status_ujian_proposal' => 'Terdaftar'
-					];
-
-					$this->Proregister_model->setTitle($this->input->post('title_id'), $data2);
-
-					$this->session->set_flashdata('success', 'Berhasil mendaftar ujian proposal');
-					redirect('registration_proposal');
-				}
+				$this->session->set_flashdata('success', 'Berhasil mendaftar ujian proposal');
+				redirect('registration_proposal');
 			}
 		}
 	}
+
 
 
 	public function dosen()

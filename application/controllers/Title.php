@@ -216,6 +216,7 @@ class Title extends CI_Controller {
 		$id = $this->input->post('id');
 		$data['status'] = 'Diterima';
 		$data['dospem_2_id'] = $this->input->post('dospem2');
+		$data['alasan_dospem_2'] = '';
 		$data['status_dospem_2'] = 'Diterima';
 		$this->Title_model->accTitle($id, $data);
 

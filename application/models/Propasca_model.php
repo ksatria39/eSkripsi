@@ -14,7 +14,7 @@ class Propasca_model extends CI_Model
 		$this->db->select('*, title.id as judul_id');
 		$this->db->from('title');
 		$this->db->join('pro_register','pro_register.title_id = title.id','inner');
-		$this->db->where('title.status_ujian_proposal', 'Lulus');
+		$this->db->where('title.status_ujian_proposal', 'Selesai');
 		$this->db->where('title.mahasiswa', $user_id);
 		$this->db->order_by('title.tanggal_pengajuan', 'DESC');
 		$this->db->limit(1);

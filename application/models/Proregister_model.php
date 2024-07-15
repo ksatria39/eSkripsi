@@ -20,10 +20,11 @@ class Proregister_model extends CI_Model
 
 	public function getMyProposal($user_id)
 	{
-		$this->db->select('*, pro_register.status as pro_status, pro_register.status_dospem_1 as pro_status_dospem_1, pro_register.status_dospem_2 as pro_status_dospem_2');
+		$this->db->select('*, pro_register.id as pro_id, pro_register.status as pro_status, pro_register.status_dospem_1 as pro_status_dospem_1, pro_register.status_dospem_2 as pro_status_dospem_2');
 		$this->db->from('pro_register');
 		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
 		$this->db->where('title.mahasiswa', $user_id);
+		$this->db->order_by('pro_register.id', 'desc');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -64,7 +65,7 @@ class Proregister_model extends CI_Model
 		return $query->result();
 	}
 
-	public function getProposalKoo($id)
+	public function getProposalKoo()
 	{
 		$this->db->select('*, pro_register.status as pro_status, pro_register.status_dospem_1 as pro_status_dospem_1, pro_register.status_dospem_2 as pro_status_dospem_2, pro_register.id as pro_id');
 		$this->db->from('pro_register');

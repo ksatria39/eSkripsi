@@ -231,7 +231,7 @@ class Score_Proposal extends CI_Controller
 			'bs_pelaksanaan_argumentasi_4' => $nilaiDosuji2->bs_pelaksanaan_argumentasi,
 			'total_b_4' => $nilaiDosuji2->total_b,
 			'rata_b_4' => $nilaiDosuji2->rata_b,
-			'rata_bimbingan_dospem' => $rata_bimbingan_dospem,
+			'rata_bimbingan_dospem' => $rata_bimbingan,
 			'rata_naskah_dospem' => $rata_naskah_dospem,
 			'rata_pelaksanaan_dospem' => $rata_pelaksanaan_dospem,
 			'rata_naskah_dosuji' => $rata_naskah_dosuji,
@@ -260,6 +260,214 @@ class Score_Proposal extends CI_Controller
 		unlink($tempFile);
 		exit;
 	}
+
+	public function view_nilai($id)
+	{
+		$data = $this->Proscore_model->getNilaiData($id);
+
+		setlocale(LC_TIME, 'id_ID.UTF-8');
+		$tanggal = $data->tanggal;
+		$now = strftime("%d %B %Y", strtotime($tanggal));
+
+		$dosuji1 = $this->db->where('id', $data->dosuji_1_id)->get('users')->row();
+		$dosuji2 = $this->db->where('id', $data->dosuji_2_id)->get('users')->row();
+		$dospem1 = $this->db->where('id', $data->dospem_1_id)->get('users')->row();
+		$dospem2 = $this->db->where('id', $data->dospem_2_id)->get('users')->row();
+		$mahasiswa = $this->db->where('id', $data->mahasiswa)->get('users')->row();
+		$room = $this->db->where('id', $data->room_id)->get('rooms')->row();
+
+		$nilaiDospem1 = $this->Proscore_model->getNilaiDospem1($id, $dospem1->id);
+		$nilaiDospem2 = $this->Proscore_model->getNilaiDospem2($id, $dospem2->id);
+		$nilaiDosuji1 = $this->Proscore_model->getNilaiDosuji1($id, $dosuji1->id);
+		$nilaiDosuji2 = $this->Proscore_model->getNilaiDosuji2($id, $dosuji2->id);
+
+		$rata_bimbingan = ($nilaiDospem1->rata_c + $nilaiDospem2->rata_c) / 2;
+
+		$rata_naskah_dospem = ($nilaiDospem1->rata_a + $nilaiDospem2->rata_a) / 2;
+		$rata_pelaksanaan_dospem = ($nilaiDospem1->rata_b + $nilaiDospem2->rata_b) / 2;
+		$rata_naskah_dosuji = ($nilaiDosuji1->rata_a + $nilaiDosuji2->rata_a) / 2;
+		$rata_pelaksanaan_dosuji = ($nilaiDosuji1->rata_b + $nilaiDosuji2->rata_b) / 2;
+
+		$rata_naskah = ($rata_naskah_dospem + $rata_naskah_dosuji) / 2;
+		$rata_pelaksanaan = ($rata_pelaksanaan_dospem + $rata_pelaksanaan_dosuji) / 2;
+
+		$bs_rata_bimbingan = $rata_bimbingan * 20;
+		$bs_rata_naskah = $rata_naskah * 30;
+		$bs_rata_pelaksanaan = $rata_pelaksanaan * 50;
+
+		$skor_total = $bs_rata_bimbingan + $bs_rata_naskah + $bs_rata_pelaksanaan;
+		$skor_akhir = $skor_total / 100;
+
+		if ($skor_akhir >= 81 && $skor_akhir <= 100) {
+			$nilai_akhir = 'A';
+		} else if ($skor_akhir >= 76 && $skor_akhir < 81) {
+			$nilai_akhir = 'AB';
+		} else if ($skor_akhir >= 71 && $skor_akhir < 76) {
+			$nilai_akhir = 'B';
+		} else if ($skor_akhir >= 66 && $skor_akhir < 71) {
+			$nilai_akhir = 'BC';
+		} else if ($skor_akhir >= 56 && $skor_akhir < 66) {
+			$nilai_akhir = 'C';
+		} else if ($skor_akhir >= 46 && $skor_akhir < 56) {
+			$nilai_akhir = 'D';
+		} else {
+			$nilai_akhir = 'E';
+		}
+
+		if (!$this->session->userdata('is_login')) {
+			redirect('login');
+		} else {
+			if ($this->session->userdata('group_id') == 1) {
+				$overlay = 'template/overlay/mahasiswa';
+			} else if ($this->session->userdata('group_id') == 2) {
+				$overlay = 'template/overlay/dosen';
+			} else if ($this->session->userdata('group_id') == 3) {
+				$overlay = 'template/overlay/koordinator';
+			} else if ($this->session->userdata('group_id') == 4) {
+				$overlay = 'template/overlay/admin';
+			} else {
+				redirect('login');
+			}
+		}
+
+		$data = [
+			'title' => "Nilai Proposal",
+			'content' => 'score/proposal/view_nilai',
+			'dosuji1' => $dosuji1->nama,
+			'dosuji1_nidn' => $dosuji1->npm,
+			'dosuji2' => $dosuji2->nama,
+			'dosuji2_nidn' => $dosuji2->npm,
+			'dospem1' => $dospem1->nama,
+			'dospem1_nidn' => $dospem1->npm,
+			'dospem2' => $dospem2->nama,
+			'dospem2_nidn' => $dospem2->npm,
+			'judul' => $data->judul,
+			'mahasiswa' => $mahasiswa->nama,
+			'angkatan' => $mahasiswa->angkatan,
+			'npm' => $mahasiswa->npm,
+			'now' => $now,
+			'room' => $room->nama,
+			'bimbingan_ketekunan_1' => $nilaiDospem1->bimbingan_ketekunan,
+			'bimbingan_adab_1' => $nilaiDospem1->bimbingan_adab,
+			'bimbingan_kemandirian_1' => $nilaiDospem1->bimbingan_kemandirian,
+			'total_c_1' => $nilaiDospem1->total_c,
+			'rata_c_1' => $nilaiDospem1->rata_c,
+			'naskah_penulisan_1' => $nilaiDospem1->naskah_penulisan,
+			'naskah_pemikiran_1' => $nilaiDospem1->naskah_pemikiran,
+			'naskah_kajian_1' => $nilaiDospem1->naskah_kajian,
+			'naskah_metode_1' => $nilaiDospem1->naskah_metode,
+			'naskah_hasil_1' => $nilaiDospem1->naskah_hasil,
+			'naskah_kesimpulan_1' => $nilaiDospem1->naskah_kesimpulan,
+			'naskah_kepustakaan_1' => $nilaiDospem1->naskah_kepustakaan,
+			'bs_naskah_penulisan_1' => $nilaiDospem1->bs_naskah_penulisan,
+			'bs_naskah_pemikiran_1' => $nilaiDospem1->bs_naskah_pemikiran,
+			'bs_naskah_kajian_1' => $nilaiDospem1->bs_naskah_kajian,
+			'bs_naskah_metode_1' => $nilaiDospem1->bs_naskah_metode,
+			'bs_naskah_hasil_1' => $nilaiDospem1->bs_naskah_hasil,
+			'bs_naskah_kesimpulan_1' => $nilaiDospem1->bs_naskah_kesimpulan,
+			'bs_naskah_kepustakaan_1' => $nilaiDospem1->bs_naskah_kepustakaan,
+			'total_a_1' => $nilaiDospem1->total_a,
+			'rata_a_1' => $nilaiDospem1->rata_a,
+			'pelaksanaan_presentasi_1' => $nilaiDospem1->pelaksanaan_presentasi,
+			'pelaksanaan_penguasaan_1' => $nilaiDospem1->pelaksanaan_penguasaan,
+			'pelaksanaan_argumentasi_1' => $nilaiDospem1->pelaksanaan_argumentasi,
+			'bs_pelaksanaan_presentasi_1' => $nilaiDospem1->bs_pelaksanaan_presentasi,
+			'bs_pelaksanaan_penguasaan_1' => $nilaiDospem1->bs_pelaksanaan_penguasaan,
+			'bs_pelaksanaan_argumentasi_1' => $nilaiDospem1->bs_pelaksanaan_argumentasi,
+			'total_b_1' => $nilaiDospem1->total_b,
+			'rata_b_1' => $nilaiDospem1->rata_b,
+			'bimbingan_ketekunan_2' => $nilaiDospem2->bimbingan_ketekunan,
+			'bimbingan_adab_2' => $nilaiDospem2->bimbingan_adab,
+			'bimbingan_kemandirian_2' => $nilaiDospem2->bimbingan_kemandirian,
+			'total_c_2' => $nilaiDospem2->total_c,
+			'rata_c_2' => $nilaiDospem2->rata_c,
+			'naskah_penulisan_2' => $nilaiDospem2->naskah_penulisan,
+			'naskah_pemikiran_2' => $nilaiDospem2->naskah_pemikiran,
+			'naskah_kajian_2' => $nilaiDospem2->naskah_kajian,
+			'naskah_metode_2' => $nilaiDospem2->naskah_metode,
+			'naskah_hasil_2' => $nilaiDospem2->naskah_hasil,
+			'naskah_kesimpulan_2' => $nilaiDospem2->naskah_kesimpulan,
+			'naskah_kepustakaan_2' => $nilaiDospem2->naskah_kepustakaan,
+			'bs_naskah_penulisan_2' => $nilaiDospem2->bs_naskah_penulisan,
+			'bs_naskah_pemikiran_2' => $nilaiDospem2->bs_naskah_pemikiran,
+			'bs_naskah_kajian_2' => $nilaiDospem2->bs_naskah_kajian,
+			'bs_naskah_metode_2' => $nilaiDospem2->bs_naskah_metode,
+			'bs_naskah_hasil_2' => $nilaiDospem2->bs_naskah_hasil,
+			'bs_naskah_kesimpulan_2' => $nilaiDospem2->bs_naskah_kesimpulan,
+			'bs_naskah_kepustakaan_2' => $nilaiDospem2->bs_naskah_kepustakaan,
+			'total_a_2' => $nilaiDospem2->total_a,
+			'rata_a_2' => $nilaiDospem2->rata_a,
+			'pelaksanaan_presentasi_2' => $nilaiDospem2->pelaksanaan_presentasi,
+			'pelaksanaan_penguasaan_2' => $nilaiDospem2->pelaksanaan_penguasaan,
+			'pelaksanaan_argumentasi_2' => $nilaiDospem2->pelaksanaan_argumentasi,
+			'bs_pelaksanaan_presentasi_2' => $nilaiDospem2->bs_pelaksanaan_presentasi,
+			'bs_pelaksanaan_penguasaan_2' => $nilaiDospem2->bs_pelaksanaan_penguasaan,
+			'bs_pelaksanaan_argumentasi_2' => $nilaiDospem2->bs_pelaksanaan_argumentasi,
+			'total_b_2' => $nilaiDospem2->total_b,
+			'rata_b_2' => $nilaiDospem2->rata_b,
+			'naskah_penulisan_3' => $nilaiDosuji1->naskah_penulisan,
+			'naskah_pemikiran_3' => $nilaiDosuji1->naskah_pemikiran,
+			'naskah_kajian_3' => $nilaiDosuji1->naskah_kajian,
+			'naskah_metode_3' => $nilaiDosuji1->naskah_metode,
+			'naskah_hasil_3' => $nilaiDosuji1->naskah_hasil,
+			'naskah_kesimpulan_3' => $nilaiDosuji1->naskah_kesimpulan,
+			'naskah_kepustakaan_3' => $nilaiDosuji1->naskah_kepustakaan,
+			'bs_naskah_penulisan_3' => $nilaiDosuji1->bs_naskah_penulisan,
+			'bs_naskah_pemikiran_3' => $nilaiDosuji1->bs_naskah_pemikiran,
+			'bs_naskah_kajian_3' => $nilaiDosuji1->bs_naskah_kajian,
+			'bs_naskah_metode_3' => $nilaiDosuji1->bs_naskah_metode,
+			'bs_naskah_hasil_3' => $nilaiDosuji1->bs_naskah_hasil,
+			'bs_naskah_kesimpulan_3' => $nilaiDosuji1->bs_naskah_kesimpulan,
+			'bs_naskah_kepustakaan_3' => $nilaiDosuji1->bs_naskah_kepustakaan,
+			'total_a_3' => $nilaiDosuji1->total_a,
+			'rata_a_3' => $nilaiDosuji1->rata_a,
+			'pelaksanaan_presentasi_3' => $nilaiDosuji1->pelaksanaan_presentasi,
+			'pelaksanaan_penguasaan_3' => $nilaiDosuji1->pelaksanaan_penguasaan,
+			'pelaksanaan_argumentasi_3' => $nilaiDosuji1->pelaksanaan_argumentasi,
+			'bs_pelaksanaan_presentasi_3' => $nilaiDosuji1->bs_pelaksanaan_presentasi,
+			'bs_pelaksanaan_penguasaan_3' => $nilaiDosuji1->bs_pelaksanaan_penguasaan,
+			'bs_pelaksanaan_argumentasi_3' => $nilaiDosuji1->bs_pelaksanaan_argumentasi,
+			'total_b_3' => $nilaiDosuji1->total_b,
+			'rata_b_3' => $nilaiDosuji1->rata_b,
+			'naskah_penulisan_4' => $nilaiDosuji2->naskah_penulisan,
+			'naskah_pemikiran_4' => $nilaiDosuji2->naskah_pemikiran,
+			'naskah_kajian_4' => $nilaiDosuji2->naskah_kajian,
+			'naskah_metode_4' => $nilaiDosuji2->naskah_metode,
+			'naskah_hasil_4' => $nilaiDosuji2->naskah_hasil,
+			'naskah_kesimpulan_4' => $nilaiDosuji2->naskah_kesimpulan,
+			'naskah_kepustakaan_4' => $nilaiDosuji2->naskah_kepustakaan,
+			'bs_naskah_penulisan_4' => $nilaiDosuji2->bs_naskah_penulisan,
+			'bs_naskah_pemikiran_4' => $nilaiDosuji2->bs_naskah_pemikiran,
+			'bs_naskah_kajian_4' => $nilaiDosuji2->bs_naskah_kajian,
+			'bs_naskah_metode_4' => $nilaiDosuji2->bs_naskah_metode,
+			'bs_naskah_hasil_4' => $nilaiDosuji2->bs_naskah_hasil,
+			'bs_naskah_kesimpulan_4' => $nilaiDosuji2->bs_naskah_kesimpulan,
+			'bs_naskah_kepustakaan_4' => $nilaiDosuji2->bs_naskah_kepustakaan,
+			'total_a_4' => $nilaiDosuji2->total_a,
+			'rata_a_4' => $nilaiDosuji2->rata_a,
+			'pelaksanaan_presentasi_4' => $nilaiDosuji2->pelaksanaan_presentasi,
+			'pelaksanaan_penguasaan_4' => $nilaiDosuji2->pelaksanaan_penguasaan,
+			'pelaksanaan_argumentasi_4' => $nilaiDosuji2->pelaksanaan_argumentasi,
+			'bs_pelaksanaan_presentasi_4' => $nilaiDosuji2->bs_pelaksanaan_presentasi,
+			'bs_pelaksanaan_penguasaan_4' => $nilaiDosuji2->bs_pelaksanaan_penguasaan,
+			'bs_pelaksanaan_argumentasi_4' => $nilaiDosuji2->bs_pelaksanaan_argumentasi,
+			'total_b_4' => $nilaiDosuji2->total_b,
+			'rata_b_4' => $nilaiDosuji2->rata_b,
+			'rata_bimbingan_dospem' => $rata_bimbingan,
+			'rata_naskah_dospem' => $rata_naskah_dospem,
+			'rata_pelaksanaan_dospem' => $rata_pelaksanaan_dospem,
+			'rata_naskah_dosuji' => $rata_naskah_dosuji,
+			'rata_pelaksanaan_dosuji' => $rata_pelaksanaan_dosuji,
+			'bs_rata_bimbingan' => $bs_rata_bimbingan,
+			'bs_rata_naskah' => $bs_rata_naskah,
+			'bs_rata_pelaksanaan' => $bs_rata_pelaksanaan,
+			'skor_total' => $skor_total,
+			'skor_akhir' => $skor_akhir,
+			'nilai_akhir' => $nilai_akhir
+		];
+		$this->load->view($overlay, $data);
+	}
+
 
 	public function dosen()
 	{
@@ -428,10 +636,10 @@ class Score_Proposal extends CI_Controller
 			$nilai_akhir = 'E';
 		}
 
-		if ($skor_akhir < 56) {
-			$status = 'Tidak lulus';
+		if (!empty($nilaiDospem1->rata_a) && !empty($nilaiDospem2->rata_a) && !empty($nilaiDosuji1->rata_a) && !empty($nilaiDosuji2->rata_a)) {
+			$status = 'Selesai';
 		} else {
-			$status = 'Lulus';
+			$status = 'Terdaftar';
 		}
 
 		$data2 = [
@@ -573,10 +781,10 @@ class Score_Proposal extends CI_Controller
 			$nilai_akhir = 'E';
 		}
 
-		if ($skor_akhir < 56) {
-			$status = 'Tidak lulus';
+		if (!empty($nilaiDospem1->rata_a) && !empty($nilaiDospem2->rata_a) && !empty($nilaiDosuji1->rata_a) && !empty($nilaiDosuji2->rata_a)) {
+			$status = 'Selesai';
 		} else {
-			$status = 'Lulus';
+			$status = 'Terdaftar';
 		}
 
 		$data2 = [
@@ -601,9 +809,11 @@ class Score_Proposal extends CI_Controller
 			redirect('error404');
 		}
 
+		$ujian = $this->Proscore_model->getNilaiAll();
 		$data = [
 			'title' => "Nilai Ujian Proposal",
 			'content' => 'score/proposal/admin/admin',
+			'ujian' => $ujian
 		];
 		$this->load->view('template/overlay/admin', $data);
 	}

@@ -21,7 +21,7 @@
 			</a>
 			<ul id="proposal-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 				<li>
-					<a href="components-alerts.html">
+					<a href="<?= base_url() ?>progress_proposal/">
 						<i class="bi bi-circle"></i><span>Bimbingan</span>
 					</a>
 				</li>

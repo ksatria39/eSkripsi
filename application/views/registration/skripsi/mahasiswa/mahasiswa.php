@@ -4,12 +4,12 @@
 
 			<!-- <div style="margin-top: 4rem;">
                 <?php
-								// if (empty($myProposal)) { 
-								?>
+				// if (empty($myProposal)) { 
+				?>
                   <p>Anda belum mendaftarkan diri untuk ujian proposal.</p>
                 <?php
-								//  } else {
-								?>
+				//  } else {
+				?>
                 </div> -->
 
 			<!-- <div class="d-flex justify-content mt-3">
@@ -29,7 +29,7 @@
 			<?php endif; ?>
 
 			<?php if (empty($mySkripsi)) { ?>
-				<p style="margin-top: 4rem;">Anda belum mendaftar untuk mengikuti ujian skripsi.</p>
+				<p>Anda belum mendaftar untuk mengikuti ujian proposal.</p>
 			<?php } else { ?>
 
 				<table class="table" style="margin-top: 4rem;">
@@ -61,10 +61,18 @@
 									echo $dosen2->nama;
 									?>
 								</td>
-								<td><?= $mySkripsi->skp_status; ?></td>
-								<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $mySkripsi->id; ?>">Lihat Detail</button></td>
+								<td>
+									<?php if ($mySkripsi->skp_status == "Diterima") { ?>
+										<span class="badge rounded-pill bg-success">Diterima</span>
+									<?php } else if ($mySkripsi->skp_status == "Ditolak") { ?>
+										<span class="badge rounded-pill bg-danger">Ditolak</span>
+									<?php } else { ?>
+										<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+									<?php } ?>
+								</td>
+								<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $mySkripsi->skp_id; ?>">Lihat Detail</button></td>
 							</tr>
-							<div class="modal fade" id="myModal<?= $mySkripsi->id; ?>">
+							<div class="modal fade" id="myModal<?= $mySkripsi->skp_id; ?>">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<!-- Modal Header -->
@@ -98,12 +106,16 @@
 											</div>
 											<div class="row">
 												<span class="col-sm-5"><b>Status</b></span>
-												<span class="col-sm-10"><?= $mySkripsi->skp_status_dospem_1; ?></span>
+												<span class="col-sm-10">
+													<?php if ($mySkripsi->skp_status_dospem_1 == "Diterima") { ?>
+														<span class="badge rounded-pill bg-success">Diterima</span>
+													<?php } else if ($mySkripsi->skp_status_dospem_1 == "Ditolak") { ?>
+														<span class="badge rounded-pill bg-danger">Ditolak</span>
+													<?php } else { ?>
+														<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+													<?php } ?>
+												</span>
 											</div>
-											<!-- <div class="row">
-                  <span class="col-sm-5"><b>Keterangan</b></span>
-                  <span class="col-sm-10"><?= $mySkripsi->alasan_dospem_1; ?></span>
-                </div> -->
 											<hr>
 											<div class="row">
 												<span class="col-sm-5"><b>Pembimbing 2</b></span>
@@ -116,21 +128,37 @@
 											</div>
 											<div class="row">
 												<span class="col-sm-5"><b>Status</b></span>
-												<span class="col-sm-10"><?= $mySkripsi->skp_status_dospem_2; ?></span>
+												<span class="col-sm-10">
+													<?php if ($mySkripsi->skp_status_dospem_2 == "Diterima") { ?>
+														<span class="badge rounded-pill bg-success">Diterima</span>
+													<?php } else if ($mySkripsi->skp_status_dospem_2 == "Ditolak") { ?>
+														<span class="badge rounded-pill bg-danger">Ditolak</span>
+													<?php } else { ?>
+														<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+													<?php } ?>
+												</span>
 											</div>
-											<!-- <div class="row">
-                  <span class="col-sm-5"><b>Keterangan</b></span>
-                  <span class="col-sm-10"><?= $mySkripsi->alasan_dospem_2; ?></span>
-                </div> -->
 											<hr>
 											<div class="row">
 												<span class="col-sm-5"><b>Status Akhir</b></span>
-												<span class="col-sm-10"><?= $mySkripsi->skp_status; ?></span>
+												<span class="col-sm-10">
+													<?php if ($mySkripsi->skp_status == "Diterima") { ?>
+														<span class="badge rounded-pill bg-success">Diterima</span>
+													<?php } else if ($mySkripsi->skp_status == "Ditolak") { ?>
+														<span class="badge rounded-pill bg-danger">Ditolak</span>
+													<?php } else { ?>
+														<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+													<?php } ?>
+												</span>
 											</div>
 											<hr>
 											<div class="row">
 												<span class="col-sm-5"><b>Berkas</b></span>
-												<a class="btn btn-primary" href="<?= base_url() ?>/file/skripsi/logbook/<?= $mySkripsi->file_logbook; ?>">Logbook</a></span>
+												<span>
+													<a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/naskah/<?= $mySkripsi->file_naskah; ?>">Naskah</a>
+													<a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/transkrip/<?= $mySkripsi->file_transkrip; ?>">Transkrip Nilai</a>
+													<a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/ukt/<?= $mySkripsi->file_ukt; ?>">Naskah</a>
+												</span>
 											</div>
 										</div>
 										<!-- Modal Footer -->
@@ -148,7 +176,7 @@
 			<!-- End Default Table Example -->
 
 
-			<a class="btn btn-primary position-absolute top-0 end-0 m-3" href="<?= base_url() ?>/registration_skripsi/daftar" style="border-radius: 15px;">
+			<a class="btn btn-primary position-absolute top-0 end-0 m-3" href="<?= base_url() ?>registration_skripsi/daftar" style="border-radius: 15px;">
 				<i class="ri-add-line"></i>Tambah
 			</a>
 

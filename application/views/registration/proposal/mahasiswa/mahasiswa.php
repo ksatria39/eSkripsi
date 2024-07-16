@@ -61,7 +61,15 @@
 									echo $dosen2->nama;
 									?>
 								</td>
-								<td><?= $myProposal->pro_status; ?></td>
+								<td>
+									<?php if ($myProposal->pro_status == "Diterima") { ?>
+										<span class="badge rounded-pill bg-success">Diterima</span>
+									<?php } else if ($myProposal->pro_status == "Ditolak") { ?>
+										<span class="badge rounded-pill bg-danger">Ditolak</span>
+									<?php } else { ?>
+										<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+									<?php } ?>
+								</td>
 								<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $myProposal->pro_id; ?>">Lihat Detail</button></td>
 							</tr>
 							<div class="modal fade" id="myModal<?= $myProposal->pro_id; ?>">
@@ -98,7 +106,15 @@
 											</div>
 											<div class="row">
 												<span class="col-sm-5"><b>Status</b></span>
-												<span class="col-sm-10"><?= $myProposal->pro_status_dospem_1; ?></span>
+												<span class="col-sm-10">
+													<?php if ($myProposal->pro_status_dospem_1 == "Diterima") { ?>
+														<span class="badge rounded-pill bg-success">Diterima</span>
+													<?php } else if ($myProposal->pro_status_dospem_1 == "Ditolak") { ?>
+														<span class="badge rounded-pill bg-danger">Ditolak</span>
+													<?php } else { ?>
+														<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+													<?php } ?>
+												</span>
 											</div>
 											<hr>
 											<div class="row">
@@ -112,17 +128,33 @@
 											</div>
 											<div class="row">
 												<span class="col-sm-5"><b>Status</b></span>
-												<span class="col-sm-10"><?= $myProposal->pro_status_dospem_2; ?></span>
+												<span class="col-sm-10">
+													<?php if ($myProposal->pro_status_dospem_2 == "Diterima") { ?>
+														<span class="badge rounded-pill bg-success">Diterima</span>
+													<?php } else if ($myProposal->pro_status_dospem_2 == "Ditolak") { ?>
+														<span class="badge rounded-pill bg-danger">Ditolak</span>
+													<?php } else { ?>
+														<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+													<?php } ?>
+												</span>
 											</div>
 											<hr>
 											<div class="row">
 												<span class="col-sm-5"><b>Status Akhir</b></span>
-												<span class="col-sm-10"><?= $myProposal->pro_status; ?></span>
+												<span class="col-sm-10">
+													<?php if ($myProposal->pro_status == "Diterima") { ?>
+														<span class="badge rounded-pill bg-success">Diterima</span>
+													<?php } else if ($myProposal->pro_status == "Ditolak") { ?>
+														<span class="badge rounded-pill bg-danger">Ditolak</span>
+													<?php } else { ?>
+														<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+													<?php } ?>
+												</span>
 											</div>
 											<hr>
 											<div class="row">
 												<span class="col-sm-5"><b>Berkas</b></span>
-												<a class="btn btn-primary" href="<?= base_url() ?>registration_proposal/view_naskah/<?= $myProposal->file_naskah; ?>">Naskah</a></span>
+												<sp><a class="btn btn-primary" href="<?= base_url() ?>registration_proposal/view_naskah/<?= $myProposal->file_naskah; ?>">Naskah</a></span>
 											</div>
 										</div>
 										<!-- Modal Footer -->
@@ -140,7 +172,7 @@
 			<!-- End Default Table Example -->
 
 
-			<a class="btn btn-primary position-absolute top-0 end-0 m-3" href="<?= base_url() ?>/registration_proposal/daftar" style="border-radius: 15px;">
+			<a class="btn btn-primary position-absolute top-0 end-0 m-3" href="<?= base_url() ?>registration_proposal/daftar" style="border-radius: 15px;">
 				<i class="ri-add-line"></i>Tambah
 			</a>
 

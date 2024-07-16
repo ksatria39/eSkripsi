@@ -40,7 +40,7 @@
                 </div> -->
 
 					<?php if (empty($dospem1)) { ?>
-						<p>Tidak ada pendaftaran ujian skripsi yang menunggu persetujuan.</p>
+						<p>Tidak ada pendaftaran ujian proposal yang menunggu persetujuan.</p>
 					<?php } else { ?>
 
 						<table class="table">
@@ -50,8 +50,12 @@
 									<th scope="col">Judul</th>
 									<th scope="col">Mahasiswa</th>
 									<th scope="col">NPM</th>
+									<th scope="col">Status</th>
 									<th scope="col">Logbook Bimbingan</th>
-									<th scope="col">Aksi</th>
+									<th scope="col">Naskah Proposal</th>
+									<th scope="col">Transkrip Nilai</th>
+									<th scope="col">Bukti Pembayaran</th>
+									<th scope="col">Respon</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -71,10 +75,29 @@
 											echo $mahasiswa->npm;
 											?>
 										</td>
-										<td><a class="btn btn-primary" href="<?= base_url() ?>file/skripsi/logbook/<?= $dospem1->file_logbook; ?>">Unduh</a></td>
 										<td>
-											<a type="submit" href="<?= base_url('registration_skripsi/accDospem1') ?>/<?= $dospem1->skp_id; ?>" class="btn btn-primary">Terima</a>
-											<a type="submit" href="<?= base_url('registration_skripsi/deDospem1') ?>/<?= $dospem1->skp_id; ?>" class="btn btn-danger">Tolak</a>
+											<?php if ($dospem1->skp_status_dospem_1 == "Diterima") { ?>
+												<span class="badge rounded-pill bg-success">Diterima</span>
+											<?php } else if ($dospem1->skp_status_dospem_1 == "Ditolak") { ?>
+												<span class="badge rounded-pill bg-danger">Ditolak</span>
+											<?php } else { ?>
+												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+											<?php } ?>
+										</td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>file/skripsi/logbook/">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/naskah/<?= $dospem1->file_naskah; ?>">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/transkrip/<?= $dospem1->file_transkrip; ?>">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/ukt/<?= $dospem1->file_ukt; ?>">Lihat</a></td>
+										<td width="15%">
+											<form id="updateStatus<?= $dospem1->skp_id ?>" action=" <?= base_url() ?>registration_skripsi/update_status_dospem1/<?= $dospem1->skp_id ?>" method="post">
+												<div class="d-flex gap-3">
+													<select name="status" id="status<?= $dospem1->skp_id ?>" class="form-control" onchange="this.form.submit();">
+														<option value="Sedang diproses" <?php if ($dospem1->skp_status_dospem_1 == 'Sedang diproses') echo 'selected'; ?>>Sedang diproses</option>
+														<option value="Diterima" <?php if ($dospem1->skp_status_dospem_1 == 'Diterima') echo 'selected'; ?>>Diterima</option>
+														<option value="Ditolak" <?php if ($dospem1->skp_status_dospem_1 == 'Ditolak') echo 'selected'; ?>>Ditolak</option>
+													</select>
+												</div>
+											</form>
 										</td>
 									</tr>
 								<?php } ?>
@@ -96,7 +119,7 @@
                 </div> -->
 
 					<?php if (empty($dospem2)) { ?>
-						<p>Tidak ada pendaftaran ujian skripsi yang menunggu persetujuan.</p>
+						<p>Tidak ada pendaftaran ujian proposal yang menunggu persetujuan.</p>
 					<?php } else { ?>
 
 						<table class="table">
@@ -106,8 +129,12 @@
 									<th scope="col">Judul</th>
 									<th scope="col">Mahasiswa</th>
 									<th scope="col">NPM</th>
+									<th scope="col">Status</th>
 									<th scope="col">Logbook Bimbingan</th>
-									<th scope="col">Aksi</th>
+									<th scope="col">Naskah Proposal</th>
+									<th scope="col">Transkrip Nilai</th>
+									<th scope="col">Bukti Pembayaran</th>
+									<th scope="col">Respon</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -127,10 +154,29 @@
 											echo $mahasiswa->npm;
 											?>
 										</td>
-										<td><a class="btn btn-primary" href="<?= base_url() ?>file/skripsi/logbook/<?= $dospem2->file_logbook; ?>">Unduh</a></td>
 										<td>
-											<a type="submit" href="<?= base_url('registration_skripsi/accDospem2') ?>/<?= $dospem2->skp_id; ?>" class="btn btn-primary">Terima</a>
-											<a type="submit" href="<?= base_url('registration_skripsi/deDospem2') ?>/<?= $dospem2->skp_id; ?>" class="btn btn-danger">Tolak</a>
+											<?php if ($dospem2->skp_status_dospem_2 == "Diterima") { ?>
+												<span class="badge rounded-pill bg-success">Diterima</span>
+											<?php } else if ($dospem2->skp_status_dospem_2 == "Ditolak") { ?>
+												<span class="badge rounded-pill bg-danger">Ditolak</span>
+											<?php } else { ?>
+												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+											<?php } ?>
+										</td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>file/skripsi/logbook/">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/naskah/<?= $dospem2->file_naskah; ?>">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/transkrip/<?= $dospem2->file_transkrip; ?>">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/ukt/<?= $dospem2->file_ukt; ?>">Lihat</a></td>
+										<td width="15%">
+											<form id="updateStatus<?= $dospem2->skp_id ?>" action=" <?= base_url() ?>registration_skripsi/update_status_dospem2/<?= $dospem2->skp_id ?>" method="post">
+												<div class="d-flex gap-3">
+													<select name="status" id="status<?= $dospem2->skp_id ?>" class="form-control" onchange="this.form.submit();">
+														<option value="Sedang diproses" <?php if ($dospem2->skp_status_dospem_2 == 'Sedang diproses') echo 'selected'; ?>>Sedang diproses</option>
+														<option value="Diterima" <?php if ($dospem2->skp_status_dospem_2 == 'Diterima') echo 'selected'; ?>>Diterima</option>
+														<option value="Ditolak" <?php if ($dospem2->skp_status_dospem_2 == 'Ditolak') echo 'selected'; ?>>Ditolak</option>
+													</select>
+												</div>
+											</form>
 										</td>
 									</tr>
 								<?php } ?>

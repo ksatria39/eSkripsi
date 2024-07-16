@@ -74,7 +74,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="<?= base_url() ?>post_skripsi/n">
+					<a href="<?= base_url() ?>post_skripsi/">
 						<i class="bi bi-circle"></i><span>Pasca Ujian</span>
 					</a>
 				</li>

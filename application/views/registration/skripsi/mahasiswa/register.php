@@ -23,19 +23,28 @@
 					</div>
 				</div>
 
-				<!-- <div class="row mb-3 mt-3">
-                  <label class="col-sm-2 col-form-label">Naskah Proposal</label>
-                  <div class="col-sm-10">
-                    <input type="file" class="form-control" name="naskah" id="naskah" placeholder="Pilih File">
-                  </div><div class="text-sm text-muted">* .pdf dengan ukuran maksimal 5MB</div>
-                </div> -->
+				<div class="row mb-3 mt-3">
+					<label class="col-sm-2 col-form-label">Naskah Skripsi</label>
+					<div class="col-sm-10">
+						<input type="file" class="form-control" name="file_naskah" id="file_naskah" placeholder="Pilih File">
+					</div>
+					<div class="text-sm text-muted">* .pdf dengan ukuran maksimal 10MB</div>
+				</div>
 
 				<div class="row mb-3 mt-3">
-					<label class="col-sm-2 col-form-label">Logbook Bimbingan</label>
+					<label class="col-sm-2 col-form-label">Bukti Pembayaran</label>
 					<div class="col-sm-10">
-						<input type="file" class="form-control" name="file_logbook" id="file_logbook" placeholder="Pilih File">
+						<input type="file" class="form-control" name="file_ukt" id="file_ukt" placeholder="Pilih File">
 					</div>
-					<div class="text-sm text-muted">* .pdf dengan ukuran maksimal 5MB</div>
+					<div class="text-sm text-muted">* .pdf dengan ukuran maksimal 10MB</div>
+				</div>
+
+				<div class="row mb-3 mt-3">
+					<label class="col-sm-2 col-form-label">Transkrip Nilai</label>
+					<div class="col-sm-10">
+						<input type="file" class="form-control" name="file_transkrip" id="file_transkrip" placeholder="Pilih File">
+					</div>
+					<div class="text-sm text-muted">* .pdf dengan ukuran maksimal 10MB</div>
 				</div>
 
 				<div class="col-sm-10" align="center">

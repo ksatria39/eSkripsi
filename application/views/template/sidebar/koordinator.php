@@ -85,6 +85,11 @@
 					</a>
 				</li>
 				<li>
+					<a href="<?= base_url() ?>score_skripsi/koordinator">
+						<i class="bi bi-circle"></i><span>Hasil Ujian</span>
+					</a>
+				</li>
+				<li>
 					<a href="<?= base_url() ?>post_skripsi/koordinator">
 						<i class="bi bi-circle"></i><span>Pasca Ujian</span>
 					</a>

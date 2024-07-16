@@ -18,9 +18,9 @@ class Skpregister_model extends CI_Model
 		return $query->result();
 	}
 
-	public function getMyProposal($user_id)
+	public function getMySkripsi($user_id)
 	{
-		$this->db->select('*, skp_register.id as pro_id, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2');
+		$this->db->select('*, skp_register.id as skp_id, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2');
 		$this->db->from('skp_register');
 		$this->db->join('title', 'skp_register.title_id = title.id', 'inner');
 		$this->db->where('title.mahasiswa', $user_id);
@@ -33,7 +33,7 @@ class Skpregister_model extends CI_Model
 	{
 		$this->db->where('mahasiswa', $user_id);
 		$this->db->where('status', 'Diterima');
-		$this->db->where('status_ujian_proposal', 'Selesai')
+		$this->db->where('status_ujian_proposal', 'Selesai');
 		$this->db->where('status_ujian_skripsi', 'Belum terdaftar');
 		$query = $this->db->get('title');
 		return $query->result_array();
@@ -46,7 +46,7 @@ class Skpregister_model extends CI_Model
 
 	public function getSkripsiDospem1($id)
 	{
-		$this->db->select('*, skp_register.id as pro_id, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2');
+		$this->db->select('*, skp_register.id as skp_id, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2');
 		$this->db->from('skp_register');
 		$this->db->join('title', 'skp_register.title_id = title.id', 'inner');
 		$this->db->where('title.dospem_1_id', $id);
@@ -58,7 +58,7 @@ class Skpregister_model extends CI_Model
 
 	public function getSkripsiDospem2($id)
 	{
-		$this->db->select('*, skp_register.id as pro_id, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2');
+		$this->db->select('*, skp_register.id as skp_id, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2');
 		$this->db->from('skp_register');
 		$this->db->join('title', 'skp_register.title_id = title.id', 'inner');
 		$this->db->where('title.dospem_2_id', $id);
@@ -70,7 +70,7 @@ class Skpregister_model extends CI_Model
 
 	public function getSkripsiKoo()
 	{
-		$this->db->select('*, skp_register.id as pro_id, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2');
+		$this->db->select('*, skp_register.id as skp_id, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as skp_status_dospem_2');
 		$this->db->from('skp_register');
 		$this->db->join('title', 'skp_register.title_id = title.id', 'inner');
 		$this->db->where('skp_register.status', 'Sedang diproses');
@@ -80,13 +80,13 @@ class Skpregister_model extends CI_Model
 		return $query->result();
 	}
 
-	public function getThisProposal($pro_id)
+	public function getThisSkripsi($skp_id)
 	{
-		$this->db->select('*, pro_register.status as pro_status, pro_register.status_dospem_1 as pro_status_dospem_1, pro_register.status_dospem_2 as pro_status_dospem_2, pro_register.id as pro_id, title.id as title_id');
-		$this->db->from('pro_register');
-		$this->db->join('title', 'pro_register.title_id = title.id', 'inner');
-		$this->db->where('pro_register.id', $pro_id);
-		$this->db->order_by('pro_register.id', 'desc');
+		$this->db->select('*, skp_register.status as skp_status, skp_register.status_dospem_1 as skp_status_dospem_1, skp_register.status_dospem_2 as pro_status_dospem_2, skp_register.id as skp_id, title.id as title_id');
+		$this->db->from('skp_register');
+		$this->db->join('title', 'skp_register.title_id = title.id', 'inner');
+		$this->db->where('skp_register.id', $skp_id);
+		$this->db->order_by('skp_register.id', 'desc');
 		$query = $this->db->get();
 		return $query->row();
 	}

@@ -3,7 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Proschedule_model extends CI_Model
 {
-	private $table = 'users';
 
 	public function __construct()
 	{

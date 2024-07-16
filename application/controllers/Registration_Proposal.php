@@ -181,8 +181,6 @@ class Registration_Proposal extends CI_Controller
 		redirect("registration_proposal");
 	}
 
-
-
 	public function koordinator()
 	{
 		if ($this->session->userdata('group_id') != 3) {
@@ -286,6 +284,12 @@ class Registration_Proposal extends CI_Controller
 
 		$data['status'] = 'Ditolak';
 		$this->Proregister_model->accProposal($id, $data);
+
+		$thisProposal = $this->Proregister_model->getThisProposal($id);
+		$data2 = [
+			'status_ujian_proposal' => 'Belum terdaftar'
+		];
+		$this->Proregister_model->setTitle($thisProposal->title_id, $data2);
 
 		$this->session->set_flashdata('denied', 'Judul Berhasil Ditolak');
 		redirect('registration_proposal');

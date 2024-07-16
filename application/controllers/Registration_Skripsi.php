@@ -31,17 +31,43 @@ class Registration_Skripsi extends CI_Controller
 		}
 	}
 
+	public function view_naskah($file_naskah)
+	{
+		if (!$this->session->userdata('is_login')) {
+			redirect('login');
+		} else {
+			if ($this->session->userdata('group_id') == 1) {
+				$overlay = 'template/overlay/mahasiswa';
+			} else if ($this->session->userdata('group_id') == 2) {
+				$overlay = 'template/overlay/dosen';
+			} else if ($this->session->userdata('group_id') == 3) {
+				$overlay = 'template/overlay/koordinator';
+			} else if ($this->session->userdata('group_id') == 4) {
+				$overlay = 'template/overlay/admin';
+			} else {
+				redirect('login');
+			}
+		}
+
+		$data = [
+			'title' => "Naskah Skripsi",
+			'content' => 'registration/skripsi/view_naskah',
+			'file_naskah' => $file_naskah
+		];
+		$this->load->view($overlay, $data);
+	}
+
 	public function mahasiswa()
 	{
 		if ($this->session->userdata('group_id') != 1) {
 			redirect('error404');
 		}
 
-		$mySkripsi = $this->Skpregister_model->getMySkripsi($this->session->userdata('user_id'));
+		$myProposal = $this->Skpregister_model->getMySkripsi($this->session->userdata('user_id'));
 		$data = [
 			'title' => "Pendaftaran Ujian Skripsi",
 			'content' => 'registration/skripsi/mahasiswa/mahasiswa',
-			'mySkripsi' => $mySkripsi
+			'myProposal' => $myProposal
 		];
 		$this->load->view('template/overlay/mahasiswa', $data);
 	}
@@ -54,7 +80,7 @@ class Registration_Skripsi extends CI_Controller
 
 		$myTitle = $this->Skpregister_model->getMyTitle($this->session->userdata('user_id'));
 		$data = [
-			'title' => "Pendaftaran Ujian Proposal",
+			'title' => "Pendaftaran Ujian Skripsi",
 			'content' => 'registration/skripsi/mahasiswa/register',
 			'myTitle' => $myTitle
 		];
@@ -63,14 +89,13 @@ class Registration_Skripsi extends CI_Controller
 
 	public function addSkripsi()
 	{
-
 		if ($this->session->userdata('group_id') != 1) {
 			redirect('error404');
 		}
 
 		if ($this->input->post('title_id') == '-- Pilih Judul --') {
 			$this->session->set_flashdata('error', 'Seluruh kolom wajib diisi.');
-			redirect('registration_skripsi/daftar');
+			redirect('registration_proposal/daftar');
 		}
 
 		$this->form_validation->set_rules('title_id', 'Judul', 'required');
@@ -79,34 +104,42 @@ class Registration_Skripsi extends CI_Controller
 			$this->session->set_flashdata('error', 'Seluruh kolom wajib diisi.');
 			redirect('registration_skripsi/daftar');
 		} else {
-			$config['upload_path'] = './file/skripsi/logbook/';
-			$config['allowed_types'] = 'pdf';
-			$config['max_size'] = 10240; // 10MB
+			// Upload naskah
+			$config_naskah['upload_path'] = './file/skripsi/naskah/';
+			$config_naskah['allowed_types'] = 'pdf';
+			$config_naskah['max_size'] = 10240; // 10MB
 
-			$this->upload->initialize($config);
+			$this->upload->initialize($config_naskah);
 
-			if (!$this->upload->do_upload('file_logbook')) {
+			if (!$this->upload->do_upload('file_naskah')) {
 				$this->session->set_flashdata('error', $this->upload->display_errors());
 				redirect('registration_skripsi/daftar');
 			} else {
-				$upload_data = $this->upload->data();
-				$file_name = $upload_data['file_name'];
+				$upload_data_naskah = $this->upload->data();
+				$file_name_naskah = $upload_data_naskah['file_name'];
 
 				$data = array(
 					'title_id' => $this->input->post('title_id'),
-					'file_logbook' => $file_name,
+					'file_naskah' => $file_name_naskah,
 					'status_dospem_1' => 'Sedang diproses',
 					'status_dospem_2' => 'Sedang diproses',
 					'status' => 'Sedang diproses'
 				);
 
-				$this->Skpregister_model->addSkripsi($data);
+				$this->Skpregister_model->addProposal($data);
 
-				$this->session->set_flashdata('success', 'Berhasil mendaftar ujian proposal');
+				$data2 = [
+					'status_ujian_skripsi' => 'Terdaftar'
+				];
+
+				$this->Skpregister_model->setTitle($this->input->post('title_id'), $data2);
+
+				$this->session->set_flashdata('success', 'Berhasil mendaftar ujian skripsi');
 				redirect('registration_skripsi');
 			}
 		}
 	}
+
 
 
 	public function dosen()
@@ -123,46 +156,32 @@ class Registration_Skripsi extends CI_Controller
 			'dospem1' => $dospem1,
 			'dospem2' => $dospem2,
 		];
+		// var_export($data['dospem2'][2]);
+		// die;
 		$this->load->view('template/overlay/dosen', $data);
 	}
 
-	public function accDospem1($id)
+	public function update_status_dospem1($id)
 	{
-		$data['status_dospem_1'] = 'Diterima';
-		$this->Skpregister_model->accSkripsi($id, $data);
-
-		$this->session->set_flashdata('success', 'Pendaftaran Ujian Skripsi Berhasil Disetujui');
-		redirect('registration_skripsi');
+		$status = $this->input->post('status');
+		if (!empty($status)) {
+			$data['status_dospem_1'] = $status;
+			$this->Skpregister_model->accSkripsi($id, $data);
+		}
+		redirect("registration_skripsi");
 	}
 
-	public function deDospem1($id)
+	public function update_status_dospem2($id)
 	{
-		$data['status_dospem_1'] = 'Ditolak';
-		$this->Skpregister_model->accSkripsi($id, $data);
-
-		$this->session->set_flashdata('denied', 'Pendaftaran Ujian Skripsi Berhasil Ditolak');
-		redirect('registration_skripsi');
+		$status = $this->input->post('status');
+		if (!empty($status)) {
+			$data['status_dospem_2'] = $status;
+			$this->Skpregister_model->accSkripsi($id, $data);
+		}
+		redirect("registration_skripsi");
 	}
 
-	public function accDospem2($id)
-	{
 
-		$data['status_dospem_2'] = 'Diterima';
-		$this->Skpregister_model->accSkripsi($id, $data);
-
-		$this->session->set_flashdata('success', 'Pendaftaran Ujian Skripsi Berhasil Disetujui');
-		redirect('registration_skripsi');
-	}
-
-	public function deDospem2($id)
-	{
-
-		$data['status_dospem_2'] = 'Ditolak';
-		$this->Skpregister_model->accSkripsi($id, $data);
-
-		$this->session->set_flashdata('denied', 'Pendaftaran Ujian Skripsi Berhasil Ditolak');
-		redirect('registration_skripsi');
-	}
 
 	public function koordinator()
 	{
@@ -170,17 +189,21 @@ class Registration_Skripsi extends CI_Controller
 			redirect('error404');
 		}
 
+		$dosuji1 = $this->Skpregister_model->getDosen();
+		$dosuji2 = $this->Skpregister_model->getDosen();
 		$dospem1 = $this->Skpregister_model->getSkripsiDospem1($this->session->userdata('user_id'));
 		$dospem2 = $this->Skpregister_model->getSkripsiDospem2($this->session->userdata('user_id'));
-		$koordinator = $this->Skpregister_model->getSkripsiKoo($this->session->userdata('user_id'));
+		$koordinator = $this->Skpregister_model->getProposalKoo($this->session->userdata('user_id'));
 		$rooms = $this->Skpregister_model->getRooms();
 		$data = [
-			'title' => "Pendaftaran Ujian Skripsi",
+			'title' => "Pendaftaran Ujian Proposal",
 			'content' => 'registration/skripsi/koordinator/koordinator',
 			'dospem1' => $dospem1,
 			'dospem2' => $dospem2,
 			'koordinator' => $koordinator,
-			'rooms' => $rooms
+			'rooms' => $rooms,
+			'dosuji1' => $dosuji1,
+			'dosuji2' => $dosuji2
 		];
 		$this->load->view('template/overlay/koordinator', $data);
 	}
@@ -196,10 +219,10 @@ class Registration_Skripsi extends CI_Controller
 
 		if ($this->form_validation->run() == FALSE || $this->input->post('room_id') == '-- Pilih Ruangan Ujian --') {
 			$this->session->set_flashdata('error', 'Silahkan atur jadwal dan tempat ujian untuk menyetujui pendaftaran.');
-			redirect('registration_skripsi');
+			redirect('registration_proposal');
 		}
 
-		$id = $this->input->post('id');
+		$id_register = $this->input->post('id');
 		$tanggal = $this->input->post('tanggal');
 		$jam = $this->input->post('jam');
 		$room = $this->input->post('room_id');
@@ -209,8 +232,40 @@ class Registration_Skripsi extends CI_Controller
 			'jam' => $jam,
 			'room_id' => $room
 		];
+		$this->Skpregister_model->accSkripsi($id_register, $data);
 
-		$this->Skpregister_model->accSkripsi($id, $data);
+		$dospem1 = $this->input->post('dospem1');
+		$dospem2 = $this->input->post('dospem2');
+		$dosuji1 = $this->input->post('dosuji1');
+		$dosuji2 = $this->input->post('dosuji2');
+
+		$data_ujian_1 = [
+			'pro_register_id' => $id_register,
+			'dosen_id' => $dospem1,
+			'as' => 'dospem-1'
+		];
+		$this->Skpregister_model->addUjian($data_ujian_1);
+
+		$data_ujian_2 = [
+			'pro_register_id' => $id_register,
+			'dosen_id' => $dospem2,
+			'as' => 'dospem-2'
+		];
+		$this->Skpregister_model->addUjian($data_ujian_2);
+
+		$data_ujian_3 = [
+			'pro_register_id' => $id_register,
+			'dosen_id' => $dosuji1,
+			'as' => 'dosuji-1'
+		];
+		$this->Skpregister_model->addUjian($data_ujian_3);
+
+		$data_ujian_4 = [
+			'pro_register_id' => $id_register,
+			'dosen_id' => $dosuji2,
+			'as' => 'dosuji-2'
+		];
+		$this->Skpregister_model->addUjian($data_ujian_4);
 
 		$this->session->set_flashdata('success', 'Pendaftaran Ujian Proposal Berhasil Disetujui');
 		redirect('registration_skripsi');
@@ -223,7 +278,13 @@ class Registration_Skripsi extends CI_Controller
 		}
 
 		$data['status'] = 'Ditolak';
-		$this->Skpregister_model->accSkripsi($id, $data);
+		$this->Skpregister_model->accProposal($id, $data);
+
+		$thisSkripsi = $this->Skpregister_model->getThisSkripsi($id);
+		$data2 = [
+			'status_ujian_skripsi' => 'Belum terdaftar'
+		];
+		$this->Skpregister_model->setTitle($thisSkripsi->title_id, $data2);
 
 		$this->session->set_flashdata('denied', 'Judul Berhasil Ditolak');
 		redirect('registration_skripsi');
@@ -235,12 +296,11 @@ class Registration_Skripsi extends CI_Controller
 			redirect('error404');
 		}
 
-		$skripsi = $this->Skpregister_model->getSkripsi();
-
+		$skripsi = $this->Skpregister_model->getProposal();
 		$data = [
 			'title' => "Pendaftaran Ujian Skripsi",
 			'content' => 'registration/skripsi/admin/admin',
-			'skripsi' => $skripsi
+			'proposal' => $skripsi,
 		];
 		$this->load->view('template/overlay/admin', $data);
 	}

@@ -42,6 +42,7 @@
 							<tr>
 								<th scope="col">No</th>
 								<th scope="col">NPM</th>
+								<th scope="col">Angkatan</th>
 								<th scope="col">Nama</th>
 								<th scope="col">Email</th>
 								<th scope="col">Telepon</th>
@@ -54,6 +55,7 @@
 								<tr>
 									<th scope="row"><?= $no++; ?></th>
 									<td><?= $mahasiswa->npm; ?></td>
+									<td><?= $mahasiswa->angkatan; ?></td>
 									<td><?= $mahasiswa->nama; ?></td>
 									<td><?= $mahasiswa->email; ?></td>
 									<td><?= $mahasiswa->telepon; ?></td>

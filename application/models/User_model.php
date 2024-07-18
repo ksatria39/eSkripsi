@@ -79,7 +79,7 @@ class User_model extends CI_Model
 
     public function getRole()
     {
-        return $this->db->get('role')->result_array();
+        return $this->db->get('group')->result_array();
     }
 
 	public function get_profile($user_id)

@@ -76,7 +76,8 @@ class Dm extends CI_Controller
 				'nama' => $this->input->post('nama'),
 				'email' => $this->input->post('email'),
 				'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-				'group_id' => $this->input->post('role')
+				'group_id' => $this->input->post('role'),
+				'angkatan' => $this->input->post('angkatan')
 			);
 
 			if ($data['group_id'] == '-- Pilih Jenis Pengguna --') {

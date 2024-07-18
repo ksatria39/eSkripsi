@@ -56,6 +56,17 @@
 					</div>
 				</div>
 
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label">Angkatan</label>
+					<div class="col-sm-10">
+						<select class="form-select" name="angkatan" id="angkatan" aria-label="Default select example">
+							<!-- Isi otomatis menggunaka JavaScript -->
+						</select>
+						<div class="text-sm text-muted"><i>Masukan tahun angkatan jika yang ditambahkan adalah data mahasiswa.</i></div>
+						<?php echo form_error('role'); ?>
+					</div>
+				</div>
+
 				<div class="col-sm-10" align="center">
 					<button type="submit" class="btn btn-primary">Tambah</button>
 				</div>
@@ -64,3 +75,21 @@
 		</div>
 	</div>
 </section>
+
+<script>
+	const selectTahun = document.getElementById('angkatan');
+
+
+	const currentYear = new Date().getFullYear();
+
+
+	const startYear = currentYear - 3;
+	const endYear = currentYear - 10;
+
+	for (let year = startYear; year >= endYear; year--) {
+		const option = document.createElement('option');
+		option.value = year; // Nilai value sesuai dengan tahun
+		option.textContent = year;
+		selectTahun.appendChild(option);
+	}
+</script>

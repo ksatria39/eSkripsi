@@ -89,7 +89,7 @@
 			<li class="nav-item dropdown pe-3">
 
 				<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-					<img src="<?= base_url() ?>template/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+					<img src="<?= base_url() ?>template/assets/img/user-img.png" alt="Profile" class="rounded-circle">
 				</a><!-- End Profile Iamge Icon -->
 
 				<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -97,7 +97,7 @@
 						<h6><?= $this->session->userdata('name'); ?></h6>
 						<span>
 							<?php
-							$role = $this->db->where('id', $this->session->userdata('group_id'))->get('role')->row();
+							$role = $this->db->where('id', $this->session->userdata('group_id'))->get('group')->row();
 							echo $role->nama;
 							?>
 						</span>

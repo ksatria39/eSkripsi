@@ -68,7 +68,7 @@ class Schedule_Proposal extends CI_Controller {
 		$dosuji1 = $this->db->where('id', $data->dosuji_1_id)->get('users')->row();
 		$dosuji2 = $this->db->where('id', $data->dosuji_2_id)->get('users')->row();
 		$dospem1 = $this->db->where('id', $data->dospem_1_id)->get('users')->row();
-		$dospem2 = $this->db->where('id', $data->dospem_1_id)->get('users')->row();
+		$dospem2 = $this->db->where('id', $data->dospem_2_id)->get('users')->row();
 		$mahasiswa = $this->db->where('id', $data->mahasiswa)->get('users')->row();
 
 		$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor("berita_acara_proposal.docx");
@@ -129,7 +129,7 @@ class Schedule_Proposal extends CI_Controller {
 		$dosuji1 = $this->db->where('id', $data->dosuji_1_id)->get('users')->row();
 		$dosuji2 = $this->db->where('id', $data->dosuji_2_id)->get('users')->row();
 		$dospem1 = $this->db->where('id', $data->dospem_1_id)->get('users')->row();
-		$dospem2 = $this->db->where('id', $data->dospem_1_id)->get('users')->row();
+		$dospem2 = $this->db->where('id', $data->dospem_2_id)->get('users')->row();
 		$mahasiswa = $this->db->where('id', $data->mahasiswa)->get('users')->row();
 		$room = $this->db->where('id', $data->room_id)->get('rooms')->row();
 

@@ -19,7 +19,7 @@ class Title_model extends CI_Model
 		$current_year = date('Y');
 		$target_year = $current_year - 4;
 
-		$this->db->select('u.id, u.nama, COUNT(m.id) AS jumlah_mahasiswa');
+		$this->db->select('u.id, u.nama, COUNT(DISTINCT m.id) AS jumlah_mahasiswa');
 		$this->db->from('users u');
 		$this->db->join('title t', '(u.id = t.dospem_1_id OR u.id = t.dospem_2_id) AND t.status = "Diterima"', 'left');
 		$this->db->join('users m', 'm.id = t.mahasiswa AND m.group_id = 1 AND m.angkatan = ' . $target_year, 'left');
@@ -40,7 +40,6 @@ class Title_model extends CI_Model
 
 		return $dosen_mahasiswa;
 	}
-
 
     public function addTitle($data)
     {
@@ -123,4 +122,19 @@ class Title_model extends CI_Model
         $query = $this->db->get('title');
         return $query->result();
     }
+
+	public function getThisTitle($title_id)
+	{
+		$this->db->select('*');
+		$this->db->from('title');
+		$this->db->where('id',$title_id);
+		$query = $this->db->get();
+		return $query->row();
+	}
+
+	public function editTitle($title_id, $data)
+	{
+		$this->db->where('id', $title_id);
+		$this->db->update('title', $data);
+	}
 }

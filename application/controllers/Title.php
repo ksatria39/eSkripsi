@@ -1,24 +1,25 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Title extends CI_Controller {
+class Title extends CI_Controller
+{
 
 	public function __construct()
-    {
-        parent::__construct();
-        $this->load->model('Title_model');
-    }
+	{
+		parent::__construct();
+		$this->load->model('Title_model');
+	}
 
 	public function index()
 	{
 		if (!$this->session->userdata('is_login')) {
-            redirect('login');
-        } else {
+			redirect('login');
+		} else {
 			if ($this->session->userdata('group_id') == 1) {
 				$this->mahasiswa();
 			} else if ($this->session->userdata('group_id') == 2) {
 				$this->dosen();
-			} else if ($this->session->userdata('group_id') == 3){
+			} else if ($this->session->userdata('group_id') == 3) {
 				$this->koordinator();
 			} else if ($this->session->userdata('group_id') == 4) {
 				$this->admin();
@@ -45,21 +46,21 @@ class Title extends CI_Controller {
 		];
 		$this->load->view('template/overlay/mahasiswa', $data);
 	}
-    
+
 	public function mahasiswa2()
 	{
 		if ($this->session->userdata('group_id') != 1) {
 			redirect('error404');
 		}
 
-        $research_area = $this->Title_model->getResearchArea();
+		$research_area = $this->Title_model->getResearchArea();
 		$dosen = $this->Title_model->getDosen();
 		$dosen2 = $this->Title_model->getDosen();
 		$data = [
 			'title' => "Pengajuan Judul",
 			'content' => 'title/mahasiswa/mahasiswa2',
-            'research_area' => $research_area,
-            'dosen' => $dosen,
+			'research_area' => $research_area,
+			'dosen' => $dosen,
 			'dosen2' => $dosen2
 		];
 		$this->load->view('template/overlay/mahasiswa', $data);
@@ -68,40 +69,39 @@ class Title extends CI_Controller {
 	public function addTitle()
 	{
 
-        $user = $this->db->get_where('users', ['id' => $this->session->userdata('user_id')])->row_array();
-        
-            $this->form_validation->set_rules('judul', 'Judul', 'required');
-            $this->form_validation->set_rules('bidang_id', 'Bidang', 'required');
-            $this->form_validation->set_rules('dospem_1_id', 'Dosen Pembimbing 1', 'required');
-            $this->form_validation->set_rules('dospem_2_id', 'Dosen Pembimbing 2', 'required');
+		$user = $this->db->get_where('users', ['id' => $this->session->userdata('user_id')])->row_array();
 
-            // If validation fails
-            if ($this->form_validation->run() == FALSE) {
+		$this->form_validation->set_rules('judul', 'Judul', 'required');
+		$this->form_validation->set_rules('bidang_id', 'Bidang', 'required');
+		$this->form_validation->set_rules('dospem_1_id', 'Dosen Pembimbing 1', 'required');
+		$this->form_validation->set_rules('dospem_2_id', 'Dosen Pembimbing 2', 'required');
+
+		// If validation fails
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Seluruh kolom wajib diisi.');
+			redirect('title/mahasiswa2');
+		} else {
+			// If validation succeeds, save data to database
+			$data['judul'] = $this->input->post('judul');
+			$data['mahasiswa'] = $user['id'];
+			$data['tanggal_pengajuan'] = date('Y-m-d H:i:s');
+			$data['bidang_id'] = $this->input->post('bidang_id');
+			$data['dospem_1_id'] = $this->input->post('dospem_1_id');
+			$data['status_dospem_1'] = 'Sedang Diproses';
+			$data['dospem_2_id'] = $this->input->post('dospem_2_id');
+			$data['status_dospem_2'] = 'Sedang Diproses';
+			$data['status'] = 'Sedang Diproses';
+
+			if ($data['bidang_id'] == 'Pilih Bidang' || $data['dospem_1_id'] == 'Pilih Dosen' || $data['dospem_2_id'] == 'Pilih Dosen') {
 				$this->session->set_flashdata('error', 'Seluruh kolom wajib diisi.');
-                redirect('title/mahasiswa2');
-            } else {
-                // If validation succeeds, save data to database
-				$data['judul'] = $this->input->post('judul');
-                $data['mahasiswa'] = $user['id'];
-                $data['tanggal_pengajuan'] = date('Y-m-d H:i:s');
-				$data['bidang_id'] = $this->input->post('bidang_id');
-				$data['dospem_1_id'] = $this->input->post('dospem_1_id');
-                $data['status_dospem_1'] = 'Sedang Diproses';
-				$data['dospem_2_id'] = $this->input->post('dospem_2_id');
-                $data['status_dospem_2'] = 'Sedang Diproses';
-                $data['status'] = 'Sedang Diproses';
+				redirect('title/mahasiswa2');
+			}
 
-				if($data['bidang_id'] == 'Pilih Bidang' || $data['dospem_1_id'] == 'Pilih Dosen' || $data['dospem_2_id'] == 'Pilih Dosen'){
-					$this->session->set_flashdata('error', 'Seluruh kolom wajib diisi.');
-					redirect('title/mahasiswa2');
-				}
+			$this->Title_model->addTitle($data);
 
-                $this->Title_model->addTitle($data);
-
-                $this->session->set_flashdata('success', 'Berhasil mengajukan judul. Silahkan tunggu untuk judul disetujui oleh dosen pembimbing yang telah anda pilih!');
-                redirect('title');
-            }
-
+			$this->session->set_flashdata('success', 'Berhasil mengajukan judul. Silahkan tunggu untuk judul disetujui oleh dosen pembimbing yang telah anda pilih!');
+			redirect('title');
+		}
 	}
 
 	public function dosen()
@@ -116,7 +116,7 @@ class Title extends CI_Controller {
 		$t = $this->Title_model->getAllTitleDosen($id);
 		$data = [
 			'title' => "Pengajuan Judul",
-			'content' => 'title/dosen/dosen', 
+			'content' => 'title/dosen/dosen',
 			'dospem1' => $dospem1,
 			'dospem2' => $dospem2,
 			't' => $t
@@ -186,7 +186,7 @@ class Title extends CI_Controller {
 		$t = $this->Title_model->getTitle();
 		$data = [
 			'title' => "Pengajuan Judul",
-			'content' => 'title/koordinator/koordinator', 
+			'content' => 'title/koordinator/koordinator',
 			'titleKo' => $titleKo,
 			'dospem1' => $dospem1,
 			'dospem2' => $dospem2,
@@ -234,6 +234,60 @@ class Title extends CI_Controller {
 		redirect('title');
 	}
 
+	public function edit_title($title_id)
+	{
+		if ($this->session->userdata('group_id') != 3) {
+			redirect('error404');
+		}
+
+		$research_area = $this->Title_model->getResearchArea();
+		$dosen = $this->Title_model->getDosen();
+		$dosen2 = $this->Title_model->getDosen();
+		$judul = $this->Title_model->getThisTitle($title_id);
+		$data = [
+			'title' => "Sunting Judul",
+			'content' => 'title/koordinator/koordinator2',
+			'research_area' => $research_area,
+			'dosen' => $dosen,
+			'dosen2' => $dosen2,
+			'judul' => $judul
+		];
+		$this->load->view('template/overlay/koordinator', $data);
+	}
+
+	public function set_title()
+	{
+
+		$user = $this->db->get_where('users', ['id' => $this->session->userdata('user_id')])->row_array();
+
+		$this->form_validation->set_rules('judul', 'Judul', 'required');
+		$this->form_validation->set_rules('bidang_id', 'Bidang', 'required');
+		$this->form_validation->set_rules('dospem_1_id', 'Dosen Pembimbing 1', 'required');
+		$this->form_validation->set_rules('dospem_2_id', 'Dosen Pembimbing 2', 'required');
+
+		// If validation fails
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Seluruh kolom wajib diisi.');
+			redirect('title/edit_title');
+		} else {
+			// If validation succeeds, save data to database
+			$data['judul'] = $this->input->post('judul');
+			$data['bidang_id'] = $this->input->post('bidang_id');
+			$data['dospem_1_id'] = $this->input->post('dospem_1_id');
+			$data['status_dospem_1'] = 'Diterima';
+			$data['dospem_2_id'] = $this->input->post('dospem_2_id');
+			$data['status_dospem_2'] = 'Diterima';
+			$data['status'] = 'Diterima';
+
+			$title_id = $this->input->post('title_id');
+
+			$this->Title_model->editTitle($title_id,$data);
+
+			$this->session->set_flashdata('success', 'Berhasil menyunting judul');
+			redirect('title');
+		}
+	}
+
 	public function admin()
 	{
 		if ($this->session->userdata('group_id') != 4) {
@@ -243,10 +297,9 @@ class Title extends CI_Controller {
 		$titles = $this->Title_model->getTitle();
 		$data = [
 			'title' => "Pengajuan Judul",
-			'content' => 'title/admin/admin', 
+			'content' => 'title/admin/admin',
 			'titles' => $titles
 		];
 		$this->load->view('template/overlay/admin', $data);
 	}
-
 }

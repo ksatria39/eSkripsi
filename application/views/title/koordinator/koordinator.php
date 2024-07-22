@@ -318,6 +318,7 @@
 									<th scope="col">Pembimbing 2</th>
 									<th scope="col">Status Pembimbing 2</th>
 									<th scope="col">Status</th>
+									<th scope="col">Aksi</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -344,6 +345,9 @@
 										</td>
 										<td>
 											<span class="badge rounded-pill bg-<?= $status[$item->status] ?>"><?= $item->status; ?></span>
+										</td>
+										<td>
+											<a class="btn btn-primary" href="<?= base_url() ?>title/edit_title/<?= $item->id; ?>">Sunting</a>
 										</td>
 									</tr>
 								<?php } ?>

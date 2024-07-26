@@ -21,7 +21,7 @@ class Title_model extends CI_Model
 
 		$this->db->select('u.id, u.nama, COUNT(DISTINCT m.id) AS jumlah_mahasiswa');
 		$this->db->from('users u');
-		$this->db->join('title t', '(u.id = t.dospem_1_id OR u.id = t.dospem_2_id) AND t.status = "Diterima"', 'left');
+		$this->db->join('title t', 'u.id = t.dospem_1_id AND t.status = "Diterima"', 'left');
 		$this->db->join('users m', 'm.id = t.mahasiswa AND m.group_id = 1 AND m.angkatan = ' . $target_year, 'left');
 		$this->db->where('(u.group_id = 2 OR u.group_id = 3)');
 		$this->db->group_by('u.id, u.nama');
@@ -40,6 +40,7 @@ class Title_model extends CI_Model
 
 		return $dosen_mahasiswa;
 	}
+
 
     public function addTitle($data)
     {

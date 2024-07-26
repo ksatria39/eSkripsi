@@ -48,7 +48,7 @@
 					<div class="col-sm-10">
 						<select class="form-select" name="dospem_2_id" id="dospem_2_id" aria-label="Default select example">
 							<?php foreach ($dosen2 as $dosen2) : ?>
-								<option value="<?= $dosen2['id_dosen']; ?>" <?= set_select('dospem_2_id', $dosen2['id_dosen']); ?> <?php if ($dosen2['id_dosen'] == $judul->dospem_2_id) echo 'selected'; ?>><?= $dosen2['nama_dosen']; ?> (<?= $dosen2['jumlah_mahasiswa']; ?>)</option>
+								<option value="<?= $dosen2['id_dosen']; ?>" <?= set_select('dospem_2_id', $dosen2['id_dosen']); ?> <?php if ($dosen2['id_dosen'] == $judul->dospem_2_id) echo 'selected'; ?>><?= $dosen2['nama_dosen']; ?></option>
 							<?php endforeach; ?>
 						</select>
 					</div>

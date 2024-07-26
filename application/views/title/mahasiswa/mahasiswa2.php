@@ -36,12 +36,11 @@
 						<select class="form-select" name="dospem_1_id" id="dospem_1_id" aria-label="Default select example">
 							<option selected="">Pilih Dosen</option>
 							<?php foreach ($dosen as $dosen) : ?>
-								<option value="<?= $dosen['id_dosen']; ?>" <?= set_select('dospem_1_id', $dosen['id_dosen']); ?> <?php if ($dosen['jumlah_mahasiswa'] > 8) echo 'disabled'; ?>><?= $dosen['nama_dosen']; ?> (<?= $dosen['jumlah_mahasiswa']; ?>)</option>
+								<option value="<?= $dosen['id_dosen']; ?>" <?= set_select('dospem_1_id', $dosen['id_dosen']); ?>><?= $dosen['nama_dosen']; ?> (<?= $dosen['jumlah_mahasiswa']; ?>)</option>
 							<?php endforeach; ?>
 						</select>
 					</div>
 				</div>
-
 
 				<div class="row mb-3">
 					<label class="col-sm-2 col-form-label">Pembimbing 2</label>
@@ -49,7 +48,7 @@
 						<select class="form-select" name="dospem_2_id" id="dospem_2_id" aria-label="Default select example">
 							<option selected="">Pilih Dosen</option>
 							<?php foreach ($dosen2 as $dosen2) : ?>
-								<option value="<?= $dosen2['id_dosen']; ?>" <?= set_select('dospem_2_id', $dosen2['id_dosen']); ?> <?php if ($dosen2['jumlah_mahasiswa'] > 8) echo 'disabled'; ?>><?= $dosen2['nama_dosen']; ?> (<?= $dosen2['jumlah_mahasiswa']; ?>)</option>
+								<option value="<?= $dosen2['id_dosen']; ?>" <?= set_select('dospem_2_id', $dosen2['id_dosen']); ?>><?= $dosen2['nama_dosen']; ?></option>
 							<?php endforeach; ?>
 						</select>
 					</div>

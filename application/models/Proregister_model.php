@@ -33,10 +33,13 @@ class Proregister_model extends CI_Model
 	{
 		$this->db->where('mahasiswa', $user_id);
 		$this->db->where('status', 'Diterima');
-		$this->db->where('status_ujian_proposal','Belum terdaftar');
+		$this->db->where('status_ujian_proposal', 'Belum terdaftar');
+		$this->db->order_by('id', 'DESC'); // Mengurutkan berdasarkan kolom id dengan urutan menurun
+		$this->db->limit(1); // Mengambil 1 baris terbaru
 		$query = $this->db->get('title');
-		return $query->result_array();
+		return $query->row(); // Mengembalikan 1 baris sebagai array
 	}
+
 
 	public function addProposal($data)
 	{

@@ -25,7 +25,7 @@
 						<p>Anda belum mengajukan judul.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
@@ -38,34 +38,38 @@
 							</thead>
 							<tbody>
 								<?php $no = 1;
-								foreach ($myt as $myt) { ?>
+								foreach ($myt as $item) { ?>
 									<tr>
 										<th scope="row"><?= $no++; ?></th>
-										<td><?= $myt->judul; ?></td>
+										<td><?= $item->judul; ?></td>
 										<td>
 											<?php
-											$dosen1 = $this->db->where('id', $myt->dospem_1_id)->get('users')->row();
+											$dosen1 = $this->db->where('id', $item->dospem_1_id)->get('users')->row();
 											echo $dosen1->nama;
 											?>
 										</td>
 										<td>
 											<?php
-											$dosen2 = $this->db->where('id', $myt->dospem_2_id)->get('users')->row();
+											$dosen2 = $this->db->where('id', $item->dospem_2_id)->get('users')->row();
 											echo $dosen2->nama;
 											?>
 										</td>
 										<td>
-											<?php if ($myt->status == "Diterima") { ?>
-												<span class="badge rounded-pill bg-success">Diterima</span>
-											<?php } else if ($myt->status == "Ditolak") { ?>
-												<span class="badge rounded-pill bg-danger">Ditolak</span>
+											<?php if ($item->status_dospem_1 == "Sedang diproses" || $item->status_dospem_2 == "Sedang diproses") { ?>
+												<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 											<?php } else { ?>
-												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+												<?php if ($item->status == "Diterima") { ?>
+													<span class="badge rounded-pill bg-success">Diterima</span>
+												<?php } else if ($item->status == "Ditolak") { ?>
+													<span class="badge rounded-pill bg-danger">Ditolak</span>
+												<?php } else { ?>
+													<span class="badge rounded-pill bg-info">Menunggu Verifikasi</span>
+												<?php } ?>
 											<?php } ?>
 										</td>
-										<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $myt->id; ?>">Lihat Detail</button></td>
+										<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $item->id; ?>">Lihat Detail</button></td>
 									</tr>
-									<div class="modal fade" id="myModal<?= $myt->id; ?>">
+									<div class="modal fade" id="myModal<?= $item->id; ?>">
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<!-- Modal Header -->
@@ -76,74 +80,74 @@
 												<div class="modal-body">
 													<div class="row">
 														<span class="col-sm-5"><b>Judul</b></span>
-														<span class="col-sm-10"><?= $myt->judul; ?></span>
+														<span class="col-sm-10"><?= $item->judul; ?></span>
 													</div>
 													<div class="row">
 														<span class="col-sm-5"><b>Mahasiswa</b></span>
-														<span class="col-sm-10"><?= $myt->nama_mahasiswa; ?></span>
+														<span class="col-sm-10"><?= $item->nama_mahasiswa; ?></span>
 													</div>
 													<hr>
 													<div class="row">
 														<span class="col-sm-5"><b>Pembimbing 1</b></span>
 														<span class="col-sm-10">
 															<?php
-															$dosen1 = $this->db->where('id', $myt->dospem_1_id)->get('users')->row();
+															$dosen1 = $this->db->where('id', $item->dospem_1_id)->get('users')->row();
 															echo $dosen1->nama;
 															?>
 														</span>
-													</div>
-													<div class="row">
-														<span class="col-sm-5"><b>Status</b></span>
+														<br />
 														<span class="col-sm-10">
-															<?php if ($myt->status_dospem_1 == "Diterima") { ?>
+															<?php if ($item->status_dospem_1 == "Diterima") { ?>
 																<span class="badge rounded-pill bg-success">Diterima</span>
-															<?php } else if ($myt->status_dospem_1 == "Ditolak") { ?>
+															<?php } else if ($item->status_dospem_1 == "Ditolak") { ?>
 																<span class="badge rounded-pill bg-danger">Ditolak</span>
 															<?php } else { ?>
-																<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+																<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 															<?php } ?>
 														</span>
 													</div>
 													<div class="row">
 														<span class="col-sm-5"><b>Keterangan</b></span>
-														<span class="col-sm-10"><?= $myt->alasan_dospem_1; ?></span>
+														<span class="col-sm-10"><?= $item->alasan_dospem_1; ?></span>
 													</div>
 													<hr>
 													<div class="row">
 														<span class="col-sm-5"><b>Pembimbing 2</b></span>
 														<span class="col-sm-10">
 															<?php
-															$dosen2 = $this->db->where('id', $myt->dospem_2_id)->get('users')->row();
+															$dosen2 = $this->db->where('id', $item->dospem_2_id)->get('users')->row();
 															echo $dosen2->nama;
 															?>
 														</span>
-													</div>
-													<div class="row">
-														<span class="col-sm-5"><b>Status</b></span>
+														<br />
 														<span class="col-sm-10">
-															<?php if ($myt->status_dospem_2 == "Diterima") { ?>
+															<?php if ($item->status_dospem_2 == "Diterima") { ?>
 																<span class="badge rounded-pill bg-success">Diterima</span>
-															<?php } else if ($myt->status_dospem_2 == "Ditolak") { ?>
+															<?php } else if ($item->status_dospem_2 == "Ditolak") { ?>
 																<span class="badge rounded-pill bg-danger">Ditolak</span>
 															<?php } else { ?>
-																<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+																<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 															<?php } ?>
 														</span>
 													</div>
 													<div class="row">
 														<span class="col-sm-5"><b>Keterangan</b></span>
-														<span class="col-sm-10"><?= $myt->alasan_dospem_2; ?></span>
+														<span class="col-sm-10"><?= $item->alasan_dospem_2; ?></span>
 													</div>
 													<hr>
 													<div class="row">
 														<span class="col-sm-5"><b>Status Akhir</b></span>
 														<span class="col-sm-10">
-															<?php if ($myt->status == "Diterima") { ?>
-																<span class="badge rounded-pill bg-success">Diterima</span>
-															<?php } else if ($myt->status == "Ditolak") { ?>
-																<span class="badge rounded-pill bg-danger">Ditolak</span>
+															<?php if ($item->status_dospem_1 == "Sedang diproses" || $item->status_dospem_2 == "Sedang diproses") { ?>
+																<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 															<?php } else { ?>
-																<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+																<?php if ($item->status == "Diterima") { ?>
+																	<span class="badge rounded-pill bg-success">Diterima</span>
+																<?php } else if ($item->status == "Ditolak") { ?>
+																	<span class="badge rounded-pill bg-danger">Ditolak</span>
+																<?php } else { ?>
+																	<span class="badge rounded-pill bg-info">Menunggu Verifikasi</span>
+																<?php } ?>
 															<?php } ?>
 														</span>
 													</div>
@@ -179,16 +183,14 @@
 						<p>Belum ada judul.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
 									<th scope="col">Judul</th>
 									<th scope="col">Mahasiswa</th>
 									<th scope="col">Pembimbing 1</th>
-									<th scope="col">Status Pembimbing 1</th>
 									<th scope="col">Pembimbing 2</th>
-									<th scope="col">Status Pembimbing 2</th>
 									<th scope="col">Status</th>
 								</tr>
 							</thead>
@@ -204,14 +206,13 @@
 											$dosen1 = $this->db->where('id', $t->dospem_1_id)->get('users')->row();
 											echo $dosen1->nama;
 											?>
-										</td>
-										<td>
+											<br />
 											<?php if ($t->status_dospem_1 == "Diterima") { ?>
 												<span class="badge rounded-pill bg-success">Diterima</span>
 											<?php } else if ($t->status_dospem_1 == "Ditolak") { ?>
 												<span class="badge rounded-pill bg-danger">Ditolak</span>
 											<?php } else { ?>
-												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+												<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 											<?php } ?>
 										</td>
 										<td>
@@ -219,23 +220,26 @@
 											$dosen2 = $this->db->where('id', $t->dospem_2_id)->get('users')->row();
 											echo $dosen2->nama;
 											?>
-										</td>
-										<td>
+											<br />
 											<?php if ($t->status_dospem_2 == "Diterima") { ?>
 												<span class="badge rounded-pill bg-success">Diterima</span>
 											<?php } else if ($t->status_dospem_2 == "Ditolak") { ?>
 												<span class="badge rounded-pill bg-danger">Ditolak</span>
 											<?php } else { ?>
-												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+												<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 											<?php } ?>
 										</td>
 										<td>
-											<?php if ($t->status == "Diterima") { ?>
-												<span class="badge rounded-pill bg-success">Diterima</span>
-											<?php } else if ($t->status == "Ditolak") { ?>
-												<span class="badge rounded-pill bg-danger">Ditolak</span>
+											<?php if ($t->status_dospem_1 == "Sedang diproses" || $t->status_dospem_2 == "Sedang diproses") { ?>
+												<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 											<?php } else { ?>
-												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+												<?php if ($t->status == "Diterima") { ?>
+													<span class="badge rounded-pill bg-success">Diterima</span>
+												<?php } else if ($t->status == "Ditolak") { ?>
+													<span class="badge rounded-pill bg-danger">Ditolak</span>
+												<?php } else { ?>
+													<span class="badge rounded-pill bg-info">Menunggu Verifikasi</span>
+												<?php } ?>
 											<?php } ?>
 										</td>
 									</tr>
@@ -247,36 +251,34 @@
 
 				</div>
 			</div>
-			<!-- Default Table -->
-			<!--
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Judul</th>
-                    <th scope="col">Mahasiswa</th>
-                    <th scope="col">Pembimbing 1</th>
-                    <th scope="col">Pembimbing 2</th>
-                    <th scope="col">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Sistem Informasi Balbla</td>
-                    <td>Amin</td>
-                    <td>Halo</td>
-                    <td>Halo</td>
-                    <td>Diverifikasi</td>
-                  </tr>
-                </tbody>
-              </table>
-              -->
 
-			<a class="btn btn-primary position-absolute top-0 end-0 m-3" href="<?= base_url() ?>title/mahasiswa2" style="border-radius: 15px;">
-				<i class="ri-add-line"></i>
-				Tambah
-			</a>
+			<?php
+			$showAddButton = true;
+			if (is_array($myt) && !empty($myt)) {
+				foreach ($myt as $item) {
+					if (is_object($item) && isset($item->status)) {
+						if ($item->status == "Sedang diproses") {
+							$showAddButton = false;
+							break;
+						}
+					}
+				}
+				if ($showAddButton && $myt[0]->status == "Ditolak") {
+					$showAddButton = true;
+				} else {
+					$showAddButton = false;
+				}
+			} else {
+				$showAddButton = false;
+			}
+			?>
+
+			<?php if ($showAddButton) : ?>
+				<a class="btn btn-primary position-absolute top-0 end-0 m-3" href="<?= base_url() ?>title/mahasiswa2" style="border-radius: 15px;">
+					<i class="ri-add-line"></i>
+					Tambah
+				</a>
+			<?php endif; ?>
 
 		</div>
 	</div>

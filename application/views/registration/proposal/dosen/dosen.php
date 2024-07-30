@@ -28,6 +28,7 @@
 			</ul>
 
 			<div class="tab-content mt-2">
+				
 				<div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
 
 					<!-- <div class="d-flex justify-content mt-3">
@@ -53,6 +54,7 @@
 									<th scope="col">Status</th>
 									<th scope="col">Logbook Bimbingan</th>
 									<th scope="col">Naskah Proposal</th>
+									<th scope="col">Lembar Persetujuan</th>
 									<th scope="col">Respon</th>
 								</tr>
 							</thead>
@@ -79,11 +81,12 @@
 											<?php } else if ($dospem1->pro_status_dospem_1 == "Ditolak") { ?>
 												<span class="badge rounded-pill bg-danger">Ditolak</span>
 											<?php } else { ?>
-												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+												<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 											<?php } ?>
 										</td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>file/proposal/logbook/">Lihat</a></td>
-										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_proposal/view_naskah/<?= $dospem1->file_naskah; ?>">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_proposal/view_file/naskah/<?= $dospem1->file_naskah; ?>">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_proposal/view_file/persetujuan/<?= $dospem1->file_persetujuan; ?>">Lihat</a></td>
 										<td width="15%">
 											<form id="updateStatus<?= $dospem1->pro_id ?>" action=" <?= base_url() ?>registration_proposal/update_status_dospem1/<?= $dospem1->pro_id ?>" method="post">
 												<div class="d-flex gap-3">
@@ -118,7 +121,7 @@
 						<p>Tidak ada pendaftaran ujian proposal yang menunggu persetujuan.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
@@ -128,6 +131,7 @@
 									<th scope="col">Status</th>
 									<th scope="col">Logbook Bimbingan</th>
 									<th scope="col">Naskah Proposal</th>
+									<th scope="col">Lembar Persetujuan</th>
 									<th scope="col">Respon</th>
 								</tr>
 							</thead>
@@ -154,11 +158,12 @@
 											<?php } else if ($dospem2->pro_status_dospem_2 == "Ditolak") { ?>
 												<span class="badge rounded-pill bg-danger">Ditolak</span>
 											<?php } else { ?>
-												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+												<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 											<?php } ?>
 										</td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>file/proposal/logbook/">Lihat</a></td>
-										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_proposal/view_naskah/<?= $dospem2->file_naskah; ?>">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_proposal/view_file/naskah/<?= $dospem2->file_naskah; ?>">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_proposal/view_file/persetujuan/<?= $dospem2->file_persetujuan; ?>">Lihat</a></td>
 										<td width="15%">
 											<form id="updateStatus<?= $dospem2->pro_id ?>" action=" <?= base_url() ?>registration_proposal/update_status_dospem2/<?= $dospem2->pro_id ?>" method="post">
 												<div class="d-flex gap-3">

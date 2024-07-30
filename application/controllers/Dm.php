@@ -33,6 +33,10 @@ class Dm extends CI_Controller
 
 	public function admin()
 	{
+		if ($this->session->userdata('group_id') != 4) {
+			redirect('error404');
+		}
+
 		$mahasiswa = $this->User_model->getMahasiswa();
 		$dosen = $this->User_model->getDosen();
 		$koordinator = $this->User_model->getKoordinator();
@@ -48,8 +52,25 @@ class Dm extends CI_Controller
 		$this->load->view('template/overlay/admin', $data);
 	}
 
+	public function reset_password($id)
+	{
+		if ($this->session->userdata('group_id') != 4) {
+			redirect('error404');
+		}
+
+		$user = $this->User_model->get_user_by_id($id);
+		$data['password'] = password_hash($user->npm, PASSWORD_DEFAULT);
+		$this->User_model->editUser($id, $data);
+		$this->session->set_flashdata('success', 'Berhasil mengatur ulang kata sandi.');
+		redirect('dm');
+	}
+
 	public function add()
 	{
+		if ($this->session->userdata('group_id') != 4) {
+			redirect('error404');
+		}
+
 		$role = $this->User_model->getRole();
 		$data = [
 			'title' => "Tambah Pengguna",
@@ -98,6 +119,10 @@ class Dm extends CI_Controller
 
 	public function delete_user($id)
 	{
+		if ($this->session->userdata('group_id') != 4) {
+			redirect('error404');
+		}
+
 		$this->load->model('User_model');
 
         // Get the user data
@@ -127,8 +152,56 @@ class Dm extends CI_Controller
         }
 	}
 
+	public function edit_user($id)
+	{
+		if ($this->session->userdata('group_id') != 4) {
+			redirect('error404');
+		}
+
+		$role = $this->User_model->getRole();
+		$user = $this->User_model->get_user_by_id($id);
+		$data = [
+			'title' => "Sunting Pengguna",
+			'content' => 'dm/pengguna/edit',
+			'role' => $role,
+			'user' => $user
+		];
+		$this->load->view('template/overlay/admin', $data);
+	}
+
+	public function set_user()
+	{
+		$id = $this->input->post('id');
+
+		$this->form_validation->set_rules('npm', 'NPM', 'required');
+		$this->form_validation->set_rules('nama', 'Nama Lengkap', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('role', 'role', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Seluruh kolom wajib diisi dan NPM/NIDN/Email tidak boleh sama dengan user lain');
+			redirect('dm/edit_user/'.$id);
+		} else {
+			$data = array(
+				'npm' => $this->input->post('npm'),
+				'nama' => $this->input->post('nama'),
+				'email' => $this->input->post('email'),
+				'group_id' => $this->input->post('role'),
+				'angkatan' => $this->input->post('angkatan')
+			);
+
+			$this->User_model->editUser($id,$data);
+			$this->session->set_flashdata('success', 'Berhasil menyunting pengguna.');
+			redirect('dm');
+		}
+	}
+
 	public function research_area()
 	{
+		if ($this->session->userdata('group_id') != 4) {
+			redirect('error404');
+		}
+
 		$ra = $this->Ra_model->get();
 		$data = [
 			'title' => "Bidang Penelitian",
@@ -140,6 +213,10 @@ class Dm extends CI_Controller
 
 	public function add_research_area()
 	{
+		if ($this->session->userdata('group_id') != 4) {
+			redirect('error404');
+		}
+
 		$this->form_validation->set_rules('ra', 'Nama Bidang Benelitian', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
@@ -158,6 +235,10 @@ class Dm extends CI_Controller
 
 	public function delete_research_area($id)
 	{
+		if ($this->session->userdata('group_id') != 4) {
+			redirect('error404');
+		}
+
 		$this->Ra_model->delete($id);
 		$this->session->set_flashdata('success', 'Berhasil Menghapus Bidang Penelitian');
 		redirect('dm/research_area');
@@ -165,6 +246,10 @@ class Dm extends CI_Controller
 
 	public function room()
 	{
+		if ($this->session->userdata('group_id') != 4) {
+			redirect('error404');
+		}
+
 		$rooms = $this->Room_model->get();
 		$data = [
 			'title' => "Bidang Penelitian",
@@ -176,6 +261,10 @@ class Dm extends CI_Controller
 
 	public function add_room()
 	{
+		if ($this->session->userdata('group_id') != 4) {
+			redirect('error404');
+		}
+
 		$this->form_validation->set_rules('ra', 'Nama Ruangan', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
@@ -194,6 +283,10 @@ class Dm extends CI_Controller
 
 	public function delete_room($id)
 	{
+		if ($this->session->userdata('group_id') != 4) {
+			redirect('error404');
+		}
+		
 		$this->Room_model->delete($id);
 		$this->session->set_flashdata('success', 'Berhasil Menghapus Bidang Penelitian');
 		redirect('dm/room');

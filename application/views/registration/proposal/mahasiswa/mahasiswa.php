@@ -2,27 +2,10 @@
 	<div class="card">
 		<div class="card-body">
 
-			<!-- <div style="margin-top: 4rem;">
-                <?php
-				// if (empty($myProposal)) { 
-				?>
-                  <p>Anda belum mendaftarkan diri untuk ujian proposal.</p>
-                <?php
-				//  } else {
-				?>
-                </div> -->
-
-			<!-- <div class="d-flex justify-content mt-3">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Cari" aria-label="cari">
-                        <button class="btn btn-outline-primary" type="submit">
-                            <i class="ri-search-line"></i>
-                        </button>
-                    </form>
-                </div> -->
+			<h5 class="card-title">Ujian Saya</h5>
 
 			<?php if ($this->session->flashdata('success')) : ?>
-				<div class="alert alert-info alert-dismissible fade show" style="margin-top: 4rem;" role="alert">
+				<div class="alert alert-info alert-dismissible fade show" role="alert">
 					<?php echo $this->session->flashdata('success'); ?>
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
@@ -32,197 +15,98 @@
 				<p>Anda belum mendaftar untuk mengikuti ujian proposal.</p>
 			<?php } else { ?>
 
-				<table class="table" style="margin-top: 4rem;">
+				<table class="table datatable">
 					<thead>
 						<tr>
 							<th scope="col">No</th>
 							<th scope="col">Judul</th>
+							<th scope="col">Naskah</th>
+							<th scope="col">Lembar Persetujuan</th>
 							<th scope="col">Pembimbing 1</th>
 							<th scope="col">Pembimbing 2</th>
 							<th scope="col">Status</th>
-							<th scope="col">Detail</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php $no = 1;
-						foreach ($myProposal as $myProposal) { ?>
+						foreach ($myProposal as $proposal) { ?>
 							<tr>
 								<th scope="row"><?= $no++; ?></th>
-								<td><?= $myProposal->judul; ?></td>
+								<td><?= $proposal->judul; ?></td>
+								<td><a class="btn btn-primary" href="<?= base_url() ?>registration_proposal/view_file/naskah/<?= $proposal->file_naskah; ?>">Lihat</a></td>
+								<td><a class="btn btn-primary" href="<?= base_url() ?>registration_proposal/view_file/persetujuan/<?= $proposal->file_persetujuan; ?>">Lihat</a></td>
 								<td>
 									<?php
-									$dosen1 = $this->db->where('id', $myProposal->dospem_1_id)->get('users')->row();
+									$dosen1 = $this->db->where('id', $proposal->dospem_1_id)->get('users')->row();
 									echo $dosen1->nama;
 									?>
+									<br />
+									<?php if ($proposal->pro_status_dospem_1 == "Diterima") { ?>
+										<span class="badge rounded-pill bg-success">Diterima</span>
+									<?php } else if ($proposal->pro_status_dospem_1 == "Ditolak") { ?>
+										<span class="badge rounded-pill bg-danger">Ditolak</span>
+									<?php } else { ?>
+										<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
+									<?php } ?>
 								</td>
 								<td>
 									<?php
-									$dosen2 = $this->db->where('id', $myProposal->dospem_2_id)->get('users')->row();
+									$dosen2 = $this->db->where('id', $proposal->dospem_2_id)->get('users')->row();
 									echo $dosen2->nama;
 									?>
-								</td>
-								<td>
-									<?php if ($myProposal->pro_status == "Diterima") { ?>
+									<br />
+									<?php if ($proposal->pro_status_dospem_2 == "Diterima") { ?>
 										<span class="badge rounded-pill bg-success">Diterima</span>
-									<?php } else if ($myProposal->pro_status == "Ditolak") { ?>
+									<?php } else if ($proposal->pro_status_dospem_2 == "Ditolak") { ?>
 										<span class="badge rounded-pill bg-danger">Ditolak</span>
 									<?php } else { ?>
-										<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+										<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 									<?php } ?>
 								</td>
-								<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?= $myProposal->pro_id; ?>">Lihat Detail</button></td>
+								<td>
+									<?php if ($proposal->pro_status_dospem_1 == "Sedang diproses" || $proposal->pro_status_dospem_2 == "Sedang diproses") { ?>
+										<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
+									<?php } else { ?>
+										<?php if ($proposal->pro_status == "Diterima") { ?>
+											<span class="badge rounded-pill bg-success">Diterima</span>
+										<?php } else if ($proposal->pro_status == "Ditolak") { ?>
+											<span class="badge rounded-pill bg-danger">Ditolak</span>
+										<?php } else { ?>
+											<span class="badge rounded-pill bg-info">Menunggu Verifikasi</span>
+										<?php } ?>
+									<?php } ?>
+								</td>
 							</tr>
-							<div class="modal fade" id="myModal<?= $myProposal->pro_id; ?>">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<!-- Modal Header -->
-										<div class="modal-header">
-											<h4 class="modal-title">Detail</h4>
-										</div>
-										<!-- Modal Body -->
-										<div class="modal-body">
-											<div class="row">
-												<span class="col-sm-5"><b>Judul</b></span>
-												<span class="col-sm-10"><?= $myProposal->judul; ?></span>
-											</div>
-											<div class="row">
-												<span class="col-sm-5"><b>Mahasiswa</b></span>
-												<span class="col-sm-10">
-													<?php
-													$mhs = $this->db->where('id', $myProposal->mahasiswa)->get('users')->row();
-													echo $dosen1->nama;
-													?>
-												</span>
-											</div>
-											<hr>
-											<div class="row">
-												<span class="col-sm-5"><b>Pembimbing 1</b></span>
-												<span class="col-sm-10">
-													<?php
-													$dosen1 = $this->db->where('id', $myProposal->dospem_1_id)->get('users')->row();
-													echo $dosen1->nama;
-													?>
-												</span>
-											</div>
-											<div class="row">
-												<span class="col-sm-5"><b>Status</b></span>
-												<span class="col-sm-10">
-													<?php if ($myProposal->pro_status_dospem_1 == "Diterima") { ?>
-														<span class="badge rounded-pill bg-success">Diterima</span>
-													<?php } else if ($myProposal->pro_status_dospem_1 == "Ditolak") { ?>
-														<span class="badge rounded-pill bg-danger">Ditolak</span>
-													<?php } else { ?>
-														<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
-													<?php } ?>
-												</span>
-											</div>
-											<hr>
-											<div class="row">
-												<span class="col-sm-5"><b>Pembimbing 2</b></span>
-												<span class="col-sm-10">
-													<?php
-													$dosen1 = $this->db->where('id', $myProposal->dospem_1_id)->get('users')->row();
-													echo $dosen1->nama;
-													?>
-												</span>
-											</div>
-											<div class="row">
-												<span class="col-sm-5"><b>Status</b></span>
-												<span class="col-sm-10">
-													<?php if ($myProposal->pro_status_dospem_2 == "Diterima") { ?>
-														<span class="badge rounded-pill bg-success">Diterima</span>
-													<?php } else if ($myProposal->pro_status_dospem_2 == "Ditolak") { ?>
-														<span class="badge rounded-pill bg-danger">Ditolak</span>
-													<?php } else { ?>
-														<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
-													<?php } ?>
-												</span>
-											</div>
-											<hr>
-											<div class="row">
-												<span class="col-sm-5"><b>Status Akhir</b></span>
-												<span class="col-sm-10">
-													<?php if ($myProposal->pro_status == "Diterima") { ?>
-														<span class="badge rounded-pill bg-success">Diterima</span>
-													<?php } else if ($myProposal->pro_status == "Ditolak") { ?>
-														<span class="badge rounded-pill bg-danger">Ditolak</span>
-													<?php } else { ?>
-														<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
-													<?php } ?>
-												</span>
-											</div>
-											<hr>
-											<div class="row">
-												<span class="col-sm-5"><b>Berkas</b></span>
-												<sp><a class="btn btn-primary" href="<?= base_url() ?>registration_proposal/view_naskah/<?= $myProposal->file_naskah; ?>">Naskah</a></span>
-											</div>
-										</div>
-										<!-- Modal Footer -->
-										<div class="modal-footer ">
-											<button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
-										</div>
-									</div>
-								</div>
-							</div>
 						<?php } ?>
 					</tbody>
 				</table>
 
 			<?php } ?>
-			<!-- End Default Table Example -->
 
+			<?php
+			// Logika untuk menampilkan tombol tambah
+			$showAddButton = true;
+			if (is_array($myProposal) && !empty($myProposal)) {
+				$latestProposal = $myProposal[0]; // Ambil proposal terbaru
+				if ($latestProposal->pro_status == "Sedang diproses") {
+					$showAddButton = false;
+				} elseif ($latestProposal->pro_status == "Ditolak") {
+					$showAddButton = true;
+				} else {
+					$showAddButton = false;
+				}
+			} else {
+				$showAddButton = true;
+			}
+			?>
 
-			<a class="btn btn-primary position-absolute top-0 end-0 m-3" href="<?= base_url() ?>registration_proposal/daftar" style="border-radius: 15px;">
-				<i class="ri-add-line"></i>Tambah
-			</a>
+			<?php if ($showAddButton) : ?>
+				<a class="btn btn-primary position-absolute top-0 end-0 m-3" href="<?= base_url() ?>registration_proposal/daftar" style="border-radius: 15px;">
+					<i class="ri-add-line"></i>
+					Tambah
+				</a>
+			<?php endif; ?>
 
 		</div>
 	</div>
 </section>
-
-
-<!-- <div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Detail</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                  <span class="col-sm-5"><b>Judul</b></span>
-                  <span class="col-sm-10">Sistem Informasi Balbla</span>
-                </div>
-                <div class="row">
-                  <span class="col-sm-5"><b>Mahasiswa</b></span>
-                  <span class="col-sm-10">Muhammad Amin (1412100017)</span>
-                </div>
-                <hr>
-                <div class="row">
-                  <span class="col-sm-5"><b>Pembimbing 1</b></span>
-                  <span class="col-sm-10">Amaludin Arifia, S.Kom. M.Kom.</span>
-                </div>
-                <div class="row">
-                  <span class="col-sm-5"><b>Status</b></span>
-                  <span class="col-sm-10">Diterima</span>
-                </div>
-                <hr>
-                <div class="row">
-                  <span class="col-sm-5"><b>Pembimbing 2</b></span>
-                  <span class="col-sm-10">Andik Adi Suryanto, S.T. M.T.</span>
-                </div>
-                <div class="row">
-                  <span class="col-sm-5"><b>Status</b></span>
-                  <span class="col-sm-10">Ditolak</span>
-                </div>
-                <hr>
-                <div class="row">
-                  <span class="col-sm-5"><b>Status Akhir</b></span>
-                  <span class="col-sm-10">Sedang Diproses</span>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
-            </div>
-        </div>
-    </div>
-</div> -->

@@ -1,6 +1,6 @@
 <section class="section">
 	<div class="card">
-		<div class="card-body">
+		<div class="card-body pt-3">
 
 			<?php if (empty($titles)) { ?>
 				<p>Belum ada judul yang diajukan.</p>
@@ -15,16 +15,14 @@
                     </form>
                 </div> -->
 
-				<table class="table">
+				<table class="table datatable">
 					<thead>
 						<tr>
 							<th scope="col">No</th>
 							<th scope="col">Judul</th>
 							<th scope="col">Mahasiswa</th>
 							<th scope="col">Pembimbing 1</th>
-							<th scope="col">Status Pembimbing 1</th>
 							<th scope="col">Pembimbing 2</th>
-							<th scope="col">Status Pembimbing 2</th>
 							<th scope="col">Status</th>
 						</tr>
 					</thead>
@@ -45,14 +43,13 @@
 									$dosen1 = $this->db->where('id', $title->dospem_1_id)->get('users')->row();
 									echo $dosen1->nama;
 									?>
-								</td>
-								<td>
+									<br/>
 									<?php if ($title->status_dospem_1 == "Diterima") { ?>
 										<span class="badge rounded-pill bg-success">Diterima</span>
 									<?php } else if ($title->status_dospem_1 == "Ditolak") { ?>
 										<span class="badge rounded-pill bg-danger">Ditolak</span>
 									<?php } else { ?>
-										<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+										<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 									<?php } ?>
 								</td>
 								<td>
@@ -60,23 +57,26 @@
 									$dosen2 = $this->db->where('id', $title->dospem_2_id)->get('users')->row();
 									echo $dosen2->nama;
 									?>
-								</td>
-								<td>
+									<br/>
 									<?php if ($title->status_dospem_2 == "Diterima") { ?>
 										<span class="badge rounded-pill bg-success">Diterima</span>
 									<?php } else if ($title->status_dospem_2 == "Ditolak") { ?>
 										<span class="badge rounded-pill bg-danger">Ditolak</span>
 									<?php } else { ?>
-										<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+										<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 									<?php } ?>
 								</td>
 								<td>
-									<?php if ($title->status == "Diterima") { ?>
-										<span class="badge rounded-pill bg-success">Diterima</span>
-									<?php } else if ($title->status == "Ditolak") { ?>
-										<span class="badge rounded-pill bg-danger">Ditolak</span>
+									<?php if ($title->status_dospem_1 == "Sedang diproses" || $title->status_dospem_2 == "Sedang diproses") { ?>
+										<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 									<?php } else { ?>
-										<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+										<?php if ($title->status == "Diterima") { ?>
+											<span class="badge rounded-pill bg-success">Diterima</span>
+										<?php } else if ($title->status == "Ditolak") { ?>
+											<span class="badge rounded-pill bg-danger">Ditolak</span>
+										<?php } else { ?>
+											<span class="badge rounded-pill bg-info">Menunggu Verifikasi</span>
+										<?php } ?>
 									<?php } ?>
 								</td>
 							</tr>

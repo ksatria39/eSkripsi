@@ -620,22 +620,6 @@ class Score_Skripsi extends CI_Controller
 		$skor_total = $bs_rata_bimbingan + $bs_rata_naskah + $bs_rata_pelaksanaan;
 		$skor_akhir = $skor_total / 100;
 
-		if ($skor_akhir >= 81 && $skor_akhir <= 100) {
-			$nilai_akhir = 'A';
-		} else if ($skor_akhir >= 76 && $skor_akhir < 81) {
-			$nilai_akhir = 'AB';
-		} else if ($skor_akhir >= 71 && $skor_akhir < 76) {
-			$nilai_akhir = 'B';
-		} else if ($skor_akhir >= 66 && $skor_akhir < 71) {
-			$nilai_akhir = 'BC';
-		} else if ($skor_akhir >= 56 && $skor_akhir < 66) {
-			$nilai_akhir = 'C';
-		} else if ($skor_akhir >= 46 && $skor_akhir < 56) {
-			$nilai_akhir = 'D';
-		} else {
-			$nilai_akhir = 'E';
-		}
-
 		if (!empty($nilaiDospem1->rata_a) && !empty($nilaiDospem2->rata_a) && !empty($nilaiDosuji1->rata_a) && !empty($nilaiDosuji2->rata_a)) {
 			$status = 'Selesai';
 		} else {
@@ -650,7 +634,6 @@ class Score_Skripsi extends CI_Controller
 
 		$data3 = [
 			'nilai' => $skor_akhir,
-			'nilai_huruf' => $nilai_akhir
 		];
 
 		$this->Skpscore_model->insertNilaiRegister($getRegister->id, $data3);
@@ -765,22 +748,6 @@ class Score_Skripsi extends CI_Controller
 		$skor_total = $bs_rata_bimbingan + $bs_rata_naskah + $bs_rata_pelaksanaan;
 		$skor_akhir = $skor_total / 100;
 
-		if ($skor_akhir >= 81 && $skor_akhir <= 100) {
-			$nilai_akhir = 'A';
-		} else if ($skor_akhir >= 76 && $skor_akhir < 81) {
-			$nilai_akhir = 'AB';
-		} else if ($skor_akhir >= 71 && $skor_akhir < 76) {
-			$nilai_akhir = 'B';
-		} else if ($skor_akhir >= 66 && $skor_akhir < 71) {
-			$nilai_akhir = 'BC';
-		} else if ($skor_akhir >= 56 && $skor_akhir < 66) {
-			$nilai_akhir = 'C';
-		} else if ($skor_akhir >= 46 && $skor_akhir < 56) {
-			$nilai_akhir = 'D';
-		} else {
-			$nilai_akhir = 'E';
-		}
-
 		if (!empty($nilaiDospem1->rata_a) && !empty($nilaiDospem2->rata_a) && !empty($nilaiDosuji1->rata_a) && !empty($nilaiDosuji2->rata_a)) {
 			$status = 'Selesai';
 		} else {
@@ -795,7 +762,6 @@ class Score_Skripsi extends CI_Controller
 
 		$data3 = [
 			'nilai' => $skor_akhir,
-			'nilai_huruf' => $nilai_akhir
 		];
 
 		$this->Skpscore_model->insertNilaiRegister($getRegister->id, $data3);

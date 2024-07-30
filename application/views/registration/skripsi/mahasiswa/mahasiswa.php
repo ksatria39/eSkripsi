@@ -157,7 +157,7 @@
 												<span>
 													<a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/naskah/<?= $mySkripsi->file_naskah; ?>">Naskah</a>
 													<a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/transkrip/<?= $mySkripsi->file_transkrip; ?>">Transkrip Nilai</a>
-													<a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/ukt/<?= $mySkripsi->file_ukt; ?>">Naskah</a>
+													<a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/ukt/<?= $mySkripsi->file_ukt; ?>">Bukti Pembayaran</a>
 												</span>
 											</div>
 										</div>

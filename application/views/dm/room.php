@@ -1,6 +1,6 @@
 <section class="section">
 	<div class="card">
-		<div class="card-body">
+		<div class="card-body pt-3">
 
 			<?php if ($this->session->flashdata('success')) : ?>
 				<div class="alert alert-info alert-dismissible fade show mt-3" role="alert">
@@ -16,7 +16,7 @@
 				</div>
 			<?php endif; ?>
 
-			<table class="table mt-3">
+			<table class="table datatable">
 				<thead>
 					<tr>
 						<th scope="col">No</th>

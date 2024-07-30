@@ -31,7 +31,7 @@ class Registration_Proposal extends CI_Controller
 		}
 	}
 
-	public function view_naskah($file_naskah)
+	public function view_file($folder, $file)
 	{
 		if (!$this->session->userdata('is_login')) {
 			redirect('login');
@@ -49,10 +49,19 @@ class Registration_Proposal extends CI_Controller
 			}
 		}
 
+		if ($folder == "persetujuan") {
+			$title = "Lembar Persetujuan";
+		} else if ($folder == "naskah") {
+			$title = "Naskah";
+		} else {
+			$title = "Berkas";
+		}
+
 		$data = [
-			'title' => "Naskah Proposal",
-			'content' => 'registration/proposal/view_naskah',
-			'file_naskah' => $file_naskah
+			'title' => 'Lihat ' . $title,
+			'content' => 'registration/proposal/view_file',
+			'folder' => $folder,
+			'file' => $file
 		];
 		$this->load->view($overlay, $data);
 	}
@@ -107,7 +116,7 @@ class Registration_Proposal extends CI_Controller
 			// Upload naskah
 			$config_naskah['upload_path'] = './file/proposal/naskah/';
 			$config_naskah['allowed_types'] = 'pdf';
-			$config_naskah['max_size'] = 10240; // 10MB
+			$config_naskah['max_size'] = 5120; // 5MB
 
 			$this->upload->initialize($config_naskah);
 
@@ -118,29 +127,43 @@ class Registration_Proposal extends CI_Controller
 				$upload_data_naskah = $this->upload->data();
 				$file_name_naskah = $upload_data_naskah['file_name'];
 
-				$data = array(
-					'title_id' => $this->input->post('title_id'),
-					'file_naskah' => $file_name_naskah,
-					'status_dospem_1' => 'Sedang diproses',
-					'status_dospem_2' => 'Sedang diproses',
-					'status' => 'Sedang diproses'
-				);
+				// Upload persetujuan
+				$config_persetujuan['upload_path'] = './file/proposal/persetujuan/';
+				$config_persetujuan['allowed_types'] = 'pdf';
+				$config_persetujuan['max_size'] = 2048; // 2MB
 
-				$this->Proregister_model->addProposal($data);
+				$this->upload->initialize($config_persetujuan);
 
-				$data2 = [
-					'status_ujian_proposal' => 'Terdaftar'
-				];
+				if (!$this->upload->do_upload('file_persetujuan')) {
+					$this->session->set_flashdata('error', $this->upload->display_errors());
+					redirect('registration_proposal/daftar');
+				} else {
+					$upload_data_persetujuan = $this->upload->data();
+					$file_name_persetujuan = $upload_data_persetujuan['file_name'];
 
-				$this->Proregister_model->setTitle($this->input->post('title_id'), $data2);
+					$data = array(
+						'title_id' => $this->input->post('title_id'),
+						'file_naskah' => $file_name_naskah,
+						'file_persetujuan' => $file_name_persetujuan,
+						'status_dospem_1' => 'Sedang diproses',
+						'status_dospem_2' => 'Sedang diproses',
+						'status' => 'Sedang diproses'
+					);
 
-				$this->session->set_flashdata('success', 'Berhasil mendaftar ujian proposal');
-				redirect('registration_proposal');
+					$this->Proregister_model->addProposal($data);
+
+					$data2 = [
+						'status_ujian_proposal' => 'Terdaftar'
+					];
+
+					$this->Proregister_model->setTitle($this->input->post('title_id'), $data2);
+
+					$this->session->set_flashdata('success', 'Berhasil mendaftar ujian proposal');
+					redirect('registration_proposal');
+				}
 			}
 		}
 	}
-
-
 
 	public function dosen()
 	{

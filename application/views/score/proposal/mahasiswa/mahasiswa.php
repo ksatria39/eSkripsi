@@ -59,7 +59,7 @@
 									echo $dosuji2->nama;
 									?>
 								</td>
-								<td><?php echo $ujian->tanggal; ?></td>
+								<td><?php echo format_tgl($ujian->tanggal); ?></td>
 								<td>
 									<?php
 									$room = $this->db->where('id', $ujian->room_id)->get('rooms')->row();
@@ -68,7 +68,7 @@
 								</td>
 								<td><?php echo $ujian->jam; ?></td>
 								<td><?php echo $ujian->status_ujian_proposal; ?></td>
-								<td><?php echo $ujian->nilai; ?> (<?= $ujian->nilai_huruf; ?>)</td>
+								<td><?php echo $ujian->nilai; ?></td>
 							</tr>
 						<?php } ?>
 					</tbody>

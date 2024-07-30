@@ -42,7 +42,7 @@
 						<p>Maaf, Belum Ada Ujian Yang Dijadwalkan.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
@@ -67,7 +67,7 @@
 											echo $mhs->nama;
 											?>
 										</td>
-										<td><?php echo $dospem1->tanggal; ?></td>
+										<td><?php echo format_tgl($dospem1->tanggal); ?></td>
 										<td>
 											<?php
 											$room = $this->db->where('id', $dospem1->room_id)->get('rooms')->row();
@@ -79,8 +79,8 @@
 											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_pembimbing/<?= $dospem1->nilai_id ?>">Nilai</a>
 										</td>
 										<td>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/view_nilai/<?= $dospem1->pro_id ?>">Lihat</a>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/download_nilai/<?= $dospem1->pro_id ?>">Unduh</a>
+											<a type="submit" class="btn btn-info" href="<?= base_url() ?>score_proposal/view_nilai/<?= $dospem1->pro_id ?>">Lihat</a>
+											<a type="submit" class="btn btn-success" href="<?= base_url() ?>score_proposal/download_nilai/<?= $dospem1->pro_id ?>">Unduh</a>
 										</td>
 									</tr>
 								<?php } ?>
@@ -109,7 +109,7 @@
 						<p>Maaf, Belum Ada Ujian Yang Dijadwalkan.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
@@ -134,7 +134,7 @@
 											echo $mhs->nama;
 											?>
 										</td>
-										<td><?php echo $dospem2->tanggal; ?></td>
+										<td><?php echo format_tgl($dospem2->tanggal); ?></td>
 										<td>
 											<?php
 											$room = $this->db->where('id', $dospem2->room_id)->get('rooms')->row();
@@ -146,8 +146,8 @@
 											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_pembimbing/<?= $dospem2->nilai_id ?>">Nilai</a>
 										</td>
 										<td>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/view_nilai/<?= $dospem2->pro_id ?>">Lihat</a>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/download_nilai/<?= $dospem2->pro_id ?>">Unduh</a>
+											<a type="submit" class="btn btn-info" href="<?= base_url() ?>score_proposal/view_nilai/<?= $dospem2->pro_id ?>">Lihat</a>
+											<a type="submit" class="btn btn-success" href="<?= base_url() ?>score_proposal/download_nilai/<?= $dospem2->pro_id ?>">Unduh</a>
 										</td>
 									</tr>
 								<?php } ?>
@@ -175,7 +175,7 @@
 						<p>Maaf, Belum Ada Ujian Yang Dijadwalkan.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
@@ -200,7 +200,7 @@
 											echo $mhs->nama;
 											?>
 										</td>
-										<td><?php echo $dosuji1->tanggal; ?></td>
+										<td><?php echo format_tgl($dosuji1->tanggal); ?></td>
 										<td>
 											<?php
 											$room = $this->db->where('id', $dosuji1->room_id)->get('rooms')->row();
@@ -212,8 +212,8 @@
 											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_penguji/<?= $dosuji1->nilai_id ?>">Nilai</a>
 										</td>
 										<td>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/view_nilai/<?= $dosuji1->pro_id ?>">Lihat</a>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/download_nilai/<?= $dosuji1->pro_id ?>">Unduh</a>
+											<a type="submit" class="btn btn-info" href="<?= base_url() ?>score_proposal/view_nilai/<?= $dosuji1->pro_id ?>">Lihat</a>
+											<a type="submit" class="btn btn-success" href="<?= base_url() ?>score_proposal/download_nilai/<?= $dosuji1->pro_id ?>">Unduh</a>
 										</td>
 									</tr>
 								<?php } ?>
@@ -241,7 +241,7 @@
 						<p>Maaf, Belum Ada Ujian Yang Dijadwalkan.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
@@ -266,7 +266,7 @@
 											echo $mhs->nama;
 											?>
 										</td>
-										<td><?php echo $dosuji2->tanggal; ?></td>
+										<td><?php echo format_tgl($dosuji2->tanggal); ?></td>
 										<td>
 											<?php
 											$room = $this->db->where('id', $dosuji2->room_id)->get('rooms')->row();
@@ -278,8 +278,8 @@
 											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/nilai_penguji/<?= $dosuji2->nilai_id ?>">Nilai</a>
 										</td>
 										<td>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/view_nilai/<?= $dosuji2->pro_id ?>">Lihat</a>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_proposal/download_nilai/<?= $dosuji2->pro_id ?>">Unduh</a>
+											<a type="submit" class="btn btn-info" href="<?= base_url() ?>score_proposal/view_nilai/<?= $dosuji2->pro_id ?>">Lihat</a>
+											<a type="submit" class="btn btn-success" href="<?= base_url() ?>score_proposal/download_nilai/<?= $dosuji2->pro_id ?>">Unduh</a>
 										</td>
 									</tr>
 								<?php } ?>

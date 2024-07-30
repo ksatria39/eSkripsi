@@ -49,8 +49,18 @@ class Registration_Skripsi extends CI_Controller
 			}
 		}
 
+		if ($folder == "ukt"){
+			$title = "Bukti Pembayaran";
+		} else if ($folder == "transkrip") {
+			$title = "Transkrip Nilai";
+		} else if ($folder == "naskah") {
+			$title = "Naskah";
+		} else {
+			$title = "Berkas";
+		}
+
 		$data = [
-			'title' => "Lihat Berkas",
+			'title' => 'Lihat '.$title,
 			'content' => 'registration/skripsi/view_file',
 			'folder' => $folder,
 			'file' => $file

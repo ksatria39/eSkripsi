@@ -174,4 +174,11 @@ class Proscore_model extends CI_Model
 		$this->db->where('id', $id);
 		$this->db->update('pro_register', $data);
 	}
+
+	public function update_nilai($pro_id, $nilai)
+	{
+		$data = array('nilai' => $nilai);
+		$this->db->where('id', $pro_id);
+		return $this->db->update('pro_register', $data);
+	}
 }

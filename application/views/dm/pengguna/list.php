@@ -37,7 +37,7 @@
 						</form>
 					</div> -->
 
-					<table class="table">
+					<table class="table datatable">
 						<thead>
 							<tr>
 								<th scope="col">No</th>
@@ -60,6 +60,8 @@
 									<td><?= $mahasiswa->email; ?></td>
 									<td><?= $mahasiswa->telepon; ?></td>
 									<td>
+										<a type="submit" class="btn btn-success" href="<?= base_url() ?>dm/reset_password/<?= $mahasiswa->id; ?>">Reset Password</a>
+										<a type="submit" class="btn btn-primary" href="<?= base_url() ?>dm/edit_user/<?= $mahasiswa->id; ?>">Sunting</a>
 										<a type="submit" class="btn btn-danger" href="<?= base_url() ?>dm/delete_user/<?= $mahasiswa->id; ?>">Hapus</a>
 									</td>
 								</tr>
@@ -81,7 +83,7 @@
 						</form>
 					</div> -->
 
-					<table class="table">
+					<table class="table datatable">
 						<thead>
 							<tr>
 								<th scope="col">No</th>
@@ -102,6 +104,8 @@
 									<td><?= $dosen->email; ?></td>
 									<td><?= $dosen->telepon; ?></td>
 									<td>
+										<a type="submit" class="btn btn-success" href="<?= base_url() ?>dm/reset_password/<?= $dosen->id; ?>">Reset Password</a>
+										<a type="submit" class="btn btn-primary" href="<?= base_url() ?>dm/edit_user/<?= $dosen->id; ?>">Sunting</a>
 										<a type="submit" class="btn btn-danger" href="<?= base_url() ?>dm/delete_user/<?= $dosen->id; ?>">Hapus</a>
 									</td>
 								</tr>
@@ -123,7 +127,7 @@
 						</form>
 					</div> -->
 
-					<table class="table">
+					<table class="table datatable">
 						<thead>
 							<tr>
 								<th scope="col">No</th>
@@ -144,6 +148,8 @@
 									<td><?= $koordinator->email; ?></td>
 									<td><?= $koordinator->telepon; ?></td>
 									<td>
+										<a type="submit" class="btn btn-success" href="<?= base_url() ?>dm/reset_password/<?= $koordinator->id; ?>">Reset Password</a>
+										<a type="submit" class="btn btn-primary" href="<?= base_url() ?>dm/edit_user/<?= $koordinator->id; ?>">Sunting</a>
 										<a type="submit" class="btn btn-danger" href="<?= base_url() ?>dm/delete_user/<?= $koordinator->id; ?>">Hapus</a>
 									</td>
 								</tr>
@@ -165,7 +171,7 @@
 						</form>
 					</div> -->
 
-					<table class="table">
+					<table class="table datatable">
 						<thead>
 							<tr>
 								<th scope="col">No</th>
@@ -186,6 +192,8 @@
 									<td><?= $admin->email; ?></td>
 									<td><?= $admin->telepon; ?></td>
 									<td>
+										<a type="submit" class="btn btn-success" href="<?= base_url() ?>dm/reset_password/<?= $admin->id; ?>">Reset Password</a>
+										<a type="submit" class="btn btn-primary" href="<?= base_url() ?>dm/edit_user/<?= $admin->id; ?>">Sunting</a>
 										<a type="submit" class="btn btn-danger" href="<?= base_url() ?>dm/delete_user/<?= $admin->id; ?>">Hapus</a>
 									</td>
 								</tr>

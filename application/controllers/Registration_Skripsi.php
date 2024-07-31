@@ -55,6 +55,8 @@ class Registration_Skripsi extends CI_Controller
 			$title = "Transkrip Nilai";
 		} else if ($folder == "naskah") {
 			$title = "Naskah";
+		} else if ($folder == "persetujuan") {
+			$title = "Lembar Persetujuan";
 		} else {
 			$title = "Berkas";
 		}
@@ -115,16 +117,19 @@ class Registration_Skripsi extends CI_Controller
 			$this->session->set_flashdata('error', 'Seluruh kolom wajib diisi.');
 			redirect('registration_skripsi/daftar');
 		} else {
-			// Konfigurasi upload file
-			$config = [
-				'upload_path' => '',
-				'allowed_types' => 'pdf',
-				'max_size' => 10240 // 10MB
-			];
-
 			// Fungsi untuk mengupload file
-			$upload_file = function ($field_name, $upload_path) use ($config) {
-				$config['upload_path'] = $upload_path;
+			$upload_file = function ($field_name, $upload_path, $max_size) {
+				// Ensure the directory exists
+				if (!is_dir($upload_path)) {
+					mkdir($upload_path, 0777, true);
+				}
+
+				$config = [
+					'upload_path' => $upload_path,
+					'allowed_types' => 'pdf',
+					'max_size' => $max_size
+				];
+				$this->load->library('upload', $config);
 				$this->upload->initialize($config);
 
 				if (!$this->upload->do_upload($field_name)) {
@@ -134,29 +139,37 @@ class Registration_Skripsi extends CI_Controller
 				}
 			};
 
-			// Upload file naskah
-			$result_naskah = $upload_file('file_naskah', './file/skripsi/naskah/');
+			// Upload file naskah (max 5MB)
+			$result_naskah = $upload_file('file_naskah', './file/skripsi/naskah/', 5120);
 			if (isset($result_naskah['error'])) {
 				$this->session->set_flashdata('error', $result_naskah['error']);
 				redirect('registration_skripsi/daftar');
 			}
 			$file_name_naskah = $result_naskah['success']['file_name'];
 
-			// Upload file ukt
-			$result_ukt = $upload_file('file_ukt', './file/skripsi/ukt/');
+			// Upload file ukt (max 2MB)
+			$result_ukt = $upload_file('file_ukt', './file/skripsi/ukt/', 2048);
 			if (isset($result_ukt['error'])) {
 				$this->session->set_flashdata('error', $result_ukt['error']);
 				redirect('registration_skripsi/daftar');
 			}
 			$file_name_ukt = $result_ukt['success']['file_name'];
 
-			// Upload file transkrip
-			$result_transkrip = $upload_file('file_transkrip', './file/skripsi/transkrip/');
+			// Upload file transkrip (max 2MB)
+			$result_transkrip = $upload_file('file_transkrip', './file/skripsi/transkrip/', 2048);
 			if (isset($result_transkrip['error'])) {
 				$this->session->set_flashdata('error', $result_transkrip['error']);
 				redirect('registration_skripsi/daftar');
 			}
 			$file_name_transkrip = $result_transkrip['success']['file_name'];
+
+			// Upload file persetujuan (max 2MB)
+			$result_persetujuan = $upload_file('file_persetujuan', './file/skripsi/persetujuan/', 2048);
+			if (isset($result_persetujuan['error'])) {
+				$this->session->set_flashdata('error', $result_persetujuan['error']);
+				redirect('registration_skripsi/daftar');
+			}
+			$file_name_persetujuan = $result_persetujuan['success']['file_name'];
 
 			// Data untuk disimpan
 			$data = [
@@ -164,6 +177,7 @@ class Registration_Skripsi extends CI_Controller
 				'file_naskah' => $file_name_naskah,
 				'file_ukt' => $file_name_ukt,
 				'file_transkrip' => $file_name_transkrip,
+				'file_persetujuan' => $file_name_persetujuan,
 				'status_dospem_1' => 'Sedang diproses',
 				'status_dospem_2' => 'Sedang diproses',
 				'status' => 'Sedang diproses'
@@ -181,8 +195,6 @@ class Registration_Skripsi extends CI_Controller
 			redirect('registration_skripsi');
 		}
 	}
-
-
 
 
 	public function dosen()
@@ -211,6 +223,13 @@ class Registration_Skripsi extends CI_Controller
 			$data['status_dospem_1'] = $status;
 			$this->Skpregister_model->accSkripsi($id, $data);
 		}
+		if ($status == "Diterima"){
+			$this->session->set_flashdata('success', 'Berhasil menyetujui pendaftaran ujian skripsi');
+		} else if ($status == "Ditolak"){
+			$this->session->set_flashdata('denied', 'Berhasil menolak pendaftaran ujian skripsi');
+		} else {
+			$this->session->set_flashdata('denied', 'Pendaftaran ujian skripsi kembali menunggu persetujuan');
+		}
 		redirect("registration_skripsi");
 	}
 
@@ -220,6 +239,13 @@ class Registration_Skripsi extends CI_Controller
 		if (!empty($status)) {
 			$data['status_dospem_2'] = $status;
 			$this->Skpregister_model->accSkripsi($id, $data);
+		}
+		if ($status == "Diterima") {
+			$this->session->set_flashdata('success', 'Berhasil menyetujui pendaftaran ujian skripsi');
+		} else if ($status == "Ditolak") {
+			$this->session->set_flashdata('denied', 'Berhasil menolak pendaftaran ujian skripsi');
+		} else {
+			$this->session->set_flashdata('denied', 'Pendaftaran ujian skripsi kembali menunggu persetujuan');
 		}
 		redirect("registration_skripsi");
 	}
@@ -306,7 +332,7 @@ class Registration_Skripsi extends CI_Controller
 		];
 		$this->Skpregister_model->addUjian($data_ujian_4);
 
-		$this->session->set_flashdata('success', 'Pendaftaran Ujian Proposal Berhasil Disetujui');
+		$this->session->set_flashdata('success', 'Pendaftaran Ujian Skripsi Berhasil Disetujui');
 		redirect('registration_skripsi');
 	}
 
@@ -325,7 +351,7 @@ class Registration_Skripsi extends CI_Controller
 		];
 		$this->Skpregister_model->setTitle($thisSkripsi->title_id, $data2);
 
-		$this->session->set_flashdata('denied', 'Judul Berhasil Ditolak');
+		$this->session->set_flashdata('denied', 'Pendaftaran Ujian Skripsi Ditolak');
 		redirect('registration_skripsi');
 	}
 

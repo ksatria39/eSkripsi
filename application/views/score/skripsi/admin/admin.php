@@ -1,12 +1,12 @@
 <section class="section">
 	<div class="card">
-		<div class="card-body">
+		<div class="card-body pt-3">
 
 			<?php if (empty($ujian)) { ?>
-				<p class="mt-3">Maaf, Belum Ada Ujian Yang Dijadwalkan.</p>
+				<p>Maaf, Belum Ada Ujian Yang Dijadwalkan.</p>
 			<?php } else { ?>
 
-				<table class="table mt-3">
+				<table class="table datatable">
 					<thead>
 						<tr>
 							<th scope="col">No</th>
@@ -69,7 +69,7 @@
 								</td>
 								<td><?php echo $ujian->jam; ?></td>
 								<td><?php echo $ujian->status_ujian_proposal; ?></td>
-								<td><?php echo $ujian->nilai; ?> (<?= $ujian->nilai_huruf; ?>)</td>
+								<td><?php echo $ujian->nilai; ?></td>
 								<td>
 									<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_skripsi/view_nilai/<?= $ujian->skp_id ?>">Lihat</a>
 									<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_skripsi/download_nilai/<?= $ujian->skp_id ?>">Unduh</a>

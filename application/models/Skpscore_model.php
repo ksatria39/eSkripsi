@@ -174,4 +174,11 @@ class Skpscore_model extends CI_Model
 		$this->db->where('id', $id);
 		$this->db->update('skp_register', $data);
 	}
+
+	public function update_nilai($skp_id, $nilai)
+	{
+		$data = array('nilai' => $nilai);
+		$this->db->where('id', $skp_id);
+		return $this->db->update('skp_register', $data);
+	}
 }

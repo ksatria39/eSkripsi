@@ -43,7 +43,7 @@
 						<p>Tidak ada pendaftaran ujian proposal yang menunggu persetujuan.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
@@ -52,7 +52,8 @@
 									<th scope="col">NPM</th>
 									<th scope="col">Status</th>
 									<th scope="col">Logbook Bimbingan</th>
-									<th scope="col">Naskah Proposal</th>
+									<th scope="col">Naskah Skripsi</th>
+									<th scope="col">Lembar Persetujuan</th>
 									<th scope="col">Transkrip Nilai</th>
 									<th scope="col">Bukti Pembayaran</th>
 									<th scope="col">Respon</th>
@@ -81,11 +82,12 @@
 											<?php } else if ($dospem1->skp_status_dospem_1 == "Ditolak") { ?>
 												<span class="badge rounded-pill bg-danger">Ditolak</span>
 											<?php } else { ?>
-												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+												<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 											<?php } ?>
 										</td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>file/skripsi/logbook/">Lihat</a></td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/naskah/<?= $dospem1->file_naskah; ?>">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/persetujuan/<?= $dospem1->file_persetujuan; ?>">Lihat</a></td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/transkrip/<?= $dospem1->file_transkrip; ?>">Lihat</a></td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/ukt/<?= $dospem1->file_ukt; ?>">Lihat</a></td>
 										<td width="15%">
@@ -122,7 +124,7 @@
 						<p>Tidak ada pendaftaran ujian proposal yang menunggu persetujuan.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
@@ -131,7 +133,8 @@
 									<th scope="col">NPM</th>
 									<th scope="col">Status</th>
 									<th scope="col">Logbook Bimbingan</th>
-									<th scope="col">Naskah Proposal</th>
+									<th scope="col">Naskah Skripsi</th>
+									<th scope="col">Lembar Persetujuan</th>
 									<th scope="col">Transkrip Nilai</th>
 									<th scope="col">Bukti Pembayaran</th>
 									<th scope="col">Respon</th>
@@ -160,11 +163,12 @@
 											<?php } else if ($dospem2->skp_status_dospem_2 == "Ditolak") { ?>
 												<span class="badge rounded-pill bg-danger">Ditolak</span>
 											<?php } else { ?>
-												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+												<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 											<?php } ?>
 										</td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>file/skripsi/logbook/">Lihat</a></td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/naskah/<?= $dospem2->file_naskah; ?>">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/persetujuan/<?= $dospem2->file_persetujuan; ?>">Lihat</a></td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/transkrip/<?= $dospem2->file_transkrip; ?>">Lihat</a></td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/ukt/<?= $dospem2->file_ukt; ?>">Lihat</a></td>
 										<td width="15%">

@@ -33,7 +33,7 @@
 				</li>
 				<li>
 					<a href="<?= base_url() ?>registration_proposal/koordinator">
-						<i class="bi bi-circle"></i><span>Daftar Ujian</span>
+						<i class="bi bi-circle"></i><span>Pendaftaran Ujian</span>
 					</a>
 				</li>
 				<li>

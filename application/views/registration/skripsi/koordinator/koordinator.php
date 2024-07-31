@@ -52,7 +52,7 @@
 						<p>Tidak ada pendaftaran ujian proposal yang menunggu persetujuan.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
@@ -61,7 +61,8 @@
 									<th scope="col">NPM</th>
 									<th scope="col">Status</th>
 									<th scope="col">Logbook Bimbingan</th>
-									<th scope="col">Naskah Proposal</th>
+									<th scope="col">Naskah Skripsi</th>
+									<th scope="col">Lembar Persetujuan</th>
 									<th scope="col">Transkrip Nilai</th>
 									<th scope="col">Bukti Pembayaran</th>
 									<th scope="col">Respon</th>
@@ -95,6 +96,7 @@
 										</td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>file/skripsi/logbook/">Lihat</a></td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/naskah/<?= $dospem1->file_naskah; ?>">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/persetujuan/<?= $dospem1->file_persetujuan; ?>">Lihat</a></td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/transkrip/<?= $dospem1->file_transkrip; ?>">Lihat</a></td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/ukt/<?= $dospem1->file_ukt; ?>">Lihat</a></td>
 										<td width="15%">
@@ -131,7 +133,7 @@
 						<p>Tidak ada pendaftaran ujian proposal yang menunggu persetujuan.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
@@ -140,7 +142,8 @@
 									<th scope="col">NPM</th>
 									<th scope="col">Status</th>
 									<th scope="col">Logbook Bimbingan</th>
-									<th scope="col">Naskah Proposal</th>
+									<th scope="col">Naskah Skripsi</th>
+									<th scope="col">Lembar Persetujuan</th>
 									<th scope="col">Transkrip Nilai</th>
 									<th scope="col">Bukti Pembayaran</th>
 									<th scope="col">Respon</th>
@@ -169,11 +172,12 @@
 											<?php } else if ($dospem2->skp_status_dospem_2 == "Ditolak") { ?>
 												<span class="badge rounded-pill bg-danger">Ditolak</span>
 											<?php } else { ?>
-												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+												<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 											<?php } ?>
 										</td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>file/skripsi/logbook/">Lihat</a></td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/naskah/<?= $dospem2->file_naskah; ?>">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/persetujuan/<?= $dospem2->file_persetujuan; ?>">Lihat</a></td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/transkrip/<?= $dospem2->file_transkrip; ?>">Lihat</a></td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/ukt/<?= $dospem2->file_ukt; ?>">Lihat</a></td>
 										<td width="15%">
@@ -202,18 +206,17 @@
 						<p>Tidak ada pendaftaran ujian proposal yang menunggu persetujuan.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
 									<th scope="col">Judul</th>
 									<th scope="col">Mahasiswa</th>
 									<th scope="col">Pembimbing 1</th>
-									<th scope="col">Status Pembimbing 1</th>
 									<th scope="col">Pembimbing 2</th>
-									<th scope="col">Status Pembimbing 2</th>
 									<th scope="col">Logbook Bimbingan</th>
-									<th scope="col">Naskah Proposal</th>
+									<th scope="col">Naskah Skripsi</th>
+									<th scope="col">Lembar Persetujuan</th>
 									<th scope="col">Transkrip Nilai</th>
 									<th scope="col">Bukti Pembayaran</th>
 									<th scope="col">Aksi</th>
@@ -236,14 +239,13 @@
 											$dosen1 = $this->db->where('id', $data3->dospem_1_id)->get('users')->row();
 											echo $dosen1->nama;
 											?>
-										</td>
-										<td>
+											<br />
 											<?php if ($data3->skp_status_dospem_1 == "Diterima") { ?>
 												<span class="badge rounded-pill bg-success">Diterima</span>
 											<?php } else if ($data3->skp_status_dospem_1 == "Ditolak") { ?>
 												<span class="badge rounded-pill bg-danger">Ditolak</span>
 											<?php } else { ?>
-												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+												<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 											<?php } ?>
 										</td>
 										<td>
@@ -251,18 +253,18 @@
 											$dosen2 = $this->db->where('id', $data3->dospem_2_id)->get('users')->row();
 											echo $dosen2->nama;
 											?>
-										</td>
-										<td>
+											<br />
 											<?php if ($data3->skp_status_dospem_2 == "Diterima") { ?>
 												<span class="badge rounded-pill bg-success">Diterima</span>
 											<?php } else if ($data3->skp_status_dospem_2 == "Ditolak") { ?>
 												<span class="badge rounded-pill bg-danger">Ditolak</span>
 											<?php } else { ?>
-												<span class="badge rounded-pill bg-secondary">Sedang diproses</span>
+												<span class="badge rounded-pill bg-secondary">Menunggu Persetujuan</span>
 											<?php } ?>
 										</td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>file/skripsi/logbook/">Lihat</a></td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/naskah/<?= $data3->file_naskah; ?>">Lihat</a></td>
+										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/persetujuan/<?= $data3->file_persetujuan; ?>">Lihat</a></td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/transkrip/<?= $data3->file_transkrip; ?>">Lihat</a></td>
 										<td><a class="btn btn-primary" href="<?= base_url() ?>registration_skripsi/view_file/ukt/<?= $data3->file_ukt; ?>">Lihat</a></td>
 										<td>

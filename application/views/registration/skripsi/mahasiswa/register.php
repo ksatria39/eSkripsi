@@ -11,15 +11,11 @@
 
 			<form method="post" action="<?php echo base_url('registration_skripsi/addSkripsi'); ?>" enctype="multipart/form-data">
 
+				<input type="hidden" value="<?= $myTitle->id ?>" name="title_id" id="title_id">
 				<div class="row mb-3 mt-3">
 					<label class="col-sm-2 col-form-label">Judul</label>
 					<div class="col-sm-10">
-						<select class="form-select" name="title_id" id="title_id" aria-label="Default select example">
-							<option selected="">-- Pilih Judul --</option>
-							<?php foreach ($myTitle as $myTitle) : ?>
-								<option value="<?= $myTitle['id']; ?>" <?= set_select('id', $myTitle['id']); ?>><?= $myTitle['judul']; ?></option>
-							<?php endforeach; ?>
-						</select>
+						<input class="form form-control" type="text" value="<?= $myTitle->judul ?>" disabled>
 					</div>
 				</div>
 
@@ -28,7 +24,7 @@
 					<div class="col-sm-10">
 						<input type="file" class="form-control" name="file_naskah" id="file_naskah" placeholder="Pilih File">
 					</div>
-					<div class="text-sm text-muted">* .pdf dengan ukuran maksimal 10MB</div>
+					<div class="text-sm text-muted">* .pdf dengan ukuran maksimal 5MB</div>
 				</div>
 
 				<div class="row mb-3 mt-3">
@@ -36,7 +32,7 @@
 					<div class="col-sm-10">
 						<input type="file" class="form-control" name="file_ukt" id="file_ukt" placeholder="Pilih File">
 					</div>
-					<div class="text-sm text-muted">* .pdf dengan ukuran maksimal 10MB</div>
+					<div class="text-sm text-muted">* .pdf dengan ukuran maksimal 2MB</div>
 				</div>
 
 				<div class="row mb-3 mt-3">
@@ -44,7 +40,15 @@
 					<div class="col-sm-10">
 						<input type="file" class="form-control" name="file_transkrip" id="file_transkrip" placeholder="Pilih File">
 					</div>
-					<div class="text-sm text-muted">* .pdf dengan ukuran maksimal 10MB</div>
+					<div class="text-sm text-muted">* .pdf dengan ukuran maksimal 2MB</div>
+				</div>
+
+				<div class="row mb-3 mt-3">
+					<label class="col-sm-2 col-form-label">Lembar Persetujuan</label>
+					<div class="col-sm-10">
+						<input type="file" class="form-control" name="file_persetujuan" id="file_persetujuan" placeholder="Pilih File">
+					</div>
+					<div class="text-sm text-muted">* .pdf dengan ukuran maksimal 2MB</div>
 				</div>
 
 				<div class="col-sm-10" align="center">

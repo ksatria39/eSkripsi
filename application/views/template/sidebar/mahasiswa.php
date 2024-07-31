@@ -60,7 +60,7 @@
 				</li>
 				<li>
 					<a href="<?= base_url() ?>registration_skripsi/">
-						<i class="bi bi-circle"></i><span>Pendaftaran Ujian</span>
+						<i class="bi bi-circle"></i><span>Daftar Ujian</span>
 					</a>
 				</li>
 				<li>

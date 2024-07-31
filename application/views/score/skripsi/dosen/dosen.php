@@ -42,7 +42,7 @@
 						<p>Maaf, Belum Ada Ujian Yang Dijadwalkan.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
@@ -79,8 +79,8 @@
 											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_skripsi/nilai_pembimbing/<?= $dospem1->nilai_id ?>">Nilai</a>
 										</td>
 										<td>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_skripsi/view_nilai/<?= $dospem1->skp_id ?>">Lihat</a>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_skripsi/download_nilai/<?= $dospem1->skp_id ?>">Unduh</a>
+											<a type="submit" class="btn btn-info" href="<?= base_url() ?>score_skripsi/view_nilai/<?= $dospem1->skp_id ?>">Lihat</a>
+											<a type="submit" class="btn btn-success" href="<?= base_url() ?>score_skripsi/download_nilai/<?= $dospem1->skp_id ?>">Unduh</a>
 										</td>
 									</tr>
 								<?php } ?>
@@ -109,7 +109,7 @@
 						<p>Maaf, Belum Ada Ujian Yang Dijadwalkan.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
@@ -146,8 +146,8 @@
 											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_skripsi/nilai_pembimbing/<?= $dospem2->nilai_id ?>">Nilai</a>
 										</td>
 										<td>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_skripsi/view_nilai/<?= $dospem2->skp_id ?>">Lihat</a>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_skripsi/download_nilai/<?= $dospem2->skp_id ?>">Unduh</a>
+											<a type="submit" class="btn btn-info" href="<?= base_url() ?>score_skripsi/view_nilai/<?= $dospem2->skp_id ?>">Lihat</a>
+											<a type="submit" class="btn btn-success" href="<?= base_url() ?>score_skripsi/download_nilai/<?= $dospem2->skp_id ?>">Unduh</a>
 										</td>
 									</tr>
 								<?php } ?>
@@ -175,7 +175,7 @@
 						<p>Maaf, Belum Ada Ujian Yang Dijadwalkan.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
@@ -212,8 +212,8 @@
 											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_skripsi/nilai_penguji/<?= $dosuji1->nilai_id ?>">Nilai</a>
 										</td>
 										<td>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_skripsi/view_nilai/<?= $dosuji1->skp_id ?>">Lihat</a>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_skripsi/download_nilai/<?= $dosuji1->skp_id ?>">Unduh</a>
+											<a type="submit" class="btn btn-info" href="<?= base_url() ?>score_skripsi/view_nilai/<?= $dosuji1->skp_id ?>">Lihat</a>
+											<a type="submit" class="btn btn-success" href="<?= base_url() ?>score_skripsi/download_nilai/<?= $dosuji1->skp_id ?>">Unduh</a>
 										</td>
 									</tr>
 								<?php } ?>
@@ -241,7 +241,7 @@
 						<p>Maaf, Belum Ada Ujian Yang Dijadwalkan.</p>
 					<?php } else { ?>
 
-						<table class="table">
+						<table class="table datatable">
 							<thead>
 								<tr>
 									<th scope="col">No</th>
@@ -278,8 +278,8 @@
 											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_skripsi/nilai_penguji/<?= $dosuji2->nilai_id ?>">Nilai</a>
 										</td>
 										<td>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_skripsi/view_nilai/<?= $dosuji2->skp_id ?>">Lihat</a>
-											<a type="submit" class="btn btn-primary" href="<?= base_url() ?>score_skripsi/download_nilai/<?= $dosuji2->skp_id ?>">Unduh</a>
+											<a type="submit" class="btn btn-info" href="<?= base_url() ?>score_skripsi/view_nilai/<?= $dosuji2->skp_id ?>">Lihat</a>
+											<a type="submit" class="btn btn-success" href="<?= base_url() ?>score_skripsi/download_nilai/<?= $dosuji2->skp_id ?>">Unduh</a>
 										</td>
 									</tr>
 								<?php } ?>

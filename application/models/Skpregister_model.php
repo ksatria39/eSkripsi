@@ -35,8 +35,10 @@ class Skpregister_model extends CI_Model
 		$this->db->where('status', 'Diterima');
 		$this->db->where('status_ujian_proposal', 'Selesai');
 		$this->db->where('status_ujian_skripsi', 'Belum terdaftar');
+		$this->db->order_by('id', 'DESC');
+		$this->db->limit(1);
 		$query = $this->db->get('title');
-		return $query->result_array();
+		return $query->row();
 	}
 
 	public function addSkripsi($data)

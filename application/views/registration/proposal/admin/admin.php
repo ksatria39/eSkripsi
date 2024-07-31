@@ -75,7 +75,7 @@
 										<?php } else if ($proposal->pro_status == "Ditolak") { ?>
 											<span class="badge rounded-pill bg-danger">Ditolak</span>
 										<?php } else { ?>
-											<span class="badge rounded-pill bg-info">Menunggu Verifikasi</span>
+											<span class="badge rounded-pill bg-info">Menunggu Penjadwalan</span>
 										<?php } ?>
 									<?php } ?>
 								</td>

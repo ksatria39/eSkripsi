@@ -799,4 +799,14 @@ class Score_Skripsi extends CI_Controller
 		];
 		$this->load->view('template/overlay/koordinator', $data);
 	}
+
+	public function update_nilai()
+	{
+		$skp_id = $this->input->post('skp_id');
+		$nilai = $this->input->post('value');
+
+		$this->Skpscore_model->update_nilai($skp_id, $nilai);
+
+		redirect('score_skripsi/koordinator');
+	}
 }

@@ -314,7 +314,7 @@ class Registration_Proposal extends CI_Controller
 		];
 		$this->Proregister_model->setTitle($thisProposal->title_id, $data2);
 
-		$this->session->set_flashdata('denied', 'Judul Berhasil Ditolak');
+		$this->session->set_flashdata('denied', 'Pendaftaran Ujian Proposal Berhasi Ditolak');
 		redirect('registration_proposal');
 	}
 

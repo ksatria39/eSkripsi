@@ -103,6 +103,8 @@ class Download extends CI_Controller
 		}
 	}
 
+	//Test
+
 	public function delete_file($id)
 	{
 		$this->load->helper('file');
